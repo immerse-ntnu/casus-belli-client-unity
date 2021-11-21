@@ -3,24 +3,20 @@ using System.Linq;
 
 public class ConsoleLogic
 {
-    private readonly IEnumerable<ConsoleCommand> commands;
+    private readonly IEnumerable<ConsoleCommand> _commands;
 
-    public ConsoleLogic(IEnumerable<ConsoleCommand> commands)
-    {
-        this.commands = commands;
-    }
-
+    public ConsoleLogic(IEnumerable<ConsoleCommand> commands) => this._commands = commands;
 
     public void ProcessCommand(string inputValue)
     {
-        string[] inputSplit = inputValue.Split(' ');
+        var inputSplit = inputValue.Split(' ');
 
-        string commandName = inputSplit[0];
-        string[] args = (string[])inputSplit.Skip(1);
+        var commandName = inputSplit[0];
+        var args = (string[])inputSplit.Skip(1);
 
-        foreach (var command in commands)
+        foreach (var command in _commands)
         {
-            if (commandName != command.commandWord)
+            if (commandName != command.CommandWord)
             {
                 continue;
             }

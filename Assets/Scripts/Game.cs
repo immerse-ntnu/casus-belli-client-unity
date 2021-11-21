@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,15 +6,15 @@ public class Game : MonoBehaviour
 {
     public static Game game;
 
-    public List<GameObject> referanceUnits;
-    [SerializeField] private List<Tile> Tiles;
-    [SerializeField] private List<State> States;
-    [SerializeField] private InputField OrderInputField;
+    public List<GameObject> referenceUnits;
+    [SerializeField] private List<Tile> tiles;
+    [SerializeField] private List<State> states;
+    [SerializeField] private InputField orderInputField;
     [SerializeField] private ConsoleUI console;
 
     public static List<string> provinceCodes = new List<string>();
 
-    public List<Tile> MarkedTiles;
+    public List<Tile> markedTiles;
     public bool isWinter;
 
     private void Update()
@@ -32,27 +30,26 @@ public class Game : MonoBehaviour
     {
         game = this;
 
-        foreach (var tile in Tiles)
-        {
+        foreach (var tile in tiles)
             provinceCodes.Add(tile.provinceCode);
-        }
     }
 
-    //Når spiller klikker "enter" etter å ha skrevet en ordre
+    //NÃ¥r spiller klikker "enter" etter Ã¥ ha skrevet en ordre
     public void OnOrderInput()
     {
         return;
     }
 
-    //Når spiller endrer på ordren skrevet i vinduet
+    //NÃ¥r spiller endrer pÃ¥ ordren skrevet i vinduet
     public void OnInputChange()
     {
-        OrderInputField.image.color = Order.IsValidOrderString(OrderInputField.text, out _) ? Color.white : Color.red;
+        orderInputField.image.color = Order.IsValidOrderString(orderInputField.text, out _) ? 
+            Color.white : Color.red;
     }
 
     public Tile GetTileFromCode(string code)
     {
-        foreach (var tile in Tiles)
+        foreach (var tile in tiles)
         {
             if (tile.provinceCode == code)
             {
@@ -63,8 +60,21 @@ public class Game : MonoBehaviour
 
         return null;
     }
+}
 
-    public Color GetNationColor(Nation nation)
+public enum Nation
+{
+    Local,
+    Black,
+    White,
+    Yellow,
+    Red,
+    Green
+}
+
+public static class Extensions
+{
+    public static Color GetNationColor(this Nation nation)
     {
         return nation switch
         {
@@ -77,14 +87,4 @@ public class Game : MonoBehaviour
             _ => Color.clear,
         };
     }
-}
-
-public enum Nation
-{
-    Local,
-    Black,
-    White,
-    Yellow,
-    Red,
-    Green
 }

@@ -9,15 +9,11 @@ public class State : MonoBehaviour
     {
         get
         {
-            Nation nation = tiles[0].owner;
+            var nation = tiles[0].owner;
 
-            for (int i = 1; i < tiles.Count; i++)
-            {
+            for (var i = 1; i < tiles.Count; i++)
                 if (tiles[i].owner != nation)
-                {
                     return Nation.Local;
-                }
-            }
 
             return nation;
         }

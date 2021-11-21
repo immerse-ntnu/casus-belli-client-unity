@@ -14,7 +14,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private bool hasForest;
     [SerializeField] private State state;
 
-    private Image image;
+    private Image _image;
 
     public TileType tileType;
     public Nation owner;
@@ -25,10 +25,10 @@ public class Tile : MonoBehaviour
 
     private void Awake()
     {
-        image = GetComponent<Image>();
+        _image = GetComponent<Image>();
 
-        image.alphaHitTestMinimumThreshold = 0.1f;
-        image.color = Color.clear;
+        _image.alphaHitTestMinimumThreshold = 0.1f;
+        _image.color = Color.clear;
     }
 
     public void OnClick()
@@ -38,7 +38,7 @@ public class Tile : MonoBehaviour
 
     public void SetColor(Color color = default)
     {
-        image.color = color == default ? Color.clear : color;
+        _image.color = color == default ? Color.clear : color;
     }
 }
 

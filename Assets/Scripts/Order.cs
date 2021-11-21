@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public struct Order
 {
-    private Tile from;
-    private Tile to;
-    private Tile toto;
-    private int unitType;
-    private OrderType orderType;
+    private Tile _from;
+    private Tile _to;
+    private Tile _toto;
+    private int _unitType;
+    private OrderType _orderType;
 
-    private static readonly Dictionary<string, int> validUnitInputs = new Dictionary<string, int>() {
+    private static readonly Dictionary<string, int> ValidUnitInputs = new() {
         {"S",           0 },
         {"Skip",        0 },
         {"Ship",        0 },
@@ -45,48 +43,35 @@ public struct Order
         ordertype = OrderType.hold;
 
         if (!Game.provinceCodes.Contains(orders[0]))
-        {
             return false;
-        }
 
-        if (orders.Length == 2)
+        switch (orders.Length)
         {
-            if (Game.provinceCodes.Contains(orders[1]))
-            {
+            case 2 when Game.provinceCodes.Contains(orders[1]):
                 ordertype = OrderType.flytt;
                 return true;
-            }
-
-            else if (orders[1] == "H")
-            {
+            case 2 when orders[1] == "H":
                 ordertype = OrderType.hold;
                 return true;
-            }
-
-            else if(orders[1] == "T" && Game.game.GetTileFromCode(orders[0]).tileType == TileType.Sea)
-            {
+            case 2 when orders[1] == "T" && Game.game.GetTileFromCode(orders[0]).tileType == TileType.Sea:
                 ordertype = OrderType.transport;
                 return true;
-            }
-
-            else if(orders[1] == "B" && Game.game.GetTileFromCode(orders[0]).hasCastle)
-            {
+            case 2 when orders[1] == "B" && Game.game.GetTileFromCode(orders[0]).hasCastle:
                 ordertype = OrderType.beleire;
                 return true;
-            }
-        }
-
-        else if (orders.Length == 3 && Game.provinceCodes.Contains(orders[2]))
-        {
-            if (orders[1] == "S")
+            case 3 when Game.provinceCodes.Contains(orders[2]):
             {
-                ordertype = OrderType.støtt;
-                return true;
-            }
-            else if (Game.provinceCodes.Contains(orders[1]))
-            {
-                ordertype = OrderType.hestflytt;
-                return true;
+                if (orders[1] == "S")
+                {
+                    ordertype = OrderType.støtt;
+                    return true;
+                }
+                if (Game.provinceCodes.Contains(orders[1]))
+                {
+                    ordertype = OrderType.hestflytt;
+                    return true;
+                }
+                break;
             }
         }
 
@@ -109,13 +94,12 @@ public struct Order
             return false;
         }
 
-        else if (Game.provinceCodes.Contains(orders[1]) && Game.game.GetTileFromCode(orders[1]))
+        if (Game.provinceCodes.Contains(orders[1]) && Game.game.GetTileFromCode(orders[1]))
         {
             ordertype = OrderType.flytt;
             return true;
         }
-
-        else if (validUnitInputs.ContainsKey(orders[1]))
+        if (ValidUnitInputs.ContainsKey(orders[1]))
         {
             ordertype = OrderType.muster;
             return true;

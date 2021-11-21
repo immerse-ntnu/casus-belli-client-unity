@@ -3,35 +3,25 @@ using UnityEngine.UI;
 
 public class ConsoleUI : MonoBehaviour
 {
-    [SerializeField] private ConsoleCommand[] _commands = new ConsoleCommand[0];
+    [SerializeField] private ConsoleCommand[] _commands;
     [SerializeField] private GameObject _ui;
     [SerializeField] private InputField _inputField;
 
-    private static ConsoleUI instance;
+    private static ConsoleUI _Instance;
 
     private ConsoleLogic _consoleLogic;
 
-    private ConsoleLogic ConsoleLogic 
-    {
-        get
-        {
-            if (_consoleLogic == null)
-            {
-                _consoleLogic = new ConsoleLogic(_commands);
-            }
-            return _consoleLogic;
-        }
-    }
+    private ConsoleLogic ConsoleLogic => _consoleLogic ??= new ConsoleLogic(_commands);
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (_Instance != null && _Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        _Instance = this;
     }
 
     public void Toggle()

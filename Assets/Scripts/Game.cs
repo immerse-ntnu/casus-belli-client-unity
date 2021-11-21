@@ -12,7 +12,7 @@ public class Game : MonoBehaviour
     [SerializeField] private InputField orderInputField;
     [SerializeField] private ConsoleUI console;
 
-    public static List<string> provinceCodes = new List<string>();
+    public static readonly List<string> ProvinceCodes = new();
 
     public List<Tile> markedTiles;
     public bool isWinter;
@@ -20,9 +20,8 @@ public class Game : MonoBehaviour
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.C))
-        {
             return;
-        }
+        
         console.Toggle();
     }
 
@@ -31,13 +30,12 @@ public class Game : MonoBehaviour
         game = this;
 
         foreach (var tile in tiles)
-            provinceCodes.Add(tile.provinceCode);
+            ProvinceCodes.Add(tile.provinceCode);
     }
 
     //Når spiller klikker "enter" etter å ha skrevet en ordre
     public void OnOrderInput()
     {
-        return;
     }
 
     //Når spiller endrer på ordren skrevet i vinduet
@@ -50,12 +48,9 @@ public class Game : MonoBehaviour
     public Tile GetTileFromCode(string code)
     {
         foreach (var tile in tiles)
-        {
             if (tile.provinceCode == code)
-            {
                 return tile;
-            }
-        }
+        
         Debug.Log("Found no tile with code: " + code);
 
         return null;

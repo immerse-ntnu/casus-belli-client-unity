@@ -42,12 +42,12 @@ public struct Order
 
         ordertype = OrderType.hold;
 
-        if (!Game.provinceCodes.Contains(orders[0]))
+        if (!Game.ProvinceCodes.Contains(orders[0]))
             return false;
 
         switch (orders.Length)
         {
-            case 2 when Game.provinceCodes.Contains(orders[1]):
+            case 2 when Game.ProvinceCodes.Contains(orders[1]):
                 ordertype = OrderType.flytt;
                 return true;
             case 2 when orders[1] == "H":
@@ -59,14 +59,14 @@ public struct Order
             case 2 when orders[1] == "B" && Game.game.GetTileFromCode(orders[0]).hasCastle:
                 ordertype = OrderType.beleire;
                 return true;
-            case 3 when Game.provinceCodes.Contains(orders[2]):
+            case 3 when Game.ProvinceCodes.Contains(orders[2]):
             {
                 if (orders[1] == "S")
                 {
                     ordertype = OrderType.støtt;
                     return true;
                 }
-                if (Game.provinceCodes.Contains(orders[1]))
+                if (Game.ProvinceCodes.Contains(orders[1]))
                 {
                     ordertype = OrderType.hestflytt;
                     return true;
@@ -89,12 +89,12 @@ public struct Order
             return false;
         }
 
-        if (!Game.provinceCodes.Contains(orders[0]))
+        if (!Game.ProvinceCodes.Contains(orders[0]))
         {
             return false;
         }
 
-        if (Game.provinceCodes.Contains(orders[1]) && Game.game.GetTileFromCode(orders[1]))
+        if (Game.ProvinceCodes.Contains(orders[1]) && Game.game.GetTileFromCode(orders[1]))
         {
             ordertype = OrderType.flytt;
             return true;

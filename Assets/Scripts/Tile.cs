@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-//Breaks the interface segregation principle. Seas don't have forests or castles.
 public class Tile : MonoBehaviour
 {
     [SerializeField]private string provinceCode;

@@ -3,15 +3,15 @@ using UnityEngine.UI;
 
 public class ConsoleUI : MonoBehaviour
 {
-    [SerializeField] private ConsoleCommand[] _commands;
-    [SerializeField] private GameObject _ui;
-    [SerializeField] private InputField _inputField;
+    [SerializeField] private ConsoleCommand[] commands;
+    [SerializeField] private GameObject ui;
+    [SerializeField] private InputField inputField;
 
     private static ConsoleUI _Instance;
 
     private ConsoleLogic _consoleLogic;
 
-    private ConsoleLogic ConsoleLogic => _consoleLogic ??= new ConsoleLogic(_commands);
+    private ConsoleLogic ConsoleLogic => _consoleLogic ??= new ConsoleLogic(commands);
 
     private void Awake()
     {
@@ -26,22 +26,20 @@ public class ConsoleUI : MonoBehaviour
 
     public void Toggle()
     {
-        if (_ui.activeSelf)
-        {
-            _ui.SetActive(false);
-        }
+        if (ui.activeSelf)
+            ui.SetActive(false);
         else
         {
-            _ui.SetActive(true);
-            _inputField.ActivateInputField();
-            _inputField.text = string.Empty;
+            ui.SetActive(true);
+            inputField.ActivateInputField();
+            inputField.text = string.Empty;
         }
     }
 
     public void ProcessCommand()
     {
-        ConsoleLogic.ProcessCommand(_inputField.text);
+        ConsoleLogic.ProcessCommand(inputField.text);
 
-        _inputField.text = string.Empty;
+        inputField.text = string.Empty;
     }
 }

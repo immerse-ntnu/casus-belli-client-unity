@@ -3,19 +3,10 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-    public List<Tile> tiles;
+    private List<Tile> _tiles;
 
-    public Nation Owner
+    private void Awake()
     {
-        get
-        {
-            var nation = tiles[0].owner;
-
-            for (var i = 1; i < tiles.Count; i++)
-                if (tiles[i].owner != nation)
-                    return Nation.Local;
-
-            return nation;
-        }
+        GetComponentsInChildren(_tiles);
     }
 }

@@ -5,7 +5,7 @@ public class ConsoleLogic
 {
     private readonly IEnumerable<ConsoleCommand> _commands;
 
-    public ConsoleLogic(IEnumerable<ConsoleCommand> commands) => this._commands = commands;
+    public ConsoleLogic(IEnumerable<ConsoleCommand> commands) => _commands = commands;
 
     public void ProcessCommand(string inputValue)
     {
@@ -15,16 +15,7 @@ public class ConsoleLogic
         var args = (string[])inputSplit.Skip(1);
 
         foreach (var command in _commands)
-        {
-            if (commandName != command.CommandWord)
-            {
-                continue;
-            }
-
-            if (command.Execute(args))
-            {
+            if (command.IsCommand(commandName) && command.Execute(args))
                 return;
-            }
-        }
     }
 }

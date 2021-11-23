@@ -1,27 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Breaks the interface segregation principle. Seas don't have forests or castles.
 public class Tile : MonoBehaviour
 {
-    public List<Tile> landNeighbours;
-    public List<Tile> seaNeighbours;
-    public String provinceCode;
-
-    public bool hasCastle;
-    [SerializeField] private bool hasForest;
-    [SerializeField] private State state;
+    [SerializeField]private string provinceCode;
 
     private Image _image;
 
-    public TileType tileType;
-    public Nation owner;
-    public Unit unit;
-
-    public Order order;
-
+    public string ProvinceCode => provinceCode;
 
     private void Awake()
     {
@@ -33,18 +20,11 @@ public class Tile : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log(provinceCode);
+        Debug.Log(ProvinceCode);
     }
 
     public void SetColor(Color color = default)
     {
-        _image.color = color == default ? Color.clear : color;
+        _image.color = color;
     }
-}
-
-public enum TileType
-{
-    Land,
-    Coast,
-    Sea
 }

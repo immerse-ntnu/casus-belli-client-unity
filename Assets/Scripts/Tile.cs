@@ -1,14 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-//Breaks the interface segregation principle. Seas don't have forests or castles.
 public class Tile : MonoBehaviour
 {
-    [SerializeField]private string provinceCode;
-
     private Image _image;
-
-    public string ProvinceCode => provinceCode;
 
     private void Awake()
     {
@@ -16,15 +11,5 @@ public class Tile : MonoBehaviour
 
         _image.alphaHitTestMinimumThreshold = 0.1f;
         _image.color = Color.clear;
-    }
-
-    public void OnClick()
-    {
-        Debug.Log(ProvinceCode);
-    }
-
-    public void SetColor(Color color = default)
-    {
-        _image.color = color;
     }
 }

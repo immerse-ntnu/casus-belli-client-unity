@@ -162,7 +162,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			// the sign of the 'area' of the polygon is all we are interested in.
 			if (area < 0.0)
 				return Point2DList.WindingOrderType.CW;
-			else if (area > 0.0)
+			if (area > 0.0)
 				return Point2DList.WindingOrderType.CCW;
 
 			// error condition - not even verts to calculate, non-simple poly, etc.
@@ -223,14 +223,11 @@ namespace WorldMapStrategyKit.Poly2Tri
 								if (
 									bReverseSearch) // didn't find a match going in either direction, so the polygons are not the same
 									return false;
-								else
-								{
-									// mismatch in the first direction checked, so check the other direction.
-									k = matchedVertIndex;
-									bReverseSearch = true;
-									bMatchFound = false;
-									break;
-								}
+								// mismatch in the first direction checked, so check the other direction.
+								k = matchedVertIndex;
+								bReverseSearch = true;
+								bMatchFound = false;
+								break;
 							}
 						}
 
@@ -597,8 +594,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 			// loop forever. Luckily, we check for that.
 			if (union.Count > ctx.mPoly1.Count + ctx.mPoly2.Count)
 				ctx.mError = PolyUnionError.InfiniteLoop;
-
-			return;
 		}
 
 		/// <summary>
@@ -722,8 +717,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 			// loop forever. Luckily, we check for that.
 			if (intersectOut.Count > ctx.mPoly1.Count + ctx.mPoly2.Count)
 				ctx.mError = PolyUnionError.InfiniteLoop;
-
-			return;
 		}
 
 		/// <summary>
@@ -878,8 +871,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 			// loop forever. Luckily, we check for that.
 			if (subtract.Count > ctx.mPoly1.Count + ctx.mPoly2.Count)
 				ctx.mError = PolyUnionError.InfiniteLoop;
-
-			return;
 		}
 
 		/// <summary>
@@ -1194,8 +1185,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 			if (resultVecs.Count < 1) // Borked, clean up our mess and return
 				return SplitComplexPolygonCleanup(verts);
-			else
-				return SplitComplexPolygonCleanup(resultVecs);
+			return SplitComplexPolygonCleanup(resultVecs);
 		}
 
 		private static List<Point2DList> SplitComplexPolygonCleanup(IList<Point2D> orig)
@@ -1256,7 +1246,7 @@ namespace WorldMapStrategyKit.Poly2Tri
          * (in other words, is A "righter" than B)
          */
 		private List<SplitComplexPolygonNode> mConnected = new();
-		private Point2D mPosition = null;
+		private Point2D mPosition;
 
 		public int NumConnected => mConnected.Count;
 
@@ -1295,8 +1285,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 				return lhs.Equals(rhs);
 			if ((object)rhs == null)
 				return true;
-			else
-				return false;
+			return false;
 		}
 
 		public static bool operator !=(SplitComplexPolygonNode lhs, SplitComplexPolygonNode rhs)
@@ -1305,20 +1294,19 @@ namespace WorldMapStrategyKit.Poly2Tri
 				return !lhs.Equals(rhs);
 			if ((object)rhs == null)
 				return false;
-			else
-				return true;
+			return true;
 		}
 
 		public override string ToString()
 		{
 			var sb = new StringBuilder(256);
-			sb.Append(mPosition.ToString());
+			sb.Append(mPosition);
 			sb.Append(" -> ");
 			for (var i = 0; i < NumConnected; ++i)
 			{
 				if (i != 0)
 					sb.Append(", ");
-				sb.Append(mConnected[i].Position.ToString());
+				sb.Append(mConnected[i].Position);
 			}
 
 			return sb.ToString();
@@ -1330,16 +1318,11 @@ namespace WorldMapStrategyKit.Poly2Tri
 			{
 				if (sinB > 0 || cosA <= cosB)
 					return true;
-				else
-					return false;
+				return false;
 			}
-			else
-			{
-				if (sinB < 0 || cosA <= cosB)
-					return false;
-				else
-					return true;
-			}
+			if (sinB < 0 || cosA <= cosB)
+				return false;
+			return true;
 		}
 
 		//Fix for obnoxious behavior for the % operator for negative numbers...
@@ -1508,8 +1491,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 				return l;
 			}
 		}
-
-		public PolygonOperationContext() { }
 
 		public void Clear()
 		{

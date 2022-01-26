@@ -2,9 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {

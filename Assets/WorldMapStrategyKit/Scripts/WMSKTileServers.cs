@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Text;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -55,8 +55,7 @@ namespace WorldMapStrategyKit
 	{
 		public event TileURLRequestEvent OnTileURLRequest;
 
-		public static string[] tileServerNames = new string[]
-		{
+		public static string[] tileServerNames = {
 			"Open Street Map",
 			"Open Street Map (DE)",
 			"Open Street Map (Hiking)",
@@ -93,8 +92,7 @@ namespace WorldMapStrategyKit
 			"Custom"
 		};
 
-		public static int[] tileServerValues = new int[]
-		{
+		public static int[] tileServerValues = {
 			(int)TILE_SERVER.OpenStreeMap,
 			(int)TILE_SERVER.OpenStreeMapDE,
 			(int)TILE_SERVER.OpenStreeMapHiking,
@@ -201,7 +199,7 @@ namespace WorldMapStrategyKit
 					copyright = "";
 					break;
 				default:
-					Debug.LogError("Tile server not defined: " + tileServer.ToString());
+					Debug.LogError("Tile server not defined: " + tileServer);
 					copyright = "";
 					break;
 			}
@@ -209,7 +207,7 @@ namespace WorldMapStrategyKit
 			return copyright;
 		}
 
-		private static string[] subservers = new string[] { "a", "b", "c" };
+		private static string[] subservers = { "a", "b", "c" };
 
 		public string GetTileURL(TILE_SERVER server, TileInfo ti)
 		{
@@ -515,7 +513,7 @@ namespace WorldMapStrategyKit
 				case TILE_SERVER.AerisWeather:
 					//https://maps[server].aerisapi.com/[client_id]_[client_key]/[type]/[zoom]/[x]/[y]/[offset].png
 					url = "http://maps" +
-					      (subserverSeq % 4 + 1).ToString() +
+					      (subserverSeq % 4 + 1) +
 					      ".aerisapi.com/" +
 					      _tileServerClientId +
 					      "_" +
@@ -583,7 +581,7 @@ namespace WorldMapStrategyKit
 					url = sb.ToString();
 					break;
 				default:
-					Debug.LogError("Tile server not defined: " + tileServer.ToString());
+					Debug.LogError("Tile server not defined: " + tileServer);
 					url = "";
 					break;
 			}

@@ -1,14 +1,8 @@
 ﻿//#define SHOW_DEBUG_GIZMOS
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using WorldMapStrategyKit.MapGenerator.Geom;
-
+using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 namespace WorldMapStrategyKit
@@ -157,7 +151,7 @@ namespace WorldMapStrategyKit
 			}
 			catch (Exception ex)
 			{
-				Debug.LogError("Error generating heightmap: " + ex.ToString());
+				Debug.LogError("Error generating heightmap: " + ex);
 			}
 		}
 
@@ -252,7 +246,7 @@ namespace WorldMapStrategyKit
 				backgroundColors = new Color[bufferLen];
 			var backColor = seaColor;
 			backColor.a = 0;
-			backgroundColors.Fill<Color>(backColor);
+			backgroundColors.Fill(backColor);
 
 			var provincesCount = _map.provinces.Length;
 			for (var k = 0; k < provincesCount; k++)

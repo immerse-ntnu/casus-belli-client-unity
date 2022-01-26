@@ -2,12 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
-using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -56,9 +53,9 @@ namespace WorldMapStrategyKit
 				if (x == 0 && y == 0)
 				{
 					// workaround for string data: fixes old issue, no longer needed but kept for compatibility
-					float.TryParse(mpJSON["X"], System.Globalization.NumberStyles.Float,
+					float.TryParse(mpJSON["X"], NumberStyles.Float,
 						Misc.InvariantCulture, out x);
-					float.TryParse(mpJSON["Y"], System.Globalization.NumberStyles.Float,
+					float.TryParse(mpJSON["Y"], NumberStyles.Float,
 						Misc.InvariantCulture, out y);
 				}
 				// Try to locate country and provinces in case data does not match

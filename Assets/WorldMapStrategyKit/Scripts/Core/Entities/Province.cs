@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
-	public partial class Province : AdminEntity
+	public class Province : AdminEntity
 	{
 		private int[] _neighbours;
 

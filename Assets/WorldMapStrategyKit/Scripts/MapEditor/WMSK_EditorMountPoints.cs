@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System;
-using System.Text;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -116,7 +115,7 @@ namespace WorldMapStrategyKit
 			if (mountPointIndex < 0)
 				return;
 			map.mountPoints[mountPointIndex].unity2DLocation = destination;
-			var t = map.transform.Find("Mount Points/" + mountPointIndex.ToString());
+			var t = map.transform.Find("Mount Points/" + mountPointIndex);
 			if (t != null)
 				t.localPosition = destination * 1.001f;
 			mountPointChanges = true;
@@ -134,7 +133,7 @@ namespace WorldMapStrategyKit
 		{
 			if (GUIMountPointIndex < 0 || GUIMountPointIndex >= mountPointNames.Length)
 				return false;
-			var s = mountPointNames[GUIMountPointIndex].Split(new char[]
+			var s = mountPointNames[GUIMountPointIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -391,7 +390,7 @@ namespace WorldMapStrategyKit
 
 		private void PopulateRegion(int countryIndex, int provinceIndex, Region region)
 		{
-			var mountPoints = UnityEngine.Random.Range(GUIMountPointMassPopulationMin,
+			var mountPoints = Random.Range(GUIMountPointMassPopulationMin,
 				GUIMountPointMassPopulationMax + 1);
 			while (mountPoints > 0)
 			{
@@ -400,8 +399,8 @@ namespace WorldMapStrategyKit
 				;
 				for (var k = 0; k < 100; k++)
 				{
-					var rx = UnityEngine.Random.value * region.rect2D.width;
-					var ry = UnityEngine.Random.value * region.rect2D.height;
+					var rx = Random.value * region.rect2D.width;
+					var ry = Random.value * region.rect2D.height;
 					point = new Vector2(region.rect2D.xMin + rx, region.rect2D.yMin + ry);
 					var r = Mathf.Min(rx, ry) * GUIMountPointMassPopulationSeparation * 0.01f;
 					if (region.Contains(point) && map.GetMountPointNearPoint(point, r) < 0)

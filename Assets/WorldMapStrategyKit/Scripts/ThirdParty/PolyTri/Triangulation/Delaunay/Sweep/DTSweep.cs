@@ -46,9 +46,6 @@
 ///   Comments!
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
@@ -355,27 +352,19 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 		private static void EdgeEvent(DTSweepContext tcx, DTSweepConstraint edge, AdvancingFrontNode node)
 		{
-			try
-			{
-				tcx.EdgeEvent.ConstrainedEdge = edge;
-				tcx.EdgeEvent.Right =
-					edge.P.X > edge.Q.X; // + Point2D.PRECISION; // TODO: Changed by Kronnect Games
+			tcx.EdgeEvent.ConstrainedEdge = edge;
+			tcx.EdgeEvent.Right =
+				edge.P.X > edge.Q.X; // + Point2D.PRECISION; // TODO: Changed by Kronnect Games
 
-				if (IsEdgeSideOfTriangle(node.Triangle, edge.P, edge.Q))
-					return;
+			if (IsEdgeSideOfTriangle(node.Triangle, edge.P, edge.Q))
+				return;
 
-				// For now we will do all needed filling
-				// TODO: integrate with flip process might give some better performance 
-				//       but for now this avoid the issue with cases that needs both flips and fills
-				FillEdgeEvent(tcx, edge, node);
+			// For now we will do all needed filling
+			// TODO: integrate with flip process might give some better performance 
+			//       but for now this avoid the issue with cases that needs both flips and fills
+			FillEdgeEvent(tcx, edge, node);
 
-				EdgeEvent(tcx, edge.P, edge.Q, node.Triangle, edge.Q);
-			}
-			catch (PointOnEdgeException)
-			{
-				//Debug.WriteLine( String.Format( "Warning: Skipping Edge: {0}", e.Message ) );
-				throw;
-			}
+			EdgeEvent(tcx, edge.P, edge.Q, node.Triangle, edge.Q);
 		}
 
 		private static void FillEdgeEvent(DTSweepContext tcx, DTSweepConstraint edge,
@@ -398,10 +387,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 					if (TriangulationUtil.Orient2d(node.Point, node.Next.Point, node.Next.Next.Point) ==
 					    Orientation.CCW) // Next is concave
 						FillRightConcaveEdgeEvent(tcx, edge, node);
-					else
-					{
-						// Next is convex
-					}
 				}
 		}
 
@@ -420,10 +405,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 				if (TriangulationUtil.Orient2d(edge.Q, node.Next.Next.Point, edge.P) ==
 				    Orientation.CCW) // Below
 					FillRightConvexEdgeEvent(tcx, edge, node.Next);
-				else
-				{
-					// Above
-				}
 			}
 		}
 
@@ -482,10 +463,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 				if (TriangulationUtil.Orient2d(edge.Q, node.Prev.Prev.Point, edge.P) ==
 				    Orientation.CW) // Below
 					FillLeftConvexEdgeEvent(tcx, edge, node.Prev);
-				else
-				{
-					// Above
-				}
 			}
 		}
 
@@ -500,10 +477,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 					if (TriangulationUtil.Orient2d(node.Point, node.Prev.Point, node.Prev.Prev.Point) ==
 					    Orientation.CW) // Next is concave
 						FillLeftConcaveEdgeEvent(tcx, edge, node);
-					else
-					{
-						// Next is convex
-					}
 				}
 		}
 
@@ -660,10 +633,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 						ot.MarkConstrainedEdge(ep, eq);
 						Legalize(tcx, t);
 						Legalize(tcx, ot);
-					}
-					else
-					{
-						// XXX: I think one of the triangles should be legalized here?
 					}
 				}
 				else
@@ -883,7 +852,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			Fill(tcx, node);
 			if (node.Prev == tcx.Basin.leftNode && node.Next == tcx.Basin.rightNode)
 				return;
-			else if (node.Prev == tcx.Basin.leftNode)
+			if (node.Prev == tcx.Basin.leftNode)
 			{
 				var o = TriangulationUtil.Orient2d(node.Point, node.Next.Point, node.Next.Next.Point);
 				if (o == Orientation.CW)
@@ -944,7 +913,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			var ay = node.Next.Point.Y - py;
 			var bx = node.Prev.Point.X - px;
 			var by = node.Prev.Point.Y - py;
-			return Math.Atan2(ax * @by - ay * bx, ax * bx + ay * @by);
+			return Math.Atan2(ax * by - ay * bx, ax * bx + ay * by);
 		}
 
 		/// <summary>

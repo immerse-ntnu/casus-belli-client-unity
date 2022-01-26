@@ -1,8 +1,6 @@
-using UnityEngine;
 using System;
-using System.Text;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using WorldMapStrategyKit.MapGenerator;
 
 namespace WorldMapStrategyKit
@@ -53,8 +51,7 @@ namespace WorldMapStrategyKit
 			{
 				if (numProvinces >= MAX_CELLS_FOR_RELAXATION)
 					return 1;
-				else
-					return gridRelaxation;
+				return gridRelaxation;
 			}
 		}
 
@@ -101,7 +98,7 @@ namespace WorldMapStrategyKit
 
 		public Color seaColor = new(0, 0.4f, 1f);
 
-		[Range(-1, 1f)] public float elevationShift = 0f;
+		[Range(-1, 1f)] public float elevationShift;
 
 		/// <summary>
 		/// Complete array of states and cells and the territory name they belong to.

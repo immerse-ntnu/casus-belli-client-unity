@@ -35,8 +35,8 @@
 ///   Eliminate Add/RemoveNode ?
 ///   Comments comments and more comments!
 
-using System.Text;
 using System;
+using System.Text;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {

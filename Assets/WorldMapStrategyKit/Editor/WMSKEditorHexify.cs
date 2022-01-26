@@ -1,11 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
-using System.IO;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using WorldMapStrategyKit.ClipperLib;
+﻿using UnityEditor;
 
 namespace WorldMapStrategyKit
 {
@@ -54,8 +47,7 @@ namespace WorldMapStrategyKit
 			if (progress < 1.0f)
 				return EditorUtility.DisplayCancelableProgressBar("Operation in progress",
 					title + (text.Length > 0 ? " (" + text + ")" : ""), progress);
-			else
-				EditorUtility.ClearProgressBar();
+			EditorUtility.ClearProgressBar();
 			return false;
 		}
 

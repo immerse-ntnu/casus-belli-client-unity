@@ -1,8 +1,7 @@
 ﻿#if !UNITY_WEBGL && !UNITY_IOS && !UNITY_WSA
 using System;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using UnityEngine;
-using UnityEngine.Scripting;
 
 namespace WorldMapStrategyKit
 {
@@ -13,15 +12,15 @@ namespace WorldMapStrategyKit
 		public static void CalculateFrustumPlanes(Plane[] planes, Matrix4x4 worldToProjectMatrix)
 		{
 			if (planes == null)
-				throw new ArgumentNullException("planes");
+				throw new ArgumentNullException(nameof(planes));
 			if (planes.Length < 6)
-				throw new ArgumentException("Output array must be at least 6 in length.", "planes");
+				throw new ArgumentException("Output array must be at least 6 in length.", nameof(planes));
 
 			if (_calculateFrustumPlanes_Imp == null)
 			{
 				var meth = typeof(GeometryUtility).GetMethod("Internal_ExtractPlanes",
-					System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic, null,
-					new Type[]
+					BindingFlags.Static | BindingFlags.NonPublic, null,
+					new[]
 					{
 						typeof(Plane[]),
 						typeof(Matrix4x4)

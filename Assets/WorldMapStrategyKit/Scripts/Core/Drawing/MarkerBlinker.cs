@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace WorldMapStrategyKit
 {
@@ -8,7 +7,7 @@ namespace WorldMapStrategyKit
 		public float duration = 4.0f;
 		public float speed = 0.25f;
 		public bool destroyWhenFinished;
-		public float stopBlinkAfter = 0;
+		public float stopBlinkAfter;
 		private WMSK map;
 
 		/// <summary>

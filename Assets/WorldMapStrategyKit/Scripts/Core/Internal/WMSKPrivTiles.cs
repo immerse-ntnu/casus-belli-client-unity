@@ -1,18 +1,18 @@
 //#define DEBUG_TILES
 
-using UnityEngine;
-using System;
-using System.Linq;
-using System.Text;
-
 #if UNITY_WSA && !UNITY_EDITOR
 using System.Threading.Tasks;
 #else
 using System.Threading;
 #endif
-using System.IO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace WorldMapStrategyKit
 {
@@ -981,7 +981,7 @@ namespace WorldMapStrategyKit
 			mf.sharedMesh = mesh;
 			var mr = obj.AddComponent<MeshRenderer>();
 			mr.sharedMaterial = mat;
-			mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+			mr.shadowCastingMode = ShadowCastingMode.Off;
 			mr.receiveShadows = false;
 			return mr;
 		}

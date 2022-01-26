@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -29,8 +29,7 @@ namespace WorldMapStrategyKit
 			{
 				if (mainRegionIndex < 0 || regions == null || mainRegionIndex >= regions.Count)
 					return null;
-				else
-					return regions[mainRegionIndex];
+				return regions[mainRegionIndex];
 			}
 		}
 

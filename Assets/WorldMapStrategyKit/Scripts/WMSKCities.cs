@@ -2,13 +2,11 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Globalization;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -110,8 +108,7 @@ namespace WorldMapStrategyKit
 			{
 				if (citiesNormalMat != null)
 					return citiesNormalMat.color;
-				else
-					return _citiesColor;
+				return _citiesColor;
 			}
 			set
 			{
@@ -138,8 +135,7 @@ namespace WorldMapStrategyKit
 			{
 				if (citiesRegionCapitalMat != null)
 					return citiesRegionCapitalMat.color;
-				else
-					return _citiesRegionCapitalColor;
+				return _citiesRegionCapitalColor;
 			}
 			set
 			{
@@ -167,8 +163,7 @@ namespace WorldMapStrategyKit
 			{
 				if (citiesCountryCapitalMat != null)
 					return citiesCountryCapitalMat.color;
-				else
-					return _citiesCountryCapitalColor;
+				return _citiesCountryCapitalColor;
 			}
 			set
 			{
@@ -262,7 +257,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[Range(0, 17000), SerializeField] private int
-			_minPopulation = 0;
+			_minPopulation;
 
 		public int minPopulation
 		{
@@ -533,8 +528,7 @@ namespace WorldMapStrategyKit
 			int res;
 			if (cityLookup.TryGetValue(city, out res))
 				return res;
-			else
-				return -1;
+			return -1;
 		}
 
 		/// <summary>
@@ -578,7 +572,7 @@ namespace WorldMapStrategyKit
 			var count = cc.Count;
 			if (count == 0)
 				return null;
-			return cc[UnityEngine.Random.Range(0, count)];
+			return cc[Random.Range(0, count)];
 		}
 
 		/// <summary>
@@ -597,7 +591,7 @@ namespace WorldMapStrategyKit
 			var count = cc.Count;
 			if (count == 0)
 				return null;
-			return cc[UnityEngine.Random.Range(0, count)];
+			return cc[Random.Range(0, count)];
 		}
 
 		/// <summary>
@@ -609,7 +603,7 @@ namespace WorldMapStrategyKit
 			var count = visibleCities.Length;
 			if (count == 0)
 				return null;
-			return visibleCities[UnityEngine.Random.Range(0, count)];
+			return visibleCities[Random.Range(0, count)];
 		}
 
 		/// <summary>
@@ -685,8 +679,7 @@ namespace WorldMapStrategyKit
 			var country = GetCountry(city.countryIndex);
 			if (country != null)
 				return country.name;
-			else
-				return "";
+			return "";
 		}
 
 		/// <summary>
@@ -737,8 +730,7 @@ namespace WorldMapStrategyKit
 			var cityIndex = GetCountryCapitalIndex(countryIndex);
 			if (cityIndex >= 0)
 				return cities[cityIndex];
-			else
-				return null;
+			return null;
 		}
 
 		/// <summary>
@@ -751,8 +743,7 @@ namespace WorldMapStrategyKit
 			var cityIndex = GetCountryCapitalIndex(countryName);
 			if (cityIndex >= 0)
 				return cities[cityIndex];
-			else
-				return null;
+			return null;
 		}
 
 		/// <summary>
@@ -972,10 +963,10 @@ namespace WorldMapStrategyKit
 		{
 			lastCityLookupCount = -1;
 
-			var cityList = s.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+			var cityList = s.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 			var cityCount = cityList.Length;
 			_cities = new City[cityCount];
-			var separatorCities = new char[] { '$' };
+			var separatorCities = new[] { '$' };
 			var cityIndex = 0;
 			var unknownCountryIndex = -1;
 			for (var k = 0; k < cityCount; k++)

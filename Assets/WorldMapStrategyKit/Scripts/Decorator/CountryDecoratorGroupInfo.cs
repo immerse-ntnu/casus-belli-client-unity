@@ -1,7 +1,6 @@
-using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -83,8 +82,7 @@ namespace WorldMapStrategyKit
 			var k = GetDecoratorIndex(countryName);
 			if (k >= 0)
 				return decorators[k];
-			else
-				return null;
+			return null;
 		}
 
 		public void SetDecorator(CountryDecorator decorator)

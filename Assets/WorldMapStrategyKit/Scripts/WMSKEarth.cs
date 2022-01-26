@@ -131,7 +131,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _earthBumpEnabled = false;
+		[SerializeField] private bool _earthBumpEnabled;
 
 		public bool earthBumpEnabled
 		{

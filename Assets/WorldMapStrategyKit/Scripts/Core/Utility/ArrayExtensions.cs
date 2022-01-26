@@ -7,7 +7,7 @@ namespace WorldMapStrategyKit
 		public static void Fill<T>(this T[] destinationArray, params T[] value)
 		{
 			if (destinationArray == null)
-				throw new ArgumentNullException("destinationArray");
+				throw new ArgumentNullException(nameof(destinationArray));
 
 			if (value.Length >= destinationArray.Length)
 				throw new ArgumentException(
@@ -29,7 +29,7 @@ namespace WorldMapStrategyKit
 		public static void Fill<T>(this T[] destinationArray, T value)
 		{
 			if (destinationArray == null)
-				throw new ArgumentNullException("destinationArray");
+				throw new ArgumentNullException(nameof(destinationArray));
 
 			if (0 >= destinationArray.Length)
 				throw new ArgumentException(

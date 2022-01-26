@@ -31,7 +31,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
@@ -44,7 +43,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 		IList<TriangulationPoint>
 	{
 		private List<Contour> mHoles = new();
-		private ITriangulatable mParent = null;
+		private ITriangulatable mParent;
 		private string mName = "";
 
 		public new TriangulationPoint this[int index]
@@ -328,9 +327,8 @@ namespace WorldMapStrategyKit.Poly2Tri
 									bIncrementHoleIdx = false;
 									break;
 								}
-								else
-									throw new Exception(
-										"PolygonOperationContext.Init had an error during initialization");
+								throw new Exception(
+									"PolygonOperationContext.Init had an error during initialization");
 							}
 							var pue = PolygonUtil.PolygonOperation(ctx);
 							if (pue == PolygonUtil.PolyUnionError.None)

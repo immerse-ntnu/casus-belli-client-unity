@@ -1,6 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
-using System.Reflection;
+using UnityEngine;
 
 /*
 Copyright (c) 2015 Matt Schoen

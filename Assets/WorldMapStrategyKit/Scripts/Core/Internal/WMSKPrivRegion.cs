@@ -2,8 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
+using UnityEngine;
+using UnityEngine.Rendering;
 using WorldMapStrategyKit.Poly2Tri;
 
 namespace WorldMapStrategyKit
@@ -175,8 +176,7 @@ namespace WorldMapStrategyKit
 				intersectionPoint.y = p1.y + dy12 * t1;
 				return true;
 			}
-			else
-				return false;
+			return false;
 		}
 
 		private Vector2 ConvertToTextureCoordinates(Vector3 vertex, int width, int height)
@@ -398,9 +398,9 @@ namespace WorldMapStrategyKit
 		public GameObject RegionGenerateExtrudeGameObject(string name, Region region,
 			float extrusionAmount, Color sideColor)
 		{
-			var sideMaterial = Instantiate<Material>(extrudedMat);
+			var sideMaterial = Instantiate(extrudedMat);
 			sideMaterial.color = sideColor;
-			var topMaterial = Instantiate<Material>(extrudedMat);
+			var topMaterial = Instantiate(extrudedMat);
 			topMaterial.mainTexture = earthMat.mainTexture;
 			return RegionGenerateExtrudeGameObject(name, region, extrusionAmount, topMaterial,
 				sideMaterial, Misc.Vector2one, Misc.Vector2zero, 0, false);
@@ -537,8 +537,8 @@ namespace WorldMapStrategyKit
 
 				var mr = boldFrontiers.AddComponent<MeshRenderer>();
 				mr.receiveShadows = false;
-				mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-				mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+				mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+				mr.shadowCastingMode = ShadowCastingMode.Off;
 				mr.sharedMaterial = outlineMatSimple;
 			}
 			else
@@ -564,7 +564,7 @@ namespace WorldMapStrategyKit
 				lr.loop = true;
 				if (customBorder && region.customBorderTexture != outlineMatTextured.mainTexture)
 				{
-					var mat = Instantiate<Material>(outlineMatTextured);
+					var mat = Instantiate(outlineMatTextured);
 					if (disposalManager != null)
 						disposalManager.MarkForDisposal(mat); //mat.hideFlags = HideFlags.DontSave;
 					mat.name = outlineMatTextured.name;

@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -13,7 +12,7 @@ namespace WorldMapStrategyKit
 		private TextMesh tm, tmShadow;
 		private bool fadeIn, fadeOut;
 		private float alpha, alphaShadow;
-		private bool blinking = false;
+		private bool blinking;
 		private int blinkingCount;
 		private float blinkingLapTime;
 		private TickerBand tickerBand;

@@ -29,9 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
@@ -211,7 +209,6 @@ namespace WorldMapStrategyKit.Poly2Tri
 					    (err & PolygonError.Unknown) == PolygonError.Unknown)
 					{
 						bListOK = false;
-						continue;
 					}
 					// non-convex polygons are ok
 					//if ((err & PolygonError.NotConvex) == PolygonError.NotConvex)
@@ -236,7 +233,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 					bOK = false;
 					continue;
 				}
-				else if (numPoints == 2)
+				if (numPoints == 2)
 				{
 					var constraintCode =
 						TriangulationConstraint.CalculateContraintCode(pts[listIdx][0], pts[listIdx][1]);
@@ -251,7 +248,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 				{
 					var ph = new Contour(this, pts[listIdx], WindingOrderType.Unknown);
 					ph.WindingOrder = WindingOrderType.Default;
-					ph.Name = name + ":" + listIdx.ToString();
+					ph.Name = name + ":" + listIdx;
 					mHoles.Add(ph);
 				}
 				++listIdx;

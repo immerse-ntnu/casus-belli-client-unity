@@ -3,8 +3,6 @@
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
@@ -38,7 +36,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _earthCloudLayer = false;
+		[SerializeField] private bool _earthCloudLayer;
 
 		/// <summary>
 		/// Enables/disables the cloud layer when viewport is used.
@@ -298,7 +296,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private float _renderViewportCurvature = 0;
+		[SerializeField] private float _renderViewportCurvature;
 
 		/// <summary>
 		/// Curvature of render viewport
@@ -317,7 +315,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private float _renderViewportCurvatureMinZoom = 0;
+		[SerializeField] private float _renderViewportCurvatureMinZoom;
 
 		/// <summary>
 		/// Curvature of render viewport when zoom is at minimum
@@ -443,7 +441,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _sunUseTimeOfDay = false;
+		[SerializeField] private bool _sunUseTimeOfDay;
 
 		/// <summary>
 		/// Whether the rotation of the Sun can be controlled using the timeOfDay property (0-24h)
@@ -506,10 +504,10 @@ namespace WorldMapStrategyKit
 			if (y1 >= heightmapTextureHeight - 1)
 				y1 = heightmapTextureHeight - 1;
 
-			var pos00 = (int)(y0 * heightmapTextureWidth + x0);
-			var pos10 = (int)(y0 * heightmapTextureWidth + x1);
-			var pos01 = (int)(y1 * heightmapTextureWidth + x0);
-			var pos11 = (int)(y1 * heightmapTextureWidth + x1);
+			var pos00 = y0 * heightmapTextureWidth + x0;
+			var pos10 = y0 * heightmapTextureWidth + x1;
+			var pos01 = y1 * heightmapTextureWidth + x0;
+			var pos11 = y1 * heightmapTextureWidth + x1;
 			var elev00 = viewportElevationPoints[pos00];
 			var elev10 = viewportElevationPoints[pos10];
 			var elev01 = viewportElevationPoints[pos01];
@@ -524,8 +522,8 @@ namespace WorldMapStrategyKit
 
 			var cellWidth = 1.0f / heightmapTextureWidth;
 			var cellHeight = 1.0f / heightmapTextureHeight;
-			var cellx = (position.x - (float)x0 * cellWidth) / cellWidth;
-			var celly = (position.y - (float)y0 * cellHeight) / cellHeight;
+			var cellx = (position.x - x0 * cellWidth) / cellWidth;
+			var celly = (position.y - y0 * cellHeight) / cellHeight;
 
 			var elev = elev00 * (1.0f - cellx) * (1.0f - celly) +
 			           elev10 * cellx * (1.0f - celly) +

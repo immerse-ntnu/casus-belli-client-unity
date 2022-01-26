@@ -42,8 +42,8 @@ namespace WorldMapStrategyKit.Poly2Tri
 {
 	public class Edge
 	{
-		protected Point2D mP = null;
-		protected Point2D mQ = null;
+		protected Point2D mP;
+		protected Point2D mQ;
 
 		public Point2D EdgeStart { get => mP; set => mP = value; }
 
@@ -64,7 +64,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 	public class TriangulationConstraint : Edge
 	{
-		private uint mContraintCode = 0;
+		private uint mContraintCode;
 
 		public TriangulationPoint P
 		{
@@ -129,11 +129,11 @@ namespace WorldMapStrategyKit.Poly2Tri
 		}
 
 		public override string ToString() => "[P=" +
-		                                     P.ToString() +
+		                                     P +
 		                                     ", Q=" +
-		                                     Q.ToString() +
+		                                     Q +
 		                                     " : {" +
-		                                     mContraintCode.ToString() +
+		                                     mContraintCode +
 		                                     "}]";
 
 		public void CalculateContraintCode()

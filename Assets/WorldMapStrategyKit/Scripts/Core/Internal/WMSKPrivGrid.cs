@@ -2,12 +2,10 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace WorldMapStrategyKit
 {
@@ -30,10 +28,9 @@ namespace WorldMapStrategyKit
 
 		// Common territory & cell structures
 		private Vector2[] gridPoints;
-		private int[] hexIndices = new int[] { 0, 1, 5, 1, 2, 5, 5, 2, 4, 2, 3, 4 };
+		private int[] hexIndices = { 0, 1, 5, 1, 2, 5, 5, 2, 4, 2, 3, 4 };
 
-		private int[] hexIndicesWrapped = new int[]
-		{
+		private int[] hexIndicesWrapped = {
 			0,
 			1,
 			5,
@@ -69,7 +66,7 @@ namespace WorldMapStrategyKit
 		// Caches
 		private Dictionary<Cell, int> _cellLookup;
 		private int lastCellLookupCount = -1;
-		private bool refreshMesh = false;
+		private bool refreshMesh;
 		private CellSegment[] sides;
 
 		// Cell highlighting
@@ -161,7 +158,7 @@ namespace WorldMapStrategyKit
 				center.y = (float)j / _gridRows - 0.5f + halfStepY;
 				for (var k = 0; k < _gridColumns; k++, cellIndex++)
 				{
-					center.x = (float)k / qx - 0.5f + centerOffset;
+					center.x = k / qx - 0.5f + centerOffset;
 					center.x -= k * halfStepX2;
 					var cell = new Cell(j, k, center);
 
@@ -492,8 +489,8 @@ namespace WorldMapStrategyKit
 
 				var mr = flayer.AddComponent<MeshRenderer>();
 				mr.receiveShadows = false;
-				mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-				mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+				mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+				mr.shadowCastingMode = ShadowCastingMode.Off;
 				mr.sharedMaterial = gridMat;
 			}
 			AdjustsGridAlpha();

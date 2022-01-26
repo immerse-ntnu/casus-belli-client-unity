@@ -2,14 +2,13 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
-using System.Globalization;
+using UnityEngine;
 using WorldMapStrategyKit.ClipperLib;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -104,7 +103,7 @@ namespace WorldMapStrategyKit
 		public event OnProvinceHighlightEvent OnProvinceHighlight;
 
 		[SerializeField] private bool
-			_showProvinces = false;
+			_showProvinces;
 
 		/// <summary>
 		/// Toggle frontiers visibility.
@@ -158,7 +157,7 @@ namespace WorldMapStrategyKit
 		/// Set whether all regions of active province should be highlighted.
 		/// </summary>
 		[SerializeField] private bool
-			_highlightAllProvinceRegions = false;
+			_highlightAllProvinceRegions;
 
 		public bool highlightAllProvinceRegions
 		{
@@ -175,7 +174,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_drawAllProvinces = false;
+			_drawAllProvinces;
 
 		/// <summary>
 		/// Forces drawing of all provinces and not only thouse of currently selected country.
@@ -206,8 +205,7 @@ namespace WorldMapStrategyKit
 			{
 				if (hudMatProvince != null)
 					return hudMatProvince.color;
-				else
-					return _provincesFillColor;
+				return _provincesFillColor;
 			}
 			set
 			{
@@ -233,8 +231,7 @@ namespace WorldMapStrategyKit
 			{
 				if (provincesMat != null)
 					return provincesMat.color;
-				else
-					return _provincesColor;
+				return _provincesColor;
 			}
 			set
 			{
@@ -285,7 +282,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_showProvinceNames = false;
+			_showProvinceNames;
 
 		public bool showProvinceNames
 		{
@@ -491,8 +488,7 @@ namespace WorldMapStrategyKit
 			int provinceIndex;
 			if (provinceLookup.TryGetValue(province, out provinceIndex))
 				return provinceIndex;
-			else
-				return -1;
+			return -1;
 		}
 
 		/// <summary>
@@ -2173,11 +2169,11 @@ namespace WorldMapStrategyKit
 		public void SetProvincesGeoData(string s)
 		{
 			var provincesPackedStringData =
-				s.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+				s.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 			var provinceCount = provincesPackedStringData.Length;
 			var newProvinces = new List<Province>(provinceCount);
 			var countryProvinces = new List<Province>[_countries.Length];
-			var separatorProvinces = new char[] { '$' };
+			var separatorProvinces = new[] { '$' };
 			for (var k = 0; k < provinceCount; k++)
 			{
 				var provinceInfo = provincesPackedStringData[k].Split(separatorProvinces);
@@ -2300,9 +2296,9 @@ namespace WorldMapStrategyKit
 							break;
 						}
 					}
-					localPos.x = UnityEngine.Random.Range(province.mainRegion.rect2D.xMin,
+					localPos.x = Random.Range(province.mainRegion.rect2D.xMin,
 						province.mainRegion.rect2D.xMax);
-					localPos.y = UnityEngine.Random.Range(province.mainRegion.rect2D.yMin,
+					localPos.y = Random.Range(province.mainRegion.rect2D.yMin,
 						province.mainRegion.rect2D.yMax);
 				}
 				if (!pointInside)

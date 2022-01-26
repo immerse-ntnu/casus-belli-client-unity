@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -114,7 +112,7 @@ namespace WorldMapStrategyKit
 				               "/" +
 				               _map.countryAttributeFile +
 				               ".json";
-				var data = _map.GetCountriesAttributes(true);
+				var data = _map.GetCountriesAttributes();
 				File.WriteAllText(fullPathName, data, Encoding.UTF8);
 				_editor.countryAttribChanges = false;
 			}
@@ -136,7 +134,7 @@ namespace WorldMapStrategyKit
 				               "/" +
 				               _map.provinceAttributeFile +
 				               ".json";
-				var data = _map.GetProvincesAttributes(true);
+				var data = _map.GetProvincesAttributes();
 				File.WriteAllText(fullPathName, data, Encoding.UTF8);
 				_editor.provinceAttribChanges = false;
 			}
@@ -153,7 +151,7 @@ namespace WorldMapStrategyKit
 			if (_editor.cityAttribChanges)
 			{
 				fullPathName = GetAssetsFolder() + geoDataFolder + "/" + _map.cityAttributeFile + ".json";
-				var data = _map.GetCitiesAttributes(true);
+				var data = _map.GetCitiesAttributes();
 				File.WriteAllText(fullPathName, data, Encoding.UTF8);
 				_editor.cityAttribChanges = false;
 			}
@@ -192,8 +190,8 @@ namespace WorldMapStrategyKit
 				Color color;
 				do
 				{
-					var g = UnityEngine.Random.Range(0.1f, 1f); // avoids full black (used by background)
-					color = new Color(UnityEngine.Random.value, g, UnityEngine.Random.value);
+					var g = Random.Range(0.1f, 1f); // avoids full black (used by background)
+					color = new Color(Random.value, g, Random.value);
 				} while (provinceColors.Contains(color));
 				provinceColors.Add(color);
 				var province = map.provinces[prov];

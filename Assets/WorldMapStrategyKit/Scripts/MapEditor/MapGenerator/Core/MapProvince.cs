@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using WorldMapStrategyKit.MapGenerator.Geom;
 
 namespace WorldMapStrategyKit
 {
-	public partial class MapProvince : MapEntity
+	public class MapProvince : MapEntity
 	{
 		public string name { get; set; }
 

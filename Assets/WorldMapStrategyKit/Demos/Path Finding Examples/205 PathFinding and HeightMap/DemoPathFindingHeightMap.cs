@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -146,7 +145,7 @@ namespace WorldMapStrategyKit
 		private void ClearPreviousPath()
 		{
 			map.RestoreCellMaterials();
-			texts.ForEach((t) => Destroy(t.gameObject));
+			texts.ForEach(t => Destroy(t.gameObject));
 			texts.Clear();
 			path = null;
 		}

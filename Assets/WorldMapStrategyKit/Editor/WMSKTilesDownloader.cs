@@ -1,10 +1,8 @@
-using UnityEngine;
-using UnityEditor;
 using System;
-using System.Text;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -107,7 +105,7 @@ namespace WorldMapStrategyKit
 				MessageType.Info);
 			EditorGUILayout.Separator();
 			EditorGUILayout.HelpBox(
-				"Using current server: " + map.tileServer.ToString() + "\nResources path: " + cachePath,
+				"Using current server: " + map.tileServer + "\nResources path: " + cachePath,
 				MessageType.Info);
 
 			EditorGUI.BeginChangeCheck();
@@ -185,7 +183,7 @@ namespace WorldMapStrategyKit
 			EditorGUILayout.LabelField("Estimated Size", GUILayout.Width(120));
 			if (status == DownloadStatus.Estimating)
 			{
-				EditorGUILayout.LabelField("Sampling... " + ((int)storageSize).ToString() + " MB",
+				EditorGUILayout.LabelField("Sampling... " + ((int)storageSize) + " MB",
 					GUILayout.Width(120));
 				if (GUILayout.Button("Cancel", GUILayout.Width(80)))
 					StopOperation();
@@ -194,9 +192,9 @@ namespace WorldMapStrategyKit
 			{
 				EditorGUILayout.LabelField(
 					storageSize > 0
-						? ((int)storageSize / 2).ToString() +
+						? ((int)storageSize / 2) +
 						  "-" +
-						  ((int)storageSize + 1).ToString() +
+						  ((int)storageSize + 1) +
 						  " MB"
 						: "-", GUILayout.Width(120));
 				if (GUILayout.Button("Estimate", GUILayout.Width(80)))
@@ -207,7 +205,7 @@ namespace WorldMapStrategyKit
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.LabelField("Downloaded tiles", GUILayout.Width(120));
 			EditorGUILayout.LabelField(
-				downloadedTilesCount.ToString() +
+				downloadedTilesCount +
 				" (" +
 				((float)downloadedTilesSize / ONE_MEGABYTE).ToString("F2") +
 				" MB)", GUILayout.Width(120));
@@ -274,7 +272,7 @@ namespace WorldMapStrategyKit
 
 		private void PickCountryLatLon()
 		{
-			var s = countryNames[countryIndex].Split(new char[]
+			var s = countryNames[countryIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -621,13 +619,10 @@ namespace WorldMapStrategyKit
 						x = xmax;
 						return false;
 					}
-					else
-					{
-						zoomLevel++;
-						GetTileRect(zoomLevel, out xmin, out ymin, out xmax, out ymax);
-						y = ymin;
-						x = xmin;
-					}
+					zoomLevel++;
+					GetTileRect(zoomLevel, out xmin, out ymin, out xmax, out ymax);
+					y = ymin;
+					x = xmin;
 				}
 			}
 			progressTileCount++;
@@ -639,8 +634,8 @@ namespace WorldMapStrategyKit
 		private bool GetNextTileRandom()
 		{
 			GetTileRect(zoomLevel, out xmin, out ymin, out xmax, out ymax);
-			x = UnityEngine.Random.Range(xmin, xmax + 1);
-			y = UnityEngine.Random.Range(ymin, ymax + 1);
+			x = Random.Range(xmin, xmax + 1);
+			y = Random.Range(ymin, ymax + 1);
 			progressTileCount++;
 			if (progressTileCount % 10 == 0)
 				RepaintStats();

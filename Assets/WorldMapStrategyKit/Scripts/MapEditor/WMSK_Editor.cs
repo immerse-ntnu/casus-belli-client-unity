@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Text;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -129,8 +127,8 @@ namespace WorldMapStrategyKit
 		public bool circleMoveConstant, circleCurrentRegionOnly;
 		public float reshapeCircleWidth = 0.01f;
 		public bool shouldHideEditorMesh;
-		public bool magnetAgressiveMode = false;
-		public bool magnetIncludeCountries = false;
+		public bool magnetAgressiveMode;
+		public bool magnetIncludeCountries;
 		public int snapPrecisionDigits = 7;
 
 		public string infoMsg = "";
@@ -194,8 +192,7 @@ namespace WorldMapStrategyKit
 			{
 				if (editingMode == EDITING_MODE.PROVINCES)
 					return map.provinces;
-				else
-					return map.countries;
+				return map.countries;
 			}
 		}
 
@@ -527,8 +524,7 @@ namespace WorldMapStrategyKit
 					return false;
 				return EraseFromRegion(selectedRegion, position, circleSize);
 			}
-			else
-				return EraseFromAnyRegion(position, circleSize);
+			return EraseFromAnyRegion(position, circleSize);
 		}
 
 		private bool EraseFromRegion(Region region, Vector3 position, float circleSize)
@@ -716,8 +712,7 @@ namespace WorldMapStrategyKit
 		{
 			if (newEntity is Country)
 				return map.CountryAdd((Country)newEntity);
-			else
-				return map.ProvinceAdd((Province)newEntity);
+			return map.ProvinceAdd((Province)newEntity);
 		}
 
 		/// <summary>
@@ -1163,17 +1158,17 @@ namespace WorldMapStrategyKit
 				borderPoint.x = -0.5f;
 				return true;
 			}
-			else if (borderPoint.x > 0.49f)
+			if (borderPoint.x > 0.49f)
 			{
 				borderPoint.x = 0.5f;
 				return true;
 			}
-			else if (borderPoint.y > 0.49f)
+			if (borderPoint.y > 0.49f)
 			{
 				borderPoint.y = 0.5f;
 				return true;
 			}
-			else if (borderPoint.y < -0.49f)
+			if (borderPoint.y < -0.49f)
 			{
 				borderPoint.y = -0.5f;
 				return true;
@@ -1294,7 +1289,7 @@ namespace WorldMapStrategyKit
 			while (_map.GetCountryIndex(goodName) >= 0)
 			{
 				suffix++;
-				goodName = proposedName + suffix.ToString();
+				goodName = proposedName + suffix;
 			}
 			return goodName;
 		}
@@ -1318,7 +1313,7 @@ namespace WorldMapStrategyKit
 			while (isProvinceNameUsed(goodName))
 			{
 				suffix++;
-				goodName = proposedName + suffix.ToString();
+				goodName = proposedName + suffix;
 			}
 			return goodName;
 		}

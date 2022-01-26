@@ -38,9 +38,9 @@
 ///     Bundling everything into an AoS mess?
 ///     Hardcode them all as ABC ?
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
@@ -341,7 +341,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			var p2 = Points[(idx + 2) % 3];
 			if (p1.GetEdge(p2, out edge))
 				return true;
-			else if (p2.GetEdge(p1, out edge))
+			if (p2.GetEdge(p1, out edge))
 				return true;
 
 			return false;

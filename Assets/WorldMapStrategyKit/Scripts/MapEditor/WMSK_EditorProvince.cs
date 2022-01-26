@@ -1,9 +1,7 @@
-using UnityEngine;
 using System;
-using System.IO;
-using System.Text;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -103,7 +101,7 @@ namespace WorldMapStrategyKit
 		{
 			if (GUIProvinceIndex < 0 || GUIProvinceIndex >= provinceNames.Length)
 				return false;
-			var s = _provinceNames[GUIProvinceIndex].Split(new char[]
+			var s = _provinceNames[GUIProvinceIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -242,7 +240,7 @@ namespace WorldMapStrategyKit
 			if (GUIProvinceTransferToCountryIndex < 0 ||
 			    GUIProvinceTransferToCountryIndex >= _countryNames.Length)
 				return "";
-			var s = _countryNames[GUIProvinceTransferToCountryIndex].Split(new char[]
+			var s = _countryNames[GUIProvinceTransferToCountryIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -275,7 +273,7 @@ namespace WorldMapStrategyKit
 			if (GUIProvinceTransferToProvinceIndex < 0 ||
 			    GUIProvinceTransferToProvinceIndex >= _provinceNames.Length)
 				return "";
-			var s = _provinceNames[GUIProvinceTransferToProvinceIndex].Split(new char[]
+			var s = _provinceNames[GUIProvinceTransferToProvinceIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -513,7 +511,7 @@ namespace WorldMapStrategyKit
 			// Get target country
 			// recover GUI country index selection
 			var targetCountryIndex = -1;
-			var s = countryNames[GUIProvinceTransferToCountryIndex].Split(new char[]
+			var s = countryNames[GUIProvinceTransferToCountryIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -547,7 +545,7 @@ namespace WorldMapStrategyKit
 			// Get target province
 			// recover GUI country index selection
 			var targetProvinceIndex = -1;
-			var s = _provinceNames[GUIProvinceTransferToProvinceIndex].Split(new char[]
+			var s = _provinceNames[GUIProvinceTransferToProvinceIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -678,7 +676,7 @@ namespace WorldMapStrategyKit
 			var country = map.countries[countryIndex];
 			if (country == null || country.provinces == null)
 				return;
-			var targetProvCount = UnityEngine.Random.Range(min, max);
+			var targetProvCount = Random.Range(min, max);
 			var provCount = country.provinces.Length;
 			float provStartSize = 0;
 			while (provCount > targetProvCount)

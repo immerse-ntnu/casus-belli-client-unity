@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.MapGenerator.Geom
 {
@@ -128,8 +127,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 
 			if (intersections % 2 == 0)
 				return false;
-			else
-				return true;
+			return true;
 		}
 	}
 }

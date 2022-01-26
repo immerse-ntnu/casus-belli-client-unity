@@ -12,41 +12,41 @@
 //  Some modifications by Kronnect to reuse grid buffers between calls and to allow different grid configurations in same grid array (uses bitwise differentiator)
 //  Also including support for hexagonal grids and some other improvements
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.PathFinding
 {
 	public class PathFinderCells : IPathFinder
 	{
 		// Heap variables are initializated to default, but I like to do it anyway
-		private CellCosts[] mGrid = null;
-		private PriorityQueueB<int> mOpen = null;
+		private CellCosts[] mGrid;
+		private PriorityQueueB<int> mOpen;
 		private List<PathFinderNode> mClose = new();
 		private HeuristicFormula mFormula = HeuristicFormula.Manhattan;
 		private float mHEstimate = 1;
 		private int mMaxSteps = 2000;
 		private float mMaxSearchCost = 100000;
-		private PathFinderNodeFast[] mCalcGrid = null;
+		private PathFinderNodeFast[] mCalcGrid;
 		private byte mOpenNodeValue = 1;
 		private byte mCloseNodeValue = 2;
-		private OnCellCross mOnCellCross = null;
-		private float mMinAltitude = 0;
+		private OnCellCross mOnCellCross;
+		private float mMinAltitude;
 		private float mMaxAltitude = 1f;
 
 		//Promoted local variables to member variables to avoid recreation between calls
-		private float mH = 0;
-		private int mLocation = 0;
-		private int mNewLocation = 0;
-		private ushort mLocationX = 0;
-		private ushort mLocationY = 0;
-		private ushort mNewLocationX = 0;
-		private ushort mNewLocationY = 0;
-		private int mCloseNodeCounter = 0;
-		private ushort mGridX = 0;
-		private ushort mGridY = 0;
-		private bool mFound = false;
+		private float mH;
+		private int mLocation;
+		private int mNewLocation;
+		private ushort mLocationX;
+		private ushort mLocationY;
+		private ushort mNewLocationX;
+		private ushort mNewLocationY;
+		private int mCloseNodeCounter;
+		private ushort mGridX;
+		private ushort mGridY;
+		private bool mFound;
 
 		private sbyte[,] mDirectionHex0 = new sbyte[6, 2]
 		{
@@ -356,7 +356,7 @@ namespace WorldMapStrategyKit.PathFinding
 			{
 				if (mMatrix[a].F > mMatrix[b].F)
 					return 1;
-				else if (mMatrix[a].F < mMatrix[b].F)
+				if (mMatrix[a].F < mMatrix[b].F)
 					return -1;
 				return 0;
 			}

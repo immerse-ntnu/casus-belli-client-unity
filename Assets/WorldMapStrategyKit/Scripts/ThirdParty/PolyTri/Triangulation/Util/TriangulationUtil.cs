@@ -30,8 +30,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
@@ -143,7 +141,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			var val = detleft - detright;
 			if (val > -MathUtil.EPSILON && val < MathUtil.EPSILON)
 				return Orientation.Collinear;
-			else if (val > 0)
+			if (val > 0)
 				return Orientation.CCW;
 			return Orientation.CW;
 		}

@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -96,8 +95,7 @@ namespace WorldMapStrategyKit
 			var di = GetDecoratorGroup(groupIndex, true);
 			if (di != null)
 				return di.GetDecorator(countryName);
-			else
-				return null;
+			return null;
 		}
 
 		public void SetCountryDecorator(int groupIndex, string countryName, CountryDecorator decorator)
@@ -122,8 +120,7 @@ namespace WorldMapStrategyKit
 			var dg = GetDecoratorGroup(groupIndex, false);
 			if (dg != null)
 				return dg.decorators != null ? dg.decorators.Count : 0;
-			else
-				return 0;
+			return 0;
 		}
 
 		public void ClearDecoratorGroup(int groupIndex)
@@ -163,7 +160,9 @@ namespace WorldMapStrategyKit
 			if (all.Count > 0)
 				all.Add("---");
 			all.AddRange(map.GetCountryNames(groupByContinent));
-			// recover GUI country index selection in case it's still undecorated
+
+			var arr = new int[5];
+			arr.GetEnumerator();
 			if (GUICountryIndex == -1 && GUICountryName.Length > 0)
 			{
 				var countryNameToSearch = groupByContinent ? "  " + GUICountryName : GUICountryName;

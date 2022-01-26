@@ -1,11 +1,9 @@
-using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
-	public partial class Country : AdminEntity
+	public class Country : AdminEntity
 	{
 		/// <summary>
 		/// Continent name.

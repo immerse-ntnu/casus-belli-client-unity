@@ -2,12 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -330,8 +327,7 @@ namespace WorldMapStrategyKit
 			int cellIndex;
 			if (cellLookup.TryGetValue(cell, out cellIndex))
 				return cellIndex;
-			else
-				return -1;
+			return -1;
 		}
 
 		/// <summary>

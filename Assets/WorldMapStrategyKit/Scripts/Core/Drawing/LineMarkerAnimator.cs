@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -44,7 +43,7 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// Specifies the duration in seconds for the line before it fades out
 		/// </summary>
-		public float autoFadeAfter = 0;
+		public float autoFadeAfter;
 
 		/// <summary>
 		/// The duration of the fade out.
@@ -59,7 +58,7 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// Duration of a cycle in seconds. 0.1f can be a good value. 0 = no animation.
 		/// </summary>
-		public float dashAnimationDuration = 0f;
+		public float dashAnimationDuration;
 
 		/// <summary>
 		/// Number of points for the line. By default it will create a number of points based on path length and the MINIMUM_POINTS constant.
@@ -242,7 +241,7 @@ namespace WorldMapStrategyKit
 				if (!usesViewport)
 					placeholder.transform.localScale = new Vector3(1f / transform.lossyScale.x,
 						1f / transform.lossyScale.y, 1f);
-				obj = Instantiate<GameObject>(cap);
+				obj = Instantiate(cap);
 				capSpriteRenderer = obj.GetComponent<SpriteRenderer>();
 				if (capSpriteRenderer != null)
 				{

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace WorldMapStrategyKit
 {
@@ -16,12 +15,12 @@ namespace WorldMapStrategyKit
 			// Get a reference to the World Map API:
 			bandColor = sideMaterial.color;
 
-			map.OnRegionEnter += (region) =>
+			map.OnRegionEnter += region =>
 			{
 				if (region == this.region)
 					ChangeColor(highlightColor);
 			};
-			map.OnRegionExit += (region) =>
+			map.OnRegionExit += region =>
 			{
 				if (region == this.region)
 					RemoveColor();

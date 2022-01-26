@@ -3,13 +3,13 @@
 #define USEFLOAT //Use floats for numbers instead of doubles	(enable if you're getting too many significant digits in string output)
 //#define POOLING	//Currently using a build setting for this one (also it's experimental)
 
-using UnityEngine;
-using Debug = UnityEngine.Debug;
-using System.Diagnostics;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using System.Diagnostics;
 using System.Text;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 /*
 Copyright (c) 2015 Matt Schoen
@@ -1375,8 +1375,7 @@ public class JSONObject
 			return 0;
 		if (json.useInt)
 			return (int)json.i;
-		else
-			return (int)json.n;
+		return (int)json.n;
 	}
 
 	public static implicit operator long(JSONObject json)
@@ -1385,8 +1384,7 @@ public class JSONObject
 			return 0;
 		if (json.useInt)
 			return json.i;
-		else
-			return (long)json.n;
+		return (long)json.n;
 	}
 
 	public static implicit operator JSONObject(string s) => StringObject(s);

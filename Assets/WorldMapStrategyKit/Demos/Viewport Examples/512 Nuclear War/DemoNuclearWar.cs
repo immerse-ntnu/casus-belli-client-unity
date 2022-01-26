@@ -1,7 +1,5 @@
-using UnityEngine;
-using System.Text;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -79,7 +77,7 @@ namespace WorldMapStrategyKit
 			lma.autoFadeAfter = 1f;
 
 			// Add flashing target
-			var sprite = Instantiate(target) as GameObject;
+			var sprite = Instantiate(target);
 			sprite.GetComponent<SpriteRenderer>().material.color = color * 0.9f;
 			map.AddMarker2DSprite(sprite, dest, 0.003f);
 			MarkerBlinker.AddTo(sprite, 4, 0.1f, 0.5f, true);

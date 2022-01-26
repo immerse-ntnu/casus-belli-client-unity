@@ -1,8 +1,6 @@
-using UnityEngine;
 using System;
-using System.Text;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -45,7 +43,7 @@ namespace WorldMapStrategyKit
 			// *********************************************************
 
 			var countries = map.GetCountries(
-				(attrib) => "French".Equals(attrib["Language"]) && attrib["AreaKm2"] > 1000000
+				attrib => "French".Equals(attrib["Language"]) && attrib["AreaKm2"] > 1000000
 			);
 			Debug.Log("Matches found = " + countries.Count);
 			foreach (var c in countries)
@@ -69,8 +67,7 @@ namespace WorldMapStrategyKit
 			// *****************************************************************
 
 			var jsonCountries =
-				map.GetCountriesAttributes(
-					true); // get the complete json for all countries with attributes
+				map.GetCountriesAttributes(); // get the complete json for all countries with attributes
 			Debug.Log(jsonCountries);
 
 			canada.attrib = null;

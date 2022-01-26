@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace WorldMapStrategyKit
 {
@@ -11,8 +10,8 @@ namespace WorldMapStrategyKit
 		public float slowMoveFactor = 0.25f;
 		public float fastMoveFactor = 3;
 
-		private float rotationX = 0.0f;
-		private float rotationY = 0.0f;
+		private float rotationX;
+		private float rotationY;
 		private Quaternion originalRotation;
 
 		private void Start()

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WorldMapStrategyKit.PathFinding
+﻿namespace WorldMapStrategyKit.PathFinding
 {
 	public struct Point
 	{

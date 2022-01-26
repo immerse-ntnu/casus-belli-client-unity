@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.MapGenerator.Geom
 {
@@ -391,12 +390,9 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 					w[1] = u1 > v1 ? v1 : u1;
 					return 2;
 				}
-				else
-				{
-					// u0 == v1
-					w[0] = u0;
-					return 1;
-				}
+				// u0 == v1
+				w[0] = u0;
+				return 1;
 			}
 
 			// u1 == v0

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using WorldMapStrategyKit.MapGenerator.Geom;
 
 namespace WorldMapStrategyKit
@@ -31,7 +31,7 @@ namespace WorldMapStrategyKit
 			var c = new MapRegion(entity);
 			c.customMaterial = customMaterial;
 			c.points = new Vector2[points.Length];
-			System.Array.Copy(points, c.points, points.Length);
+			Array.Copy(points, c.points, points.Length);
 			c.polygon = polygon.Clone();
 			c.segments = new List<Segment>(segments);
 			return c;

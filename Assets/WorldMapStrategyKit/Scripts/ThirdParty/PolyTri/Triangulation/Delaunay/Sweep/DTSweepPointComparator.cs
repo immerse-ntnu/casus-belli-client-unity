@@ -39,17 +39,13 @@ namespace WorldMapStrategyKit.Poly2Tri
 		{
 			if (p1.Y < p2.Y) // - Point2D.PRECISION) { // TODO: Added by Kronnect Games
 				return -1;
-			else if (p1.Y > p2.Y) //  + Point2D.PRECISION) {
+			if (p1.Y > p2.Y) //  + Point2D.PRECISION) {
 				return 1;
-			else
-			{
-				if (p1.X < p2.X) //  - Point2D.PRECISION) {
-					return -1;
-				else if (p1.X > p2.X) //  +Point2D.PRECISION) {
-					return 1;
-				else
-					return 0;
-			}
+			if (p1.X < p2.X) //  - Point2D.PRECISION) {
+				return -1;
+			if (p1.X > p2.X) //  +Point2D.PRECISION) {
+				return 1;
+			return 0;
 		}
 	}
 }

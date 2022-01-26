@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {

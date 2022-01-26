@@ -1,5 +1,6 @@
-using UnityEngine;
+using System.IO;
 using UnityEditor;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -133,11 +134,11 @@ namespace WorldMapStrategyKit
 			// Save heightmap
 			var wmskResourcesPath = GetWMSKResourcesPath();
 			var texPath = wmskResourcesPath + "/Terrain";
-			System.IO.Directory.CreateDirectory(texPath);
+			Directory.CreateDirectory(texPath);
 
 			var bytes = hm.EncodeToPNG();
 			var terrainHeightMapFullFilename = texPath + DEFAULT_HEIGHTMAP_FILENAME;
-			System.IO.File.WriteAllBytes(terrainHeightMapFullFilename, bytes);
+			File.WriteAllBytes(terrainHeightMapFullFilename, bytes);
 
 			// Snapshot terrain
 			const int snapshotLayer = 21;
@@ -206,7 +207,7 @@ namespace WorldMapStrategyKit
 			// Save terrain texture
 			bytes = terrainTex.EncodeToPNG();
 			var terrainTextureFullFilename = texPath + DEFAULT_TERRAIN_TEXTURE_FILENAME;
-			System.IO.File.WriteAllBytes(terrainTextureFullFilename, bytes);
+			File.WriteAllBytes(terrainTextureFullFilename, bytes);
 
 			AssetDatabase.Refresh();
 
@@ -221,11 +222,11 @@ namespace WorldMapStrategyKit
 			// Assign imported terrain
 			WMSK.instance.earthStyle = EARTH_STYLE.Texture;
 			var resourceEarthTex = "WMSK/Terrain/" +
-			                       System.IO.Path.GetFileNameWithoutExtension(
+			                       Path.GetFileNameWithoutExtension(
 				                       DEFAULT_TERRAIN_TEXTURE_FILENAME);
 			WMSK.instance.earthTexture = Resources.Load<Texture2D>(resourceEarthTex);
 			var resourceHeightmap = "WMSK/Terrain/" +
-			                        System.IO.Path.GetFileNameWithoutExtension(DEFAULT_HEIGHTMAP_FILENAME);
+			                        Path.GetFileNameWithoutExtension(DEFAULT_HEIGHTMAP_FILENAME);
 			WMSK.instance.heightMapTexture = Resources.Load<Texture2D>(resourceHeightmap);
 			EditorUtility.SetDirty(WMSK.instance);
 			EditorUtility.DisplayDialog("Terrain Import Complete",
@@ -238,7 +239,7 @@ namespace WorldMapStrategyKit
 			var paths = AssetDatabase.GetAllAssetPaths();
 			for (var k = 0; k < paths.Length; k++)
 				if (paths[k].EndsWith("Resources/WMSK/Textures"))
-					return System.IO.Path.GetDirectoryName(paths[k]); // Get parent of directory
+					return Path.GetDirectoryName(paths[k]); // Get parent of directory
 			return "";
 		}
 

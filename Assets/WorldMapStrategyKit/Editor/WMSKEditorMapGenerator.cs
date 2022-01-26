@@ -1,7 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -267,7 +265,7 @@ namespace WorldMapStrategyKit
 				_editor.GenerateMap();
 				return true;
 			}
-			else if (requestNewHeightMap)
+			if (requestNewHeightMap)
 			{
 				_editor.GenerateHeightMap(true);
 				return true;

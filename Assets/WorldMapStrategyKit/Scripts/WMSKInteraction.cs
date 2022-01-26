@@ -2,8 +2,8 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -172,7 +172,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _wrapHorizontally = false;
+		[SerializeField] private bool _wrapHorizontally;
 
 		/// <summary>
 		/// Allows to scroll around horizontal edges.
@@ -219,7 +219,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_allowUserKeys = false;
+			_allowUserKeys;
 
 		/// <summary>
 		/// If user can use WASD keys to drag the map.
@@ -329,7 +329,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_dragFlipDirection = false;
+			_dragFlipDirection;
 
 		/// <summary>
 		/// Whether the direction of the drag should be inverted.
@@ -348,7 +348,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_dragConstantSpeed = false;
+			_dragConstantSpeed;
 
 		/// <summary>
 		/// Whether the drag should follow a constant movement, withouth acceleration.
@@ -399,7 +399,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_allowScrollOnScreenEdges = false;
+			_allowScrollOnScreenEdges;
 
 		public bool allowScrollOnScreenEdges
 		{
@@ -493,7 +493,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_invertZoomDirection = false;
+			_invertZoomDirection;
 
 		public bool invertZoomDirection
 		{
@@ -599,7 +599,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private int
-			_mouseDragThreshold = 0;
+			_mouseDragThreshold;
 
 		public int mouseDragThreshold
 		{
@@ -824,8 +824,7 @@ namespace WorldMapStrategyKit
 			if (rectangleSelectionMat == null)
 			{
 				rectangleSelectionMat =
-					Instantiate(Resources.Load<Material>("WMSK/Materials/hudRectangleSelection")) as
-						Material;
+					Instantiate(Resources.Load<Material>("WMSK/Materials/hudRectangleSelection"));
 				if (disposalManager != null)
 					disposalManager.MarkForDisposal(rectangleSelectionMat);
 			}

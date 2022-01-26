@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.IO;
 using UnityEditor;
-using System.Collections;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -28,7 +28,7 @@ namespace WorldMapStrategyKit
 			_headerTexture = Resources.Load<Texture2D>("WMSK/EditorHeader");
 
 			// load readme.txt
-			readmeText = System.IO.File.ReadAllText(GetAssetPath() + "/README.txt");
+			readmeText = File.ReadAllText(GetAssetPath() + "/README.txt");
 		}
 
 		private void OnGUI()

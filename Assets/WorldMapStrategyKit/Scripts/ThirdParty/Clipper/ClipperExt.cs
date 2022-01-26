@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace WorldMapStrategyKit.ClipperLib
@@ -106,8 +105,8 @@ namespace WorldMapStrategyKit.ClipperLib
 			var newPoints = new Vector2[count];
 			for (var k = 0; k < count; k++)
 			{
-				newPoints[k].x = (float)points[k].X / MULTIPLIER;
-				newPoints[k].y = (float)points[k].Y / MULTIPLIER;
+				newPoints[k].x = points[k].X / MULTIPLIER;
+				newPoints[k].y = points[k].Y / MULTIPLIER;
 			}
 			return newPoints;
 		}

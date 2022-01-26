@@ -1,7 +1,5 @@
-using UnityEngine;
-using System.Text;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -253,15 +251,15 @@ namespace WorldMapStrategyKit
 			enableClickToMoveTank = true;
 
 			// Finally, signal me when tank starts and stops
-			tank.OnMoveStart += (thisTank) =>
+			tank.OnMoveStart += thisTank =>
 				Debug.Log("Tank has starting moving to " + thisTank.destination + " location.");
-			tank.OnMoveEnd += (thisTank) =>
+			tank.OnMoveEnd += thisTank =>
 				Debug.Log("Tank has stopped at " + thisTank.currentMap2DLocation + " location.");
-			tank.OnCountryEnter += (thisTank) => Debug.Log("Tank has entered country " +
+			tank.OnCountryEnter += thisTank => Debug.Log("Tank has entered country " +
 			                                               map.GetCountry(thisTank.currentMap2DLocation)
 				                                               .name +
 			                                               ".");
-			tank.OnProvinceEnter += (thisTank) => Debug.Log("Tank has entered province " +
+			tank.OnProvinceEnter += thisTank => Debug.Log("Tank has entered province " +
 			                                                map.GetProvince(thisTank.currentMap2DLocation)
 				                                                .name +
 			                                                ".");
@@ -334,7 +332,7 @@ namespace WorldMapStrategyKit
 			}
 			tank.terrainCapability = TERRAIN_CAPABILITY.OnlyGround;
 			// Example of durations
-			tank.MoveTo(destination, 0.1f, DURATION_TYPE.Step);
+			tank.MoveTo(destination, 0.1f);
 //												tank.MoveTo (destination, 2f, DURATION_TYPE.Route);
 //												tank.MoveTo (destination, 100f, DURATION_TYPE.MapLap);
 		}
@@ -401,7 +399,7 @@ namespace WorldMapStrategyKit
 					new Color(255, 255, 0, 0.33f));
 
 				// Hook event OnMove to sync circle position and destroy it when ship no longer exists
-				ship.OnMove += (ship) =>
+				ship.OnMove += ship =>
 					circle.transform.localPosition = new Vector3(ship.currentMap2DLocation.x,
 						ship.currentMap2DLocation.y, 0);
 
@@ -483,7 +481,7 @@ namespace WorldMapStrategyKit
 
 			var destination = map.GetCity("Paris", "France").unity2DLocation;
 			airplane.MoveTo(destination, 150f);
-			airplane.OnMoveEnd += (GameObjectAnimator anim) =>
+			airplane.OnMoveEnd += anim =>
 			{
 				anim.follow = false;
 			}; // once the movement has finished, stop following the unit

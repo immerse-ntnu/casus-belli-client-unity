@@ -29,23 +29,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/// Changes from the Java version
-///   Polygon constructors sprused up, checks for 3+ polys
-///   Naming of everything
-///   getTriangulationMode() -> TriangulationMode { get; }
-///   Exceptions replaced
-/// Future possibilities
-///   We have a lot of Add/Clear methods -- we may prefer to just expose the container
-///   Some self-explanatory methods may deserve commenting anyways
+// Changes from the Java version
+//   Polygon constructors sprused up, checks for 3+ polys
+//   Naming of everything
+//   getTriangulationMode() -> TriangulationMode { get; }
+//   Exceptions replaced
+// Future possibilities
+//   We have a lot of Add/Clear methods -- we may prefer to just expose the container
+//   Some self-explanatory methods may deserve commenting anyways
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
-	public class Polygon : Point2DList, ITriangulatable, IEnumerable<TriangulationPoint>,
+	public class Polygon : Point2DList, ITriangulatable,
 		IList<TriangulationPoint>
 	{
 		// ITriangulatable Implementation
@@ -103,7 +103,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 		public Polygon(IList<PolygonPoint> points)
 		{
 			if (points.Count < 3)
-				throw new ArgumentException("List has fewer than 3 points", "points");
+				throw new ArgumentException("List has fewer than 3 points", nameof(points));
 
 			AddRange(points, WindingOrderType.Unknown);
 		}
@@ -115,7 +115,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 		public Polygon(Vector2[] points)
 		{
 			if (points.Length < 3)
-				throw new ArgumentException("List has fewer than 3 points", "points");
+				throw new ArgumentException("List has fewer than 3 points", nameof(points));
 			//			int pointCount = points.Count;
 //			List<PolygonPoint> pp = new List<PolygonPoint> (pointCount);
 //			for (int k = 0; k < pointCount; k++) {
@@ -162,8 +162,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 		protected override void Add(Point2D p, int idx, bool bCalcWindingOrderAndEpsilon)
 		{
-			var pt = p as TriangulationPoint;
-			if (pt == null) // we only store TriangulationPoints and PolygonPoints in this class
+			if (p is not TriangulationPoint pt) // we only store TriangulationPoints and PolygonPoints in this class
 				return;
 
 			// do not insert duplicate points
@@ -173,19 +172,15 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 			base.Add(p, idx, bCalcWindingOrderAndEpsilon);
 
-			var pp = p as PolygonPoint;
-			if (pp != null)
+			if (p is not PolygonPoint pp)
+				return;
+			pp.Previous = _last;
+			if (_last != null)
 			{
-				pp.Previous = _last;
-				if (_last != null)
-				{
-					pp.Next = _last.Next;
-					_last.Next = pp;
-				}
-				_last = pp;
+				pp.Next = _last.Next;
+				_last.Next = pp;
 			}
-
-			return;
+			_last = pp;
 		}
 
 		public void AddRange(Vector2[] points, WindingOrderType windingOrder)

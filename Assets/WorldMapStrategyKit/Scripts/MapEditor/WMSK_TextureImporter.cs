@@ -1,10 +1,8 @@
 #if !UNITY_WSA
-using UnityEngine;
 using System;
-using System.Text;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -50,14 +48,12 @@ namespace WorldMapStrategyKit
 		public TerritoriesImporterMode mode;
 		public bool snapToCountryFrontiers;
 
-		private float[] directionXOffset = new float[]
-			{ -0.15f, 0.00f, 0.15f, 0.25f, -0.15f, 0.00f, -0.15f, -0.25f };
+		private float[] directionXOffset = { -0.15f, 0.00f, 0.15f, 0.25f, -0.15f, 0.00f, -0.15f, -0.25f };
 
-		private float[] directionYOffset = new float[]
-			{ 0.15f, 0.25f, 0.15f, 0.00f, 0.15f, -0.25f, -0.15f, 0.00f };
+		private float[] directionYOffset = { 0.15f, 0.25f, 0.15f, 0.00f, 0.15f, -0.25f, -0.15f, 0.00f };
 
-		private int[] directionDX = new int[] { 1, 1, 1, 0, -1, -1, -1, 0 };
-		private int[] directionDY = new int[] { 1, 0, -1, -1, -1, 0, 1, 1 };
+		private int[] directionDX = { 1, 1, 1, 0, -1, -1, -1, 0 };
+		private int[] directionDY = { 1, 0, -1, -1, -1, 0, 1, 1 };
 
 		public int goodColorCount
 		{
@@ -65,8 +61,7 @@ namespace WorldMapStrategyKit
 			{
 				if (goodColors != null)
 					return goodColors.Count;
-				else
-					return 0;
+				return 0;
 			}
 		}
 
@@ -344,11 +339,11 @@ namespace WorldMapStrategyKit
 			{
 				case TerritoriesImporterMode.Countries:
 					for (var k = 0; k < goodColors.Count; k++)
-						entities.Add(new Country("Country " + k.ToString(), "World", k));
+						entities.Add(new Country("Country " + k, "World", k));
 					break;
 				case TerritoriesImporterMode.Provinces:
 					for (var k = 0; k < goodColors.Count; k++)
-						entities.Add(new Province("Province " + k.ToString(), -1, k));
+						entities.Add(new Province("Province " + k, -1, k));
 					break;
 			}
 			filter = 0;

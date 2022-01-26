@@ -1,10 +1,8 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
-	public partial class Cell : IFader
+	public class Cell : IFader
 	{
 		public int row, column;
 

@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
 	/// <summary>
 	/// Mount Point record. Mount points are stored in the mountPoints file, in packed string editable format inside Resources/Geodata folder.
 	/// </summary>
-	public partial class MountPoint : IExtendableAttribute
+	public class MountPoint : IExtendableAttribute
 	{
 		/// <summary>
 		/// Name of this mount point.

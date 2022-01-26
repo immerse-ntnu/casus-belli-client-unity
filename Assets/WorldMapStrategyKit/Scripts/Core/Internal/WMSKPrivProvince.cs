@@ -2,14 +2,12 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using WorldMapStrategyKit.Poly2Tri;
+using UnityEngine;
+using UnityEngine.Rendering;
 using WorldMapStrategyKit.ClipperLib;
+using WorldMapStrategyKit.Poly2Tri;
 
 namespace WorldMapStrategyKit
 {
@@ -653,8 +651,8 @@ namespace WorldMapStrategyKit
 
 					var mr = flayer.AddComponent<MeshRenderer>();
 					mr.receiveShadows = false;
-					mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-					mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+					mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+					mr.shadowCastingMode = ShadowCastingMode.Off;
 					mr.sharedMaterial = provincesMat;
 				}
 			}
@@ -939,10 +937,9 @@ namespace WorldMapStrategyKit
 			var r2 = p2.regions[p2.mainRegionIndex];
 			if (r1.rect2DArea < r2.rect2DArea)
 				return -1;
-			else if (r1.rect2DArea > r2.rect2DArea)
+			if (r1.rect2DArea > r2.rect2DArea)
 				return 1;
-			else
-				return 0;
+			return 0;
 		}
 
 		/// <summary>

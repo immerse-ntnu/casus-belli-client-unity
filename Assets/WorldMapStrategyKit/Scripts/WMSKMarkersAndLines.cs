@@ -2,12 +2,8 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
-using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -53,8 +49,7 @@ namespace WorldMapStrategyKit
 			{
 				if (cursorMatH != null)
 					return cursorMatH.color;
-				else
-					return _cursorColor;
+				return _cursorColor;
 			}
 			set
 			{
@@ -247,8 +242,7 @@ namespace WorldMapStrategyKit
 			{
 				if (imaginaryLinesMat != null)
 					return imaginaryLinesMat.color;
-				else
-					return _imaginaryLinesColor;
+				return _imaginaryLinesColor;
 			}
 			set
 			{
@@ -393,7 +387,7 @@ namespace WorldMapStrategyKit
 		public LineMarkerAnimator AddLine(Vector2 start, Vector2 end, Color color, float arcElevation,
 			float lineWidth)
 		{
-			var path = new Vector2[] { start, end };
+			var path = new[] { start, end };
 			var lma = AddLine(path, markerLineMat, arcElevation, lineWidth);
 			lma.color = color;
 			return lma;
@@ -523,7 +517,7 @@ namespace WorldMapStrategyKit
 		public LineMarkerAnimator AddLine(Vector2 start, Vector2 end, Material lineMaterial,
 			float arcElevation, float lineWidth)
 		{
-			var path = new Vector2[] { start, end };
+			var path = new[] { start, end };
 			return AddLine(path, lineMaterial, arcElevation, lineWidth);
 		}
 
@@ -613,7 +607,7 @@ namespace WorldMapStrategyKit
 			results.Clear();
 			if (markersLayer == null)
 				return;
-			markersLayer.transform.GetComponentsInChildren<Transform>(results);
+			markersLayer.transform.GetComponentsInChildren(results);
 			results.RemoveAt(0); // removes parent
 		}
 

@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -165,7 +163,7 @@ namespace WorldMapStrategyKit
 				{
 					changes = true;
 					// Check if it's in the scene
-					var name = "Ticker" + k.ToString();
+					var name = "Ticker" + k;
 					var t = tickerBaseLayer.transform.Find(name);
 					if (t != null)
 						tickerBandLayer = t.gameObject;
@@ -261,8 +259,7 @@ namespace WorldMapStrategyKit
 		{
 			if (tickerBaseLayer != null)
 				return tickerBaseLayer.GetComponentsInChildren<TickerTextAnimator>(true).Length;
-			else
-				return 0;
+			return 0;
 		}
 
 		/// <summary>
@@ -273,8 +270,7 @@ namespace WorldMapStrategyKit
 			var tickerBand = tickerBands[tickerLine].gameObject;
 			if (tickerBand != null)
 				return tickerBand.GetComponentsInChildren<TickerTextAnimator>(true).Length;
-			else
-				return 0;
+			return 0;
 		}
 
 		/// <summary>

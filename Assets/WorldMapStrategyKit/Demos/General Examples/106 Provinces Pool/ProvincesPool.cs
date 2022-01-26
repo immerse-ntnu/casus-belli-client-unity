@@ -1,5 +1,4 @@
 using UnityEngine;
-using WorldMapStrategyKit;
 
 /// <summary>
 /// Configure a provinces pool by creating a special hidden country that takes all provinces using the function CountryCreateProvincesPool

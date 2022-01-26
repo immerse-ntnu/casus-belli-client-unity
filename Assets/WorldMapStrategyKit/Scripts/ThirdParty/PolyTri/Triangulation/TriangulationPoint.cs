@@ -82,7 +82,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			}
 		}
 
-		protected uint mVertexCode = 0;
+		protected uint mVertexCode;
 
 		public uint VertexCode => mVertexCode;
 
@@ -99,7 +99,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 		public TriangulationPoint(double x, double y, float z, double precision) : base(x, y, z) =>
 			mVertexCode = CreateVertexCode(x, y, precision);
 
-		public override string ToString() => base.ToString() + ":{" + mVertexCode.ToString() + "}";
+		public override string ToString() => base.ToString() + ":{" + mVertexCode + "}";
 
 		public override int GetHashCode() => (int)mVertexCode;
 
@@ -108,8 +108,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			var p2 = obj as TriangulationPoint;
 			if (p2 != null)
 				return mVertexCode == p2.VertexCode;
-			else
-				return base.Equals(obj);
+			return base.Equals(obj);
 		}
 
 		public override void Set(double x, double y)
@@ -161,7 +160,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			return false;
 		}
 
-		public static Point2D ToPoint2D(TriangulationPoint p) => p as Point2D;
+		public static Point2D ToPoint2D(TriangulationPoint p) => p;
 
 		public void Reset()
 		{

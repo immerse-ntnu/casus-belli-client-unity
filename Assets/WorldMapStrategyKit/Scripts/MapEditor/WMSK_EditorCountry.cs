@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.Text;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -131,11 +132,11 @@ namespace WorldMapStrategyKit
 		{
 			if (GUICountryIndex < 0 || GUICountryIndex >= countryNames.Length)
 				return false;
-			var s = countryNames[GUICountryIndex].Split(new char[]
+			var s = countryNames[GUICountryIndex].Split(new[]
 			{
 				'(',
 				')'
-			}, System.StringSplitOptions.RemoveEmptyEntries);
+			}, StringSplitOptions.RemoveEmptyEntries);
 			if (s.Length >= 2)
 			{
 				GUICountryName = s[0].Trim();
@@ -286,11 +287,11 @@ namespace WorldMapStrategyKit
 			    _countryNames == null ||
 			    GUICountryTransferToCountryIndex >= _countryNames.Length)
 				return "";
-			var s = _countryNames[GUICountryTransferToCountryIndex].Split(new char[]
+			var s = _countryNames[GUICountryTransferToCountryIndex].Split(new[]
 			{
 				'(',
 				')'
-			}, System.StringSplitOptions.RemoveEmptyEntries);
+			}, StringSplitOptions.RemoveEmptyEntries);
 			if (s.Length >= 2)
 				return s[0].Trim();
 			return "";
@@ -410,11 +411,11 @@ namespace WorldMapStrategyKit
 			// Get target country
 			// recover GUI country index selection
 			var targetCountryIndex = -1;
-			var s = countryNames[GUICountryTransferToCountryIndex].Split(new char[]
+			var s = countryNames[GUICountryTransferToCountryIndex].Split(new[]
 			{
 				'(',
 				')'
-			}, System.StringSplitOptions.RemoveEmptyEntries);
+			}, StringSplitOptions.RemoveEmptyEntries);
 			if (s.Length >= 2)
 				if (!int.TryParse(s[1], out targetCountryIndex))
 					return;
@@ -626,7 +627,7 @@ namespace WorldMapStrategyKit
 						if (p > 0)
 							sb.Append(";");
 						var point = region.points[p];
-						sb.Append(point.x.ToString() + ",");
+						sb.Append(point.x + ",");
 						sb.Append(point.y.ToString());
 					}
 				}

@@ -1,5 +1,5 @@
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -7,7 +7,7 @@ namespace WorldMapStrategyKit
 	public class WMSKCountriesEqualizer : EditorWindow
 	{
 		private int countriesMax = 8;
-		private int seed = 0;
+		private int seed;
 
 		private int currentCountryIndex;
 		private bool started;

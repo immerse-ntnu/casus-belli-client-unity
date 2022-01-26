@@ -7,13 +7,10 @@
 
 #define USE_TEXTMESH_PRO
 
-using UnityEngine;
-using System;
-using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-
+using UnityEngine;
 #if USE_TEXTMESH_PRO
 using TMPro;
 #endif
@@ -27,7 +24,7 @@ namespace WorldMapStrategyKit
 
 		private GameObject textRoot;
 		private Font labelsFont;
-		private UnityEngine.Object labelsFontTMPro;
+		private Object labelsFontTMPro;
 		private Material labelsShadowMaterial;
 
 #if USE_TEXTMESH_PRO
@@ -737,10 +734,9 @@ namespace WorldMapStrategyKit
 			var r2MidY = (r2.rect.w + r2.rect.y) * 0.5f;
 			if (r2MidY < r1MidY)
 				return -1;
-			else if (r2MidY > r1MidY)
+			if (r2MidY > r1MidY)
 				return 1;
-			else
-				return 0;
+			return 0;
 			//			return (r2.rect.center.y).CompareTo(r1.rect.center.y);
 		}
 

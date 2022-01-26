@@ -37,16 +37,16 @@ namespace WorldMapStrategyKit.Poly2Tri
 {
 	public class Point2D : IComparable<Point2D>
 	{
-		protected double mX = 0.0;
+		protected double mX;
 
 		public virtual double X { get => mX; set => mX = value; }
 
-		protected double mY = 0.0;
+		protected double mY;
 
 		public virtual double Y { get => mY; set => mY = value; }
 
 		protected float
-			mZf = 0.0f; // this is not used by the polygon library but it's useful to conserve the value linked to the point
+			mZf; // this is not used by the polygon library but it's useful to conserve the value linked to the point
 
 		public virtual float Zf { get => mZf; set => mZf = value; }
 
@@ -83,7 +83,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 		}
 
 		public override string ToString() =>
-			"[" + X.ToString() + "," + Y.ToString() + "," + Zf.ToString() + "]";
+			"[" + X + "," + Y + "," + Zf + "]";
 
 		public override int GetHashCode() => base.GetHashCode();
 
@@ -102,7 +102,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 		public bool Equals(Point2D p, double epsilon)
 		{
-			if ((object)p == null ||
+			if (p == null ||
 			    !MathUtil.AreValuesEqual(X, p.X, epsilon) ||
 			    !MathUtil.AreValuesEqual(Y, p.Y, epsilon))
 				return false;
@@ -114,15 +114,12 @@ namespace WorldMapStrategyKit.Poly2Tri
 		{
 			if (Y < other.Y)
 				return -1;
-			else if (Y > other.Y)
+			if (Y > other.Y)
 				return 1;
-			else
-			{
-				if (X < other.X)
-					return -1;
-				else if (X > other.X)
-					return 1;
-			}
+			if (X < other.X)
+				return -1;
+			if (X > other.X)
+				return 1;
 
 			return 0;
 		}

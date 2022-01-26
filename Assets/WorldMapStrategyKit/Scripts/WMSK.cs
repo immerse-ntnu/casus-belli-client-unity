@@ -2,12 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+using UnityEditor;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -46,7 +43,7 @@ namespace WorldMapStrategyKit
 					{
 						var c = candidates[k];
 #if UNITY_EDITOR
-						if (UnityEditor.EditorUtility.IsPersistent(c.gameObject))
+						if (EditorUtility.IsPersistent(c.gameObject))
 							continue; // exclude prefabs
 #endif
 						if (c.isMiniMap)
@@ -140,7 +137,7 @@ namespace WorldMapStrategyKit
 		/// <value>The camera main.</value>
 		public Camera cameraMain => _customCamera == null ? Camera.main : _customCamera;
 
-		[SerializeField] private bool _prewarm = false;
+		[SerializeField] private bool _prewarm;
 
 		/// <summary>
 		/// Precomputes big country surfaces and path finding matrices during initialization to allow smoother performance during play.
@@ -158,7 +155,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _enableEnclaves = false;
+		[SerializeField] private bool _enableEnclaves;
 
 		/// <summary>
 		/// Allows regions surrounded completely by another different region of a different country

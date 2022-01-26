@@ -4,14 +4,14 @@
 
 //#define NGUI_SUPPORT
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Globalization;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using WorldMapStrategyKit.PolygonClipping;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -115,8 +115,7 @@ namespace WorldMapStrategyKit
 			{
 				if (Application.isPlaying && renderViewportIsEnabled)
 					return 1 << renderViewport.layer;
-				else
-					return 1 << gameObject.layer;
+				return 1 << gameObject.layer;
 			}
 		}
 
@@ -150,8 +149,7 @@ namespace WorldMapStrategyKit
 			{
 				if (_outlineDetail == OUTLINE_DETAIL.Textured)
 					return outlineMatTextured;
-				else
-					return outlineMatSimple;
+				return outlineMatSimple;
 			}
 		}
 
@@ -228,14 +226,14 @@ namespace WorldMapStrategyKit
 			// Check whether the points is on an UI element, then avoid user interaction
 			if (respectOtherUI && !hasDragged)
 			{
-				if (UnityEngine.EventSystems.EventSystem.current != null)
+				if (EventSystem.current != null)
 				{
 					if (Application.isMobilePlatform &&
 					    Input.touchCount > 0 &&
-					    UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(
+					    EventSystem.current.IsPointerOverGameObject(
 						    Input.GetTouch(0).fingerId))
 						canInteract = false;
-					else if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1))
+					else if (EventSystem.current.IsPointerOverGameObject(-1))
 						canInteract = false;
 				}
 
@@ -1116,11 +1114,11 @@ namespace WorldMapStrategyKit
 		{
 #if UNITY_EDITOR
 #if UNITY_2018_3_OR_NEWER
-			var prefabInstanceStatus = UnityEditor.PrefabUtility.GetPrefabInstanceStatus(gameObject);
-			if (prefabInstanceStatus != UnityEditor.PrefabInstanceStatus.NotAPrefab &&
-			    prefabInstanceStatus != UnityEditor.PrefabInstanceStatus.Disconnected)
-				UnityEditor.PrefabUtility.UnpackPrefabInstance(gameObject,
-					UnityEditor.PrefabUnpackMode.Completely, UnityEditor.InteractionMode.AutomatedAction);
+			var prefabInstanceStatus = PrefabUtility.GetPrefabInstanceStatus(gameObject);
+			if (prefabInstanceStatus != PrefabInstanceStatus.NotAPrefab &&
+			    prefabInstanceStatus != PrefabInstanceStatus.Disconnected)
+				PrefabUtility.UnpackPrefabInstance(gameObject,
+					PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 #else
             UnityEditor.PrefabType prefabType = UnityEditor.PrefabUtility.GetPrefabType(gameObject);
             if (prefabType != UnityEditor.PrefabType.None && prefabType != UnityEditor.PrefabType.DisconnectedPrefabInstance && prefabType != UnityEditor.PrefabType.DisconnectedModelPrefabInstance) {
@@ -1727,26 +1725,23 @@ namespace WorldMapStrategyKit
 				localPoint.y = (localPoint.y - br.y) / (tl.y - br.y) - 0.5f;
 				return true;
 			}
-			else
+			if (_wrapHorizontally)
 			{
-				if (_wrapHorizontally)
-				{
-					// enables wrapping mode location
-					if (localPoint.x < tl.x)
-						localPoint.x = br.x - (tl.x - localPoint.x);
-					else if (localPoint.x > br.x)
-						localPoint.x = tl.x + localPoint.x - br.x;
-				}
-				// Trace the ray from this position in mapper cam space
-				if (localPoint.x >= tl.x &&
-				    localPoint.x <= br.x &&
-				    localPoint.y >= br.y &&
-				    localPoint.y <= tl.y)
-				{
-					localPoint.x = (localPoint.x - tl.x) / (br.x - tl.x) - 0.5f;
-					localPoint.y = (localPoint.y - br.y) / (tl.y - br.y) - 0.5f;
-					return true;
-				}
+				// enables wrapping mode location
+				if (localPoint.x < tl.x)
+					localPoint.x = br.x - (tl.x - localPoint.x);
+				else if (localPoint.x > br.x)
+					localPoint.x = tl.x + localPoint.x - br.x;
+			}
+			// Trace the ray from this position in mapper cam space
+			if (localPoint.x >= tl.x &&
+			    localPoint.x <= br.x &&
+			    localPoint.y >= br.y &&
+			    localPoint.y <= tl.y)
+			{
+				localPoint.x = (localPoint.x - tl.x) / (br.x - tl.x) - 0.5f;
+				localPoint.y = (localPoint.y - br.y) / (tl.y - br.y) - 0.5f;
+				return true;
 			}
 			return false;
 		}
@@ -2051,10 +2046,9 @@ namespace WorldMapStrategyKit
 		{
 			if (overlayLayer != null)
 				return overlayLayer;
-			else if (createIfNotExists)
+			if (createIfNotExists)
 				return CreateOverlay();
-			else
-				return null;
+			return null;
 		}
 
 		private void SetDestination(Vector2 point, float duration)
@@ -2428,7 +2422,7 @@ namespace WorldMapStrategyKit
 		{
 			for (var k = 0; k < 1000; k++)
 			{
-				var rnd = UnityEngine.Random.Range(0, int.MaxValue);
+				var rnd = Random.Range(0, int.MaxValue);
 				var listCount = list.Count;
 				for (var o = 0; o < listCount; o++)
 				{
@@ -2465,7 +2459,7 @@ namespace WorldMapStrategyKit
 					var distance = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
 					if (distance < 0.00000000001f)
 					{
-						points = points.Purge<Vector2>(j);
+						points = points.Purge(j);
 						j--;
 						changes = true;
 					}
@@ -2485,7 +2479,7 @@ namespace WorldMapStrategyKit
 		/// </summary>
 		private void RegionSanitize(List<Region> regions)
 		{
-			regions.ForEach((Region region) =>
+			regions.ForEach(region =>
 			{
 				if (!region.sanitized)
 					RegionSanitize(region);
@@ -2535,7 +2529,7 @@ namespace WorldMapStrategyKit
 									usedOtherPoints[o] = true;
 									break;
 								}
-								else if (dist < minDist)
+								if (dist < minDist)
 								{
 									minDist = dist;
 									selPoint = p;
@@ -2655,8 +2649,8 @@ namespace WorldMapStrategyKit
 
 			var mr = cursorLayerVLine.AddComponent<MeshRenderer>();
 			mr.receiveShadows = false;
-			mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-			mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+			mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+			mr.shadowCastingMode = ShadowCastingMode.Off;
 			mr.sharedMaterial = cursorMatV;
 
 			// Generate line H **********************
@@ -2683,8 +2677,8 @@ namespace WorldMapStrategyKit
 
 			mr = cursorLayerHLine.AddComponent<MeshRenderer>();
 			mr.receiveShadows = false;
-			mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-			mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+			mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+			mr.shadowCastingMode = ShadowCastingMode.Off;
 			mr.sharedMaterial = cursorMatH;
 		}
 
@@ -2745,8 +2739,8 @@ namespace WorldMapStrategyKit
 
 			var mr = latitudeLayer.AddComponent<MeshRenderer>();
 			mr.receiveShadows = false;
-			mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-			mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+			mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+			mr.shadowCastingMode = ShadowCastingMode.Off;
 			//			mr.useLightProbes = false;
 			mr.sharedMaterial = imaginaryLinesMat;
 		}
@@ -2803,8 +2797,8 @@ namespace WorldMapStrategyKit
 
 			var mr = longitudeLayer.AddComponent<MeshRenderer>();
 			mr.receiveShadows = false;
-			mr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-			mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+			mr.reflectionProbeUsage = ReflectionProbeUsage.Off;
+			mr.shadowCastingMode = ShadowCastingMode.Off;
 			mr.sharedMaterial = imaginaryLinesMat;
 		}
 

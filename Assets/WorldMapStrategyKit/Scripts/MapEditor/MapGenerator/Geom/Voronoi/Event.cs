@@ -1,8 +1,3 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace WorldMapStrategyKit.MapGenerator.Geom
 {
 	internal enum EVENT_TYPE

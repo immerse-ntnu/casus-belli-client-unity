@@ -1,10 +1,4 @@
 using UnityEngine;
-using System;
-using System.Linq;
-using System.Threading;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
@@ -57,7 +51,7 @@ namespace WorldMapStrategyKit
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.A))
-				map.ToggleCountrySurface(UnityEngine.Random.Range(0, 140), true, Color.yellow);
+				map.ToggleCountrySurface(Random.Range(0, 140), true, Color.yellow);
 		}
 	}
 }

@@ -3,9 +3,6 @@
 /// </summary>
 
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using WorldMapStrategyKit.Poly2Tri;
 
 namespace WorldMapStrategyKit.PolygonClipping
 {
@@ -58,11 +55,8 @@ namespace WorldMapStrategyKit.PolygonClipping
 							points = points.Purge(line1.P1Index, line1.P2Index);
 							return true;
 						}
-						else
-						{
-							points = points.Purge(line2.P1Index, line2.P2Index);
-							return true;
-						}
+						points = points.Purge(line2.P1Index, line2.P2Index);
+						return true;
 					}
 				}
 			}

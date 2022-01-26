@@ -1,14 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
-
+using WorldMapStrategyKit.MapGenerator;
+using WorldMapStrategyKit.MapGenerator.Geom;
+using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using WorldMapStrategyKit.MapGenerator;
-using WorldMapStrategyKit.MapGenerator.Geom;
 
 namespace WorldMapStrategyKit
 {
@@ -27,16 +27,16 @@ namespace WorldMapStrategyKit
 
 		public void ApplySeed()
 		{
-			UnityEngine.Random.InitState(seed);
+			Random.InitState(seed);
 			if (octavesBySeed || noiseOctaves == null || noiseOctaves.Length == 0)
 			{
-				var octaves = UnityEngine.Random.Range(5, 8);
+				var octaves = Random.Range(5, 8);
 				noiseOctaves = new NoiseOctave[octaves];
 				for (var k = 0; k < octaves; k++)
 				{
 					var octave = new NoiseOctave();
 					octave.amplitude = 1f / (k + 1f);
-					octave.frecuency = Mathf.Pow(2, k) * (1f + UnityEngine.Random.value);
+					octave.frecuency = Mathf.Pow(2, k) * (1f + Random.value);
 					noiseOctaves[k] = octave;
 				}
 			}
@@ -59,8 +59,8 @@ namespace WorldMapStrategyKit
 					centers[k] = new Point(p.x, p.y);
 				}
 				else
-					centers[k] = new Point(UnityEngine.Random.Range(-0.49f, 0.49f),
-						UnityEngine.Random.Range(-0.49f, 0.49f));
+					centers[k] = new Point(Random.Range(-0.49f, 0.49f),
+						Random.Range(-0.49f, 0.49f));
 
 			if (voronoi == null)
 				voronoi = new VoronoiFortune();
@@ -360,7 +360,7 @@ namespace WorldMapStrategyKit
 			{
 				var territory = new MapCountry(c.ToString());
 				var territoryIndex = mapCountries.Count;
-				var p = UnityEngine.Random.Range(0, cellsCount);
+				var p = Random.Range(0, cellsCount);
 				var z = 0;
 				while ((mapProvinces[p].countryIndex != -1 ||
 				        !mapProvinces[p].visible ||
@@ -425,7 +425,7 @@ namespace WorldMapStrategyKit
 					var cell = mapProvinces[k];
 					if (cell.countryIndex == -1 && cell.visible && !cell.ignoreTerritories)
 					{
-						var territoryIndex = UnityEngine.Random.Range(0, territoriesCount);
+						var territoryIndex = Random.Range(0, territoriesCount);
 						cell.countryIndex = territoryIndex;
 						mapCountries[territoryIndex].provinces.Add(cell);
 						remainingCells = true;
@@ -501,14 +501,14 @@ namespace WorldMapStrategyKit
 		{
 			try
 			{
-				UnityEngine.Random.InitState(seed);
+				Random.InitState(seed);
 				GenerateHeightMap();
 				CreateMapProvinces();
 				AssignHeightMapToProvinces(true);
 				CreateMapCountries();
 				CreateMapCities();
 
-				UnityEngine.Random.InitState(seedNames);
+				Random.InitState(seedNames);
 				// Replace countries
 				var mapCountriesCount = mapCountries.Count;
 				var newCountries = new List<Country>(mapCountriesCount);
@@ -625,7 +625,7 @@ namespace WorldMapStrategyKit
 			{
 				if (!Application.isPlaying)
 				{
-					Debug.LogError("Error generating map: " + ex.ToString());
+					Debug.LogError("Error generating map: " + ex);
 #if UNITY_EDITOR
 					EditorUtility.DisplayDialog("Error Generating Map",
 						"An error occured while generating map. Try choosing another 'Seed' value, reducing 'Border Curvature' amount or number of provinces.",
@@ -653,7 +653,7 @@ namespace WorldMapStrategyKit
 			for (var k = 0; k < countryCount; k++)
 			{
 				var cityCount =
-					UnityEngine.Random.Range(numCitiesPerCountryMin, numCitiesPerCountryMax + 1);
+					Random.Range(numCitiesPerCountryMin, numCitiesPerCountryMax + 1);
 
 				var country = mapCountries[k];
 				if (!country.visible)
@@ -681,8 +681,8 @@ namespace WorldMapStrategyKit
 						{
 							do
 							{
-								pos.x = rect.xMin + UnityEngine.Random.value * rect.width;
-								pos.y = rect.yMin + UnityEngine.Random.value * rect.height;
+								pos.x = rect.xMin + Random.value * rect.width;
+								pos.y = rect.yMin + Random.value * rect.height;
 							} while (!prov.region.Contains(pos.x, pos.y));
 
 							CITY_CLASS cityClass;

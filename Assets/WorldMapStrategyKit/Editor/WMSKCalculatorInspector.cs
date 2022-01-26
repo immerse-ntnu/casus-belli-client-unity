@@ -1,8 +1,6 @@
-using UnityEngine;
-using UnityEditor;
-using System;
-using System.Collections;
 using System.Text;
+using UnityEditor;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -71,7 +69,7 @@ namespace WorldMapStrategyKit
 
 		private void OnEnable()
 		{
-			unitNames = new string[]
+			unitNames = new[]
 			{
 				"Degrees",
 				"Decimal Degrees",

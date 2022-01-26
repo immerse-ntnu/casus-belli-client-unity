@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit
 {
@@ -201,24 +204,24 @@ namespace WorldMapStrategyKit
 			reshapeMountPointModeExplanation[(int)RESHAPE_MOUNT_POINT_TOOL.DELETE] =
 				"DELETES currently selected MOUNT POINT.";
 
-			editingModeOptions = new string[]
+			editingModeOptions = new[]
 			{
 				"Only Countries",
 				"Countries + Provinces"
 			};
 
-			editingCountryFileOptions = new string[]
+			editingCountryFileOptions = new[]
 			{
 				"High Definition Geodata File",
 				"Low Definition Geodata File"
 			};
-			cityClassOptions = new string[]
+			cityClassOptions = new[]
 			{
 				"City",
 				"Country Capital",
 				"Region Capital"
 			};
-			cityClassValues = new int[]
+			cityClassValues = new[]
 			{
 				(int)CITY_CLASS.CITY,
 				(int)CITY_CLASS.COUNTRY_CAPITAL,
@@ -527,7 +530,7 @@ namespace WorldMapStrategyKit
 				_editor.issueRedraw = false;
 				_editor.ClearSelection();
 				_map.Redraw(true);
-				UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+				InternalEditorUtility.RepaintAllViews();
 				return;
 			}
 
@@ -734,7 +737,7 @@ namespace WorldMapStrategyKit
 					if (GUILayout.Button("Create"))
 						if (EditorUtility.DisplayDialog("Convert Province Into a Country",
 							"This command will extract provinces " +
-							sb.ToString() +
+							sb +
 							" from its country " +
 							_editor.GUICountryName +
 							" and create a new country named " +
@@ -1532,7 +1535,7 @@ namespace WorldMapStrategyKit
 			if (textureCoordChanges)
 			{
 				EditorUtility.SetDirty(_map);
-				UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(
+				EditorSceneManager.MarkSceneDirty(
 					SceneManager.GetActiveScene());
 			}
 		}
@@ -2287,8 +2290,8 @@ namespace WorldMapStrategyKit
 						_editor.cursor = mapTransform.InverseTransformPoint(cursorPos);
 						_editor.cursor.z = 0;
 
-						Handles.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
-							UnityEngine.Random.value);
+						Handles.color = new Color(Random.value, Random.value,
+							Random.value);
 						var pt = mapTransform.TransformPoint(_editor.cursor);
 						var handleSize = HandleUtility.GetHandleSize(pt) * HANDLE_SIZE * 4.0f;
 						Handles.SphereHandleCap(0, pt, mapTransform.rotation, handleSize,
@@ -2402,8 +2405,8 @@ namespace WorldMapStrategyKit
 						var cursorPos = hits[k].point;
 						_editor.cursor = mapTransform.InverseTransformPoint(cursorPos);
 
-						Handles.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
-							UnityEngine.Random.value);
+						Handles.color = new Color(Random.value, Random.value,
+							Random.value);
 						var handleSize = HandleUtility.GetHandleSize(cursorPos) * HANDLE_SIZE * 4.0f;
 
 						Handles.SphereHandleCap(0, cursorPos, mapTransform.rotation, handleSize,
@@ -2563,8 +2566,7 @@ namespace WorldMapStrategyKit
 									EventType.Repaint);
 								continue;
 							}
-							else
-								Handles.color = Color.white;
+							Handles.color = Color.white;
 						}
 						Handles.RectangleHandleCap(0, p, mapTransform.rotation, handleSize,
 							EventType.Repaint);
@@ -2604,8 +2606,8 @@ namespace WorldMapStrategyKit
 			{
 				var mapTransform = _map.transform;
 				Vector3 pointToInsert = (region.points[nearest] + region.points[previous]) * 0.5f;
-				Handles.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
-					UnityEngine.Random.value);
+				Handles.color = new Color(Random.value, Random.value,
+					Random.value);
 				var pt = mapTransform.TransformPoint(pointToInsert);
 				var handleSize = HandleUtility.GetHandleSize(pt) * HANDLE_SIZE;
 				Handles.DotHandleCap(0, pt, mapTransform.rotation, handleSize, EventType.Repaint);
@@ -2831,8 +2833,8 @@ namespace WorldMapStrategyKit
 										editorCaptionLabelStyle);
 							}
 						}
-						Handles.color = new Color(UnityEngine.Random.value, UnityEngine.Random.value,
-							UnityEngine.Random.value);
+						Handles.color = new Color(Random.value, Random.value,
+							Random.value);
 						var pt = mapTransform.TransformPoint(_editor.cursor);
 						var handleSize = HandleUtility.GetHandleSize(pt) * HANDLE_SIZE;
 						Handles.DotHandleCap(0, pt, mapTransform.rotation, handleSize, EventType.Repaint);

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -130,7 +130,7 @@ namespace WorldMapStrategyKit
 		/// </summary>
 		public bool autoScale = true;
 
-		private bool _follow = false;
+		private bool _follow;
 
 		/// <summary>
 		/// If the camera should focus and follow this game object while moving
@@ -162,12 +162,12 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// When the game object moves, it will rotate around the map Y axis towards the movement direction effectively adapting to the terrain contour. Use this only for moveable units.
 		/// </summary>
-		public bool autoRotation = false;
+		public bool autoRotation;
 
 		/// <summary>
 		/// If set to true, the game object will maintain it's current rotation when moved over the viewport. Note that autoRotation overrides this property, so if you set autoRotation = true, preserveOriginalRotation will be ignored.
 		/// </summary>
-		public bool preserveOriginalRotation = false;
+		public bool preserveOriginalRotation;
 
 		/// <summary>
 		/// The auto-rotation speed (0..1, 1=immediate rotation).
@@ -182,7 +182,7 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// Minimun altitude this unit move over (0..1).
 		/// </summary>
-		public float minAltitude = 0.0f;
+		public float minAltitude;
 
 		/// <summary>
 		/// Maximum altitude this unit move over (0..1).
@@ -241,7 +241,7 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// If set to true, the unit can change orientation but won't move. This value is cleared after unit has ended rotation.
 		/// </summary>
-		public bool isStatic = false;
+		public bool isStatic;
 
 		/// <summary>
 		/// The starting location in map coordinates.
@@ -261,7 +261,7 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// If set to true, other map events won't be triggered when clicking on this unit (like OnClick)
 		/// </summary>
-		public bool blocksRayCast = false;
+		public bool blocksRayCast;
 
 		/// <summary>
 		/// True is mouse is currently over the gameobject
@@ -394,26 +394,23 @@ namespace WorldMapStrategyKit
 				var route = FindRoute(destination);
 				return MoveTo(route, duration, durationType);
 			}
-			else
+			ClearOptions();
+			if (isMoving)
+				Stop();
+			endingMap2DLocation = destination;
+			if (map == null)
+				Init();
+			if (!map.VGOIsRegistered(this))
 			{
-				ClearOptions();
-				if (isMoving)
-					Stop();
-				endingMap2DLocation = destination;
-				if (map == null)
-					Init();
-				if (!map.VGOIsRegistered(this))
-				{
-					transform.position =
-						new Vector3(1000, -1000,
-							0); // prevents showing unit at wrong location the first frame
-					_currentMap2DLocation = destination;
-				}
-				if (startingMap2DLocation == Misc.Vector2zero)
-					startingMap2DLocation = _currentMap2DLocation;
-				isMoving = true;
-				StartCoroutine(StartMove(destination, duration));
+				transform.position =
+					new Vector3(1000, -1000,
+						0); // prevents showing unit at wrong location the first frame
+				_currentMap2DLocation = destination;
 			}
+			if (startingMap2DLocation == Misc.Vector2zero)
+				startingMap2DLocation = _currentMap2DLocation;
+			isMoving = true;
+			StartCoroutine(StartMove(destination, duration));
 			return true;
 		}
 
@@ -1030,8 +1027,7 @@ namespace WorldMapStrategyKit
 					to.x -= 1f;
 				return to;
 			}
-			else
-				return Vector2.Lerp(@from, to, t);
+			return Vector2.Lerp(@from, to, t);
 		}
 
 		private float GetLerpT(float t)
@@ -1212,7 +1208,7 @@ namespace WorldMapStrategyKit
 		{
 			if (managedRenderers == null)
 				managedRenderers = new List<Renderer>();
-			GetComponentsInChildren<Renderer>(true, managedRenderers);
+			GetComponentsInChildren(true, managedRenderers);
 		}
 
 		private void CheckWaterPos()

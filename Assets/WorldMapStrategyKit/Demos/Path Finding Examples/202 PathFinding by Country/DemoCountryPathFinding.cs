@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -119,8 +118,7 @@ namespace WorldMapStrategyKit
 			var slovakia = map.GetCountryIndex("Slovakia");
 			if (countryIndex == ukraine || countryIndex == slovakia)
 				return 1; // basic cost
-			else
-				return 2; // increased cost through other countries
+			return 2; // increased cost through other countries
 		}
 	}
 }

@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
-	public partial class Region : IFader
+	public class Region : IFader
 	{
 		/// <summary>
 		/// Region border

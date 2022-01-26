@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
 
 namespace WorldMapStrategyKit
@@ -10,13 +10,13 @@ namespace WorldMapStrategyKit
 		public class Coroutine
 		{
 			public IEnumerator enumerator;
-			public System.Action<bool> OnUpdate;
+			public Action<bool> OnUpdate;
 			public List<IEnumerator> history = new();
 		}
 
 		private static readonly List<Coroutine> coroutines = new();
 
-		public static IEnumerator Start(IEnumerator enumerator, System.Action<bool> OnUpdate = null)
+		public static IEnumerator Start(IEnumerator enumerator, Action<bool> OnUpdate = null)
 		{
 			if (coroutines.Count == 0)
 			{

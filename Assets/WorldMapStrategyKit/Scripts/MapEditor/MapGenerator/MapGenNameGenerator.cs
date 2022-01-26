@@ -1,18 +1,12 @@
-using UnityEngine;
-using System;
-using System.IO;
-using System.Text;
-using System.Collections;
 using System.Collections.Generic;
-using WorldMapStrategyKit.MapGenerator;
-using WorldMapStrategyKit.MapGenerator.Geom;
+using System.Text;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
 	public partial class WMSK_Editor : MonoBehaviour
 	{
-		private string[] preffix = new string[]
-		{
+		private string[] preffix = {
 			"ab",
 			"al",
 			"an",
@@ -192,8 +186,7 @@ namespace WorldMapStrategyKit
 			"zu"
 		};
 
-		private string[] middle = new string[]
-		{
+		private string[] middle = {
 			"sur",
 			"dis",
 			"do",
@@ -301,8 +294,7 @@ namespace WorldMapStrategyKit
 			"phyr"
 		};
 
-		private string[] suffix = new string[]
-		{
+		private string[] suffix = {
 			"stan",
 			"ria",
 			"via",
@@ -413,7 +405,7 @@ namespace WorldMapStrategyKit
 			"phyra"
 		};
 
-		private string[] voxels = new string[] { "a", "e", "i", "o", "u" };
+		private string[] voxels = { "a", "e", "i", "o", "u" };
 
 		private string GetUniqueRandomName(int minLength, int maxLength, HashSet<string> usedNames)
 		{
@@ -435,17 +427,17 @@ namespace WorldMapStrategyKit
 			else
 				sb.Length = 0;
 
-			sb.Append(preffix[UnityEngine.Random.Range(0, preffix.Length)]);
-			var len = UnityEngine.Random.Range(minLength, maxLength + 1) - 2;
-			if (len == 0 || UnityEngine.Random.value > 0.5f)
-				sb.Append(voxels[UnityEngine.Random.Range(0, 5)]);
+			sb.Append(preffix[Random.Range(0, preffix.Length)]);
+			var len = Random.Range(minLength, maxLength + 1) - 2;
+			if (len == 0 || Random.value > 0.5f)
+				sb.Append(voxels[Random.Range(0, 5)]);
 			for (var k = 0; k < len; k++)
 			{
-				sb.Append(middle[UnityEngine.Random.Range(0, middle.Length)]);
-				if (UnityEngine.Random.value > 0.5f)
-					sb.Append(voxels[UnityEngine.Random.Range(0, 5)]);
+				sb.Append(middle[Random.Range(0, middle.Length)]);
+				if (Random.value > 0.5f)
+					sb.Append(voxels[Random.Range(0, 5)]);
 			}
-			sb.Append(suffix[UnityEngine.Random.Range(0, suffix.Length)]);
+			sb.Append(suffix[Random.Range(0, suffix.Length)]);
 			return sb.ToString();
 		}
 	}

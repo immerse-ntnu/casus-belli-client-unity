@@ -1,9 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -15,7 +11,7 @@ namespace WorldMapStrategyKit
 		private string[] tickerNames;
 		private TickerText sampleTicker;
 		private string duration;
-		private bool pendingChanges = false;
+		private bool pendingChanges;
 
 		private TickerBand[] tickers => _ticker.tickerBands;
 

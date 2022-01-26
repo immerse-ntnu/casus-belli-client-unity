@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace WorldMapStrategyKit.Poly2Tri
 {
@@ -57,7 +54,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 		{
 			foreach (var b in data)
 			{
-				nInitialValue += (uint)b;
+				nInitialValue += b;
 				nInitialValue += nInitialValue << 10;
 				nInitialValue += nInitialValue >> 6;
 			}

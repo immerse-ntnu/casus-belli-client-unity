@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 // relies on: http://forum.unity3d.com/threads/12031-create-random-colors?p=84625&viewfull=1#post84625
 namespace WorldMapStrategyKit
@@ -15,13 +14,13 @@ namespace WorldMapStrategyKit
 		// the color that has been chosen
 		public Color setColor;
 		private Color lastSetColor;
-		public bool useDefinedSize = false;
+		public bool useDefinedSize;
 		public int textureWidth = 360;
 		public int textureHeight = 120;
-		private float saturationSlider = 0.0F;
+		private float saturationSlider;
 		private Texture2D saturationTexture;
 		private Texture2D styleTexture;
-		public bool showPicker = false;
+		public bool showPicker;
 
 		private void Awake()
 		{
@@ -34,7 +33,7 @@ namespace WorldMapStrategyKit
 				{
 					for (var j = 0; j < textureHeight; j++)
 					{
-						hsvColor = new ColorHSV((float)i, 1.0f / j * textureHeight, 1.0f);
+						hsvColor = new ColorHSV(i, 1.0f / j * textureHeight, 1.0f);
 						colorPicker.SetPixel(i, j, hsvColor.ToColor());
 					}
 				}

@@ -1,10 +1,5 @@
-using UnityEngine;
-using System;
-using System.Text;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using WorldMapStrategyKit.ClipperLib;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -109,7 +104,7 @@ namespace WorldMapStrategyKit
 					yield return null;
 				}
 
-				_map.ProvinceSanitize(k, 3, true);
+				_map.ProvinceSanitize(k);
 				if (_provinces[k].regions.Count == 0)
 					if (_map.ProvinceDelete(k))
 					{

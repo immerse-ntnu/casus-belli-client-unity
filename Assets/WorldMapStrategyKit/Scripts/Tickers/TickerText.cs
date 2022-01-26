@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace WorldMapStrategyKit
 {
@@ -54,12 +54,12 @@ namespace WorldMapStrategyKit
 		/// <summary>
 		/// Set it to 0 to disable blinking effect.
 		/// </summary>
-		public float blinkInterval = 0;
+		public float blinkInterval;
 
 		/// <summary>
 		/// The blink repetitions. A 0 will blink indefinitely (as long as blinkInterval>0)
 		/// </summary>
-		public int blinkRepetitions = 0;
+		public int blinkRepetitions;
 
 		[SerializeField] private Color
 			_textColor = Color.white;
@@ -114,14 +114,14 @@ namespace WorldMapStrategyKit
 					if (_font != null)
 					{
 						var fontMaterial =
-							UnityEngine.Object.Instantiate(
+							Object.Instantiate(
 								Resources.Load<Material>(
 									"WMSK/Materials/Font")); // this material is linked to a shader that has into account zbuffer
 						fontMaterial.mainTexture = _font.material.mainTexture;
 						//fontMaterial.hideFlags = HideFlags.DontSave;
 						fontMaterial.renderQueue += 5;
 						_font.material = fontMaterial;
-						_shadowMaterial = UnityEngine.Object.Instantiate(_font.material);
+						_shadowMaterial = Object.Instantiate(_font.material);
 						//_shadowMaterial.hideFlags = HideFlags.DontSave;
 						_shadowMaterial.renderQueue--;
 					}

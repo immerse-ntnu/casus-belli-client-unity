@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WorldMapStrategyKit.MapGenerator.Geom
 {
@@ -33,7 +31,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 					pointList.Insert(0, s.end);
 				return true;
 			}
-			else if (Point.EqualsBoth(s.end, back))
+			if (Point.EqualsBoth(s.end, back))
 			{
 				if (Point.EqualsBoth(s.start, front))
 					closed = true;
@@ -41,7 +39,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 					pointList.Add(s.start);
 				return true;
 			}
-			else if (Point.EqualsBoth(s.end, front))
+			if (Point.EqualsBoth(s.end, front))
 			{
 				if (Point.EqualsBoth(s.start, back))
 					closed = true;
@@ -49,7 +47,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 					pointList.Insert(0, s.start);
 				return true;
 			}
-			else if (Point.EqualsBoth(s.start, back))
+			if (Point.EqualsBoth(s.start, back))
 			{
 				if (Point.EqualsBoth(s.end, front))
 					closed = true;

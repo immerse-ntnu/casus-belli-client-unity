@@ -1,9 +1,7 @@
-using UnityEngine;
-using UnityEditor;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace WorldMapStrategyKit
@@ -309,7 +307,7 @@ namespace WorldMapStrategyKit
 				_decorator.ForceUpdateDecorators();
 				SceneView.RepaintAll();
 				EditorUtility.SetDirty(_map);
-				UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(
+				EditorSceneManager.MarkSceneDirty(
 					SceneManager.GetActiveScene());
 			}
 		}
@@ -343,7 +341,7 @@ namespace WorldMapStrategyKit
 			{
 				var dc = _decorator.GetCountryDecoratorCount(k);
 				if (dc > 0)
-					groupNames[k] = k.ToString() + " (" + dc + " decorators)";
+					groupNames[k] = k + " (" + dc + " decorators)";
 				else
 					groupNames[k] = k.ToString();
 			}
@@ -386,7 +384,7 @@ namespace WorldMapStrategyKit
 		{
 			_decorator.GUICountryName = "";
 			_decorator.GUICountryIndex = selection;
-			var s = _decorator.countryNames[_decorator.GUICountryIndex].Split(new char[]
+			var s = _decorator.countryNames[_decorator.GUICountryIndex].Split(new[]
 			{
 				'(',
 				')'

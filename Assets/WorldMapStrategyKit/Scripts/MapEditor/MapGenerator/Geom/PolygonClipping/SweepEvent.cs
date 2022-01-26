@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace WorldMapStrategyKit.MapGenerator.Geom
+﻿namespace WorldMapStrategyKit.MapGenerator.Geom
 {
 	internal class SweepEvent
 	{

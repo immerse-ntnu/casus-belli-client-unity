@@ -2,13 +2,8 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.Linq;
-using System.Threading;
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -74,7 +69,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _tileTransparentLayer = false;
+		[SerializeField] private bool _tileTransparentLayer;
 
 		/// <summary>
 		/// Blends tiles with background imagery. Disabled for performance purposes (when disabled, tiles will use an opaque shader which renders faster)
@@ -360,7 +355,7 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private bool _tilePreloadTiles = false;
+		[SerializeField] private bool _tilePreloadTiles;
 
 		/// <summary>
 		/// Tries to load all first zoom level of tiles at start so map shows complete from the beginning
@@ -502,8 +497,7 @@ namespace WorldMapStrategyKit
 			{
 				if (_tileResourceFallbackTexture == null)
 					return Texture2D.blackTexture;
-				else
-					return _tileResourceFallbackTexture;
+				return _tileResourceFallbackTexture;
 			}
 			set
 			{

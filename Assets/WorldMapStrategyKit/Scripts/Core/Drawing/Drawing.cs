@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 using WorldMapStrategyKit.Poly2Tri;
-using Object = UnityEngine.Object;
 
 namespace WorldMapStrategyKit
 {

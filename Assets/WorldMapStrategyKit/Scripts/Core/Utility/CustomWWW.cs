@@ -1,14 +1,10 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 namespace WorldMapStrategyKit
 {
-	public partial class CustomWWW
+	public class CustomWWW
 		: CustomYieldInstruction
 			, IDisposable
 	{
@@ -137,12 +133,9 @@ namespace WorldMapStrategyKit
 
 				return true;
 			}
-			else
-			{
-				Debug.LogError(
-					"You are trying to load data from a www stream which has not completed the download yet.\nYou need to yield the download or wait until isDone returns true.");
-				return false;
-			}
+			Debug.LogError(
+				"You are trying to load data from a www stream which has not completed the download yet.\nYou need to yield the download or wait until isDone returns true.");
+			return false;
 		}
 
 		private UnityWebRequest _uwr;

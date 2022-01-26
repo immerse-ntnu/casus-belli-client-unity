@@ -1,9 +1,9 @@
-using UnityEngine;
-using UnityEditor;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 using WorldMapStrategyKit.PathFinding;
-using WorldMapStrategyKit.MapGenerator;
 
 namespace WorldMapStrategyKit
 {
@@ -50,13 +50,13 @@ namespace WorldMapStrategyKit
 			_headerTexture = Resources.Load<Texture2D>("WMSK/EditorHeader");
 			if (_map.countries == null)
 				_map.Init();
-			earthStyleOptions = new string[]
+			earthStyleOptions = new[]
 			{
 				"Solid Color", "Texture", "Natural", "Natural HighRes", "Natural HighRes 16K",
 				"Alternate Style 1", "Alternate Style 2", "Alternate Style 3", "Scenic",
 				"Viewport Scenic Plus", "Viewport Scenic Plus Alt 1", "Viewport Scenic Plus 16K"
 			};
-			earthStyleValues = new int[]
+			earthStyleValues = new[]
 			{
 				(int)EARTH_STYLE.SolidColor,
 				(int)EARTH_STYLE.Texture,
@@ -71,21 +71,21 @@ namespace WorldMapStrategyKit
 				(int)EARTH_STYLE.NaturalScenicPlusAlternate1,
 				(int)EARTH_STYLE.NaturalScenicPlus16K
 			};
-			frontiersDetailOptions = new string[]
+			frontiersDetailOptions = new[]
 			{
 				"Low",
 				"High"
 			};
 			//			pathFindingHeuristicOptions = new string[] { "Manhattan", "MaxDXDY", "DiagonalShortCut", "Euclidean", "EuclideanNoSQR", "Custom" };
 			//			pathFindingHeuristicValues = new int[] { (int)HeuristicFormula.Manhattan, (int)HeuristicFormula.MaxDXDY, (int)HeuristicFormula.DiagonalShortCut, (int)HeuristicFormula.Euclidean, (int)HeuristicFormula.EuclideanNoSQR, (int)HeuristicFormula.Custom1 };
-			pathFindingHeuristicOptions = new string[]
+			pathFindingHeuristicOptions = new[]
 			{
 				"Manhattan",
 				"MaxDXDY",
 				"DiagonalShortCut",
 				"Euclidean"
 			};
-			pathFindingHeuristicValues = new int[]
+			pathFindingHeuristicValues = new[]
 			{
 				(int)HeuristicFormula.Manhattan,
 				(int)HeuristicFormula.MaxDXDY,
@@ -672,7 +672,7 @@ namespace WorldMapStrategyKit
 					}
 					else
 					{
-						_map.countryLabelsFontTMPro = (Object)EditorGUILayout.ObjectField(
+						_map.countryLabelsFontTMPro = EditorGUILayout.ObjectField(
 							new GUIContent("   Font (TMPro)",
 								"Font asset to be used with TextMesh Pro - see manual"),
 							_map.countryLabelsFontTMPro, typeof(Object), false);
@@ -1122,7 +1122,7 @@ namespace WorldMapStrategyKit
 							"Maximum total steps for any unit that doesn't have a specific pathFindingMaxSteps value in the GameObjectAnimator."),
 						_map.pathFindingMaxSteps);
 					_map.waterMaskLevel =
-						(byte)EditorGUILayout.IntSlider("Water Level", (byte)_map.waterMaskLevel, 0, 255);
+						(byte)EditorGUILayout.IntSlider("Water Level", _map.waterMaskLevel, 0, 255);
 					_map.pathFindingVisualizeMatrixCost = EditorGUILayout.Toggle("Show Matrix Cost",
 						_map.pathFindingVisualizeMatrixCost);
 				}
@@ -1202,7 +1202,7 @@ namespace WorldMapStrategyKit
 				if (GUILayout.Button("Show", GUILayout.Width(60)))
 				{
 					var path = GetGeodataFileSystemFolder();
-					if (System.IO.Directory.Exists(path))
+					if (Directory.Exists(path))
 					{
 						var obj = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
 						if (obj != null)
@@ -1320,7 +1320,7 @@ namespace WorldMapStrategyKit
 				isDirty.boolValue = false;
 				serializedObject.ApplyModifiedProperties();
 				EditorUtility.SetDirty(target);
-				UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+				InternalEditorUtility.RepaintAllViews();
 			}
 		}
 
@@ -1411,7 +1411,7 @@ namespace WorldMapStrategyKit
 				{
 					var pixelPos = y * width + x;
 					var denom = gaussian[0];
-					var sum = new float[]
+					var sum = new[]
 					{
 						colors[pixelPos].g * denom,
 						colors[pixelPos].b * denom,
@@ -1579,8 +1579,7 @@ namespace WorldMapStrategyKit
 				return EditorUtility.DisplayCancelableProgressBar("Operation in progress",
 					"Generating water motion vectors..." + (text.Length > 0 ? " (" + text + ")" : ""),
 					progress);
-			else
-				EditorUtility.ClearProgressBar();
+			EditorUtility.ClearProgressBar();
 			return false;
 		}
 
@@ -1588,7 +1587,7 @@ namespace WorldMapStrategyKit
 		{
 			// Writes back the generated motion vectors into the texture
 			var path = AssetDatabase.GetAssetPath(terrestrialTex);
-			System.IO.File.WriteAllBytes(path, terrestrialTex.EncodeToPNG());
+			File.WriteAllBytes(path, terrestrialTex.EncodeToPNG());
 			AssetDatabase.Refresh();
 
 			if (cancelled)

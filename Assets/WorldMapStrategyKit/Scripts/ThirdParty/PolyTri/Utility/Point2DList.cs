@@ -151,7 +151,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			var builder = new StringBuilder();
 			for (var i = 0; i < Count; i++)
 			{
-				builder.Append(this[i].ToString());
+				builder.Append(this[i]);
 				if (i < Count - 1)
 					builder.Append(" ");
 			}
@@ -292,7 +292,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 			var area = GetSignedArea();
 			if (area < 0.0)
 				return WindingOrderType.CW;
-			else if (area > 0.0)
+			if (area > 0.0)
 				return WindingOrderType.CCW;
 
 			// error condition - not even verts to calculate, non-simple poly, etc.
@@ -834,7 +834,7 @@ namespace WorldMapStrategyKit.Poly2Tri
 
 				if (currIndex >= newNVertices)
 					throw new Exception("Point2DList::MergeParallelEdges - currIndex[ " +
-					                    currIndex.ToString() +
+					                    currIndex +
 					                    "] >= newNVertices[" +
 					                    newNVertices +
 					                    "]");

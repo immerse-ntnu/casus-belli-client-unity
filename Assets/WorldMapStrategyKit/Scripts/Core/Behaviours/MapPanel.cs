@@ -1,10 +1,9 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace WorldMapStrategyKit
 {
@@ -38,7 +37,7 @@ namespace WorldMapStrategyKit
 			panelGO.AddComponent<CanvasRenderer>();
 
 			var mapPanel = panelGO.AddComponent<MapPanel>();
-			mapPanel.material = Instantiate<Material>(mapPanel.material);
+			mapPanel.material = Instantiate(mapPanel.material);
 			mapPanel.material.name = "MapPanel Material";
 
 			panelGO.transform.SetParent(parent.transform, false);

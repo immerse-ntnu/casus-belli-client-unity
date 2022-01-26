@@ -90,7 +90,7 @@ namespace WorldMapStrategyKit.ClipperLib
 			X = ip.X;
 			Y = ip.Y;
 		}
-	};
+	}
 
 	//------------------------------------------------------------------------------
 	// PolyTree & PolyNode classes
@@ -115,8 +115,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (m_Childs.Count > 0)
 				return m_Childs[0];
-			else
-				return null;
+			return null;
 		}
 
 		public int Total
@@ -169,18 +168,16 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (m_Childs.Count > 0)
 				return m_Childs[0];
-			else
-				return GetNextSiblingUp();
+			return GetNextSiblingUp();
 		}
 
 		internal PolyNode GetNextSiblingUp()
 		{
 			if (m_Parent == null)
 				return null;
-			else if (m_Index == m_Parent.m_Childs.Count - 1)
+			if (m_Index == m_Parent.m_Childs.Count - 1)
 				return m_Parent.GetNextSiblingUp();
-			else
-				return m_Parent.m_Childs[m_Index + 1];
+			return m_Parent.m_Childs[m_Index + 1];
 		}
 
 		public List<PolyNode> Childs => m_Childs;
@@ -232,7 +229,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if ((object)val1 == (object)val2)
 				return true;
-			else if ((object)val1 == null || (object)val2 == null)
+			if ((object)val1 == null || (object)val2 == null)
 				return false;
 			return val1.hi == val2.hi && val1.lo == val2.lo;
 		}
@@ -253,16 +250,14 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (val1.hi != val2.hi)
 				return val1.hi > val2.hi;
-			else
-				return val1.lo > val2.lo;
+			return val1.lo > val2.lo;
 		}
 
 		public static bool operator <(Int128 val1, Int128 val2)
 		{
 			if (val1.hi != val2.hi)
 				return val1.hi < val2.hi;
-			else
-				return val1.lo < val2.lo;
+			return val1.lo < val2.lo;
 		}
 
 		public static Int128 operator +(Int128 lhs, Int128 rhs)
@@ -280,8 +275,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (val.lo == 0)
 				return new Int128(-val.hi, 0);
-			else
-				return new Int128(~val.hi, ~val.lo + 1);
+			return new Int128(~val.hi, ~val.lo + 1);
 		}
 
 		public static explicit operator double(Int128 val)
@@ -290,12 +284,10 @@ namespace WorldMapStrategyKit.ClipperLib
 			if (val.hi < 0)
 			{
 				if (val.lo == 0)
-					return (double)val.hi * shift64;
-				else
-					return -(double)(~val.lo + ~val.hi * shift64);
+					return val.hi * shift64;
+				return -(~val.lo + ~val.hi * shift64);
 			}
-			else
-				return (double)(val.lo + val.hi * shift64);
+			return val.lo + val.hi * shift64;
 		}
 
 		//nb: Constructing two new Int128 objects every time we want to multiply longs
@@ -332,7 +324,7 @@ namespace WorldMapStrategyKit.ClipperLib
 			var result = new Int128(hi, lo);
 			return negate ? -result : result;
 		}
-	};
+	}
 
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
@@ -403,8 +395,7 @@ namespace WorldMapStrategyKit.ClipperLib
 				var a = (IntPoint)obj;
 				return X == a.X && Y == a.Y;
 			}
-			else
-				return false;
+			return false;
 		}
 
 		public override int GetHashCode() =>
@@ -443,13 +434,13 @@ namespace WorldMapStrategyKit.ClipperLib
 		ctUnion,
 		ctDifference,
 		ctXor
-	};
+	}
 
 	public enum PolyType
 	{
 		ptSubject,
 		ptClip
-	};
+	}
 
 	//By far the most widely used winding rules for polygon filling are
 	//EvenOdd & NonZero (GDI, GDI+, XLib, OpenGL, Cairo, AGG, Quartz, SVG, Gr32)
@@ -461,14 +452,14 @@ namespace WorldMapStrategyKit.ClipperLib
 		pftNonZero,
 		pftPositive,
 		pftNegative
-	};
+	}
 
 	public enum JoinType
 	{
 		jtSquare,
 		jtRound,
 		jtMiter
-	};
+	}
 
 	public enum EndType
 	{
@@ -477,19 +468,19 @@ namespace WorldMapStrategyKit.ClipperLib
 		etOpenButt,
 		etOpenSquare,
 		etOpenRound
-	};
+	}
 
 	internal enum EdgeSide
 	{
 		esLeft,
 		esRight
-	};
+	}
 
 	internal enum Direction
 	{
 		dRightToLeft,
 		dLeftToRight
-	};
+	}
 
 	internal class TEdge
 	{
@@ -522,14 +513,14 @@ namespace WorldMapStrategyKit.ClipperLib
 		internal TEdge PrevInAEL;
 		internal TEdge NextInSEL;
 		internal TEdge PrevInSEL;
-	};
+	}
 
 	public class IntersectNode
 	{
 		internal TEdge Edge1;
 		internal TEdge Edge2;
 		internal IntPoint Pt;
-	};
+	}
 
 	public class MyIntersectNodeSort : IComparer<IntersectNode>
 	{
@@ -538,10 +529,9 @@ namespace WorldMapStrategyKit.ClipperLib
 			var i = node2.Pt.Y - node1.Pt.Y;
 			if (i > 0)
 				return 1;
-			else if (i < 0)
+			if (i < 0)
 				return -1;
-			else
-				return 0;
+			return 0;
 		}
 	}
 
@@ -551,20 +541,20 @@ namespace WorldMapStrategyKit.ClipperLib
 		internal TEdge LeftBound;
 		internal TEdge RightBound;
 		internal LocalMinima Next;
-	};
+	}
 
 	internal class Scanbeam
 	{
 		internal long Y;
 		internal Scanbeam Next;
-	};
+	}
 
 	internal class Maxima
 	{
 		internal long X;
 		internal Maxima Next;
 		internal Maxima Prev;
-	};
+	}
 
 	//OutRec: contains a path in the clipping solution. Edges in the AEL will
 	//carry a pointer to an OutRec when they are part of the clipping solution.
@@ -580,7 +570,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		internal OutPt Pts;
 		internal OutPt BottomPt;
 		internal PolyNode PolyNode;
-	};
+	}
 
 	internal class OutPt
 	{
@@ -588,14 +578,14 @@ namespace WorldMapStrategyKit.ClipperLib
 		internal IntPoint Pt;
 		internal OutPt Next;
 		internal OutPt Prev;
-	};
+	}
 
 	internal class Join
 	{
 		internal OutPt OutPt1;
 		internal OutPt OutPt2;
 		internal IntPoint OffPt;
-	};
+	}
 
 	public class ClipperBase
 	{
@@ -663,13 +653,12 @@ namespace WorldMapStrategyKit.ClipperLib
 				       pt.Y > linePt1.Y == pt.Y < linePt2.Y &&
 				       Int128.Int128Mul(pt.X - linePt1.X, linePt2.Y - linePt1.Y) ==
 				       Int128.Int128Mul(linePt2.X - linePt1.X, pt.Y - linePt1.Y);
-			else
-				return pt.X == linePt1.X && pt.Y == linePt1.Y ||
-				       pt.X == linePt2.X && pt.Y == linePt2.Y ||
-				       pt.X > linePt1.X == pt.X < linePt2.X &&
-				       pt.Y > linePt1.Y == pt.Y < linePt2.Y &&
-				       (pt.X - linePt1.X) * (linePt2.Y - linePt1.Y) ==
-				       (linePt2.X - linePt1.X) * (pt.Y - linePt1.Y);
+			return pt.X == linePt1.X && pt.Y == linePt1.Y ||
+			       pt.X == linePt2.X && pt.Y == linePt2.Y ||
+			       pt.X > linePt1.X == pt.X < linePt2.X &&
+			       pt.Y > linePt1.Y == pt.Y < linePt2.Y &&
+			       (pt.X - linePt1.X) * (linePt2.Y - linePt1.Y) ==
+			       (linePt2.X - linePt1.X) * (pt.Y - linePt1.Y);
 		}
 		//------------------------------------------------------------------------------
 
@@ -693,9 +682,8 @@ namespace WorldMapStrategyKit.ClipperLib
 			if (UseFullRange)
 				return Int128.Int128Mul(e1.Delta.Y, e2.Delta.X) ==
 				       Int128.Int128Mul(e1.Delta.X, e2.Delta.Y);
-			else
-				return (long)e1.Delta.Y * e2.Delta.X ==
-				       (long)e1.Delta.X * e2.Delta.Y;
+			return e1.Delta.Y * e2.Delta.X ==
+			       e1.Delta.X * e2.Delta.Y;
 		}
 		//------------------------------------------------------------------------------
 
@@ -705,9 +693,8 @@ namespace WorldMapStrategyKit.ClipperLib
 			if (UseFullRange)
 				return Int128.Int128Mul(pt1.Y - pt2.Y, pt2.X - pt3.X) ==
 				       Int128.Int128Mul(pt1.X - pt2.X, pt2.Y - pt3.Y);
-			else
-				return
-					(long)(pt1.Y - pt2.Y) * (pt2.X - pt3.X) - (long)(pt1.X - pt2.X) * (pt2.Y - pt3.Y) == 0;
+			return
+				(pt1.Y - pt2.Y) * (pt2.X - pt3.X) - (pt1.X - pt2.X) * (pt2.Y - pt3.Y) == 0;
 		}
 		//------------------------------------------------------------------------------
 
@@ -717,9 +704,8 @@ namespace WorldMapStrategyKit.ClipperLib
 			if (UseFullRange)
 				return Int128.Int128Mul(pt1.Y - pt2.Y, pt3.X - pt4.X) ==
 				       Int128.Int128Mul(pt1.X - pt2.X, pt3.Y - pt4.Y);
-			else
-				return
-					(long)(pt1.Y - pt2.Y) * (pt3.X - pt4.X) - (long)(pt1.X - pt2.X) * (pt3.Y - pt4.Y) == 0;
+			return
+				(pt1.Y - pt2.Y) * (pt3.X - pt4.X) - (pt1.X - pt2.X) * (pt3.Y - pt4.Y) == 0;
 		}
 		//------------------------------------------------------------------------------
 
@@ -961,7 +947,7 @@ namespace WorldMapStrategyKit.ClipperLib
         throw new ClipperException("AddPath: Open paths have been disabled.");
 #endif
 
-			var highI = (int)pg.Count - 1;
+			var highI = pg.Count - 1;
 			if (Closed)
 				while (highI > 0 && pg[highI] == pg[0])
 					--highI;
@@ -1007,10 +993,10 @@ namespace WorldMapStrategyKit.ClipperLib
 				}
 				if (E.Prev == E.Next)
 					break; //only two vertices
-				else if (Closed &&
-				         SlopesEqual(E.Prev.Curr, E.Curr, E.Next.Curr, m_UseFullRange) &&
-				         (!PreserveCollinear ||
-				          !Pt2IsBetweenPt1AndPt3(E.Prev.Curr, E.Curr, E.Next.Curr)))
+				if (Closed &&
+				    SlopesEqual(E.Prev.Curr, E.Curr, E.Next.Curr, m_UseFullRange) &&
+				    (!PreserveCollinear ||
+				     !Pt2IsBetweenPt1AndPt3(E.Prev.Curr, E.Curr, E.Next.Curr)))
 				{
 					//Collinear edges are allowed for open paths but in closed paths
 					//the default is to merge adjacent collinear edges into a single edge.
@@ -1091,7 +1077,7 @@ namespace WorldMapStrategyKit.ClipperLib
 				E = FindNextLocMin(E);
 				if (E == EMin)
 					break;
-				else if (EMin == null)
+				if (EMin == null)
 					EMin = E;
 
 				//E and E.Prev now share a local minima (left aligned if horizontal).
@@ -1156,10 +1142,9 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (pt1 == pt3 || pt1 == pt2 || pt3 == pt2)
 				return false;
-			else if (pt1.X != pt3.X)
+			if (pt1.X != pt3.X)
 				return pt2.X > pt1.X == pt2.X < pt3.X;
-			else
-				return pt2.Y > pt1.Y == pt2.Y < pt3.Y;
+			return pt2.Y > pt1.Y == pt2.Y < pt3.Y;
 		}
 		//------------------------------------------------------------------------------
 
@@ -1485,7 +1470,7 @@ namespace WorldMapStrategyKit.ClipperLib
         IntPoint bot2, IntPoint top2, ref IntPoint pt);
       public ZFillCallback ZFillFunction { get; set; }
 #endif
-		public Clipper(int InitOptions = 0) : base()
+		public Clipper(int InitOptions = 0)
 		{
 			//constructor
 			m_Scanbeam = null;
@@ -1869,11 +1854,9 @@ namespace WorldMapStrategyKit.ClipperLib
 			{
 				if (e2.Top.Y > e1.Top.Y)
 					return e2.Top.X < TopX(e1, e2.Top.Y);
-				else
-					return e1.Top.X > TopX(e2, e1.Top.Y);
+				return e1.Top.X > TopX(e2, e1.Top.Y);
 			}
-			else
-				return e2.Curr.X < e1.Curr.X;
+			return e2.Curr.X < e1.Curr.X;
 		}
 		//------------------------------------------------------------------------------
 
@@ -1881,8 +1864,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (edge.PolyTyp == PolyType.ptSubject)
 				return m_SubjFillType == PolyFillType.pftEvenOdd;
-			else
-				return m_ClipFillType == PolyFillType.pftEvenOdd;
+			return m_ClipFillType == PolyFillType.pftEvenOdd;
 		}
 		//------------------------------------------------------------------------------
 
@@ -1890,8 +1872,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (edge.PolyTyp == PolyType.ptSubject)
 				return m_ClipFillType == PolyFillType.pftEvenOdd;
-			else
-				return m_SubjFillType == PolyFillType.pftEvenOdd;
+			return m_SubjFillType == PolyFillType.pftEvenOdd;
 		}
 		//------------------------------------------------------------------------------
 
@@ -2292,7 +2273,7 @@ namespace WorldMapStrategyKit.ClipperLib
 				var ToFront = e.Side == EdgeSide.esLeft;
 				if (ToFront && pt == op.Pt)
 					return op;
-				else if (!ToFront && pt == op.Prev.Pt)
+				if (!ToFront && pt == op.Prev.Pt)
 					return op.Prev;
 
 				var newOp = new OutPt();
@@ -2314,8 +2295,7 @@ namespace WorldMapStrategyKit.ClipperLib
 			var outRec = m_PolyOuts[e.OutIdx];
 			if (e.Side == EdgeSide.esLeft)
 				return outRec.Pts;
-			else
-				return outRec.Pts.Prev;
+			return outRec.Pts.Prev;
 		}
 		//------------------------------------------------------------------------------
 
@@ -2370,8 +2350,7 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (pt1.Y == pt2.Y)
 				return horizontal;
-			else
-				return (double)(pt2.X - pt1.X) / (pt2.Y - pt1.Y);
+			return (double)(pt2.X - pt1.X) / (pt2.Y - pt1.Y);
 		}
 		//---------------------------------------------------------------------------
 
@@ -2398,8 +2377,7 @@ namespace WorldMapStrategyKit.ClipperLib
 			if (Math.Max(dx1p, dx1n) == Math.Max(dx2p, dx2n) &&
 			    Math.Min(dx1p, dx1n) == Math.Min(dx2p, dx2n))
 				return Area(btmPt1) > 0; //if otherwise identical use orientation
-			else
-				return dx1p >= dx2p && dx1p >= dx2n || dx1n >= dx2p && dx1n >= dx2n;
+			return dx1p >= dx2p && dx1p >= dx2n || dx1n >= dx2p && dx1n >= dx2n;
 		}
 		//------------------------------------------------------------------------------
 
@@ -2453,17 +2431,17 @@ namespace WorldMapStrategyKit.ClipperLib
 			var bPt2 = outRec2.BottomPt;
 			if (bPt1.Pt.Y > bPt2.Pt.Y)
 				return outRec1;
-			else if (bPt1.Pt.Y < bPt2.Pt.Y)
+			if (bPt1.Pt.Y < bPt2.Pt.Y)
 				return outRec2;
-			else if (bPt1.Pt.X < bPt2.Pt.X)
+			if (bPt1.Pt.X < bPt2.Pt.X)
 				return outRec1;
-			else if (bPt1.Pt.X > bPt2.Pt.X)
+			if (bPt1.Pt.X > bPt2.Pt.X)
 				return outRec2;
-			else if (bPt1.Next == bPt1)
+			if (bPt1.Next == bPt1)
 				return outRec2;
-			else if (bPt2.Next == bPt2)
+			if (bPt2.Next == bPt2)
 				return outRec1;
-			else if (FirstIsBottomPt(bPt1, bPt2))
+			if (FirstIsBottomPt(bPt1, bPt2))
 				return outRec1;
 			else
 				return outRec2;
@@ -2642,9 +2620,9 @@ namespace WorldMapStrategyKit.ClipperLib
 				if (e1.WindDelta == 0 && e2.WindDelta == 0)
 					return;
 				//if intersecting a subj line with a subj poly ...
-				else if (e1.PolyTyp == e2.PolyTyp &&
-				         e1.WindDelta != e2.WindDelta &&
-				         m_ClipType == ClipType.ctUnion)
+				if (e1.PolyTyp == e2.PolyTyp &&
+				    e1.WindDelta != e2.WindDelta &&
+				    m_ClipType == ClipType.ctUnion)
 				{
 					if (e1.WindDelta == 0)
 					{
@@ -3118,10 +3096,9 @@ namespace WorldMapStrategyKit.ClipperLib
 		{
 			if (e.Next.Top == e.Top && e.Next.NextInLML == null)
 				return e.Next;
-			else if (e.Prev.Top == e.Top && e.Prev.NextInLML == null)
+			if (e.Prev.Top == e.Top && e.Prev.NextInLML == null)
 				return e.Prev;
-			else
-				return null;
+			return null;
 		}
 		//------------------------------------------------------------------------------
 
@@ -3608,7 +3585,7 @@ namespace WorldMapStrategyKit.ClipperLib
 				var outRec = m_PolyOuts[i];
 				if (outRec.PolyNode == null)
 					continue;
-				else if (outRec.IsOpen)
+				if (outRec.IsOpen)
 				{
 					outRec.PolyNode.IsOpen = true;
 					polytree.AddChild(outRec.PolyNode);
@@ -3879,20 +3856,17 @@ namespace WorldMapStrategyKit.ClipperLib
 					j.OutPt2 = op1b;
 					return true;
 				}
-				else
-				{
-					op1b = DupOutPt(op1, true);
-					op2b = DupOutPt(op2, false);
-					op1.Next = op2;
-					op2.Prev = op1;
-					op1b.Prev = op2b;
-					op2b.Next = op1b;
-					j.OutPt1 = op1;
-					j.OutPt2 = op1b;
-					return true;
-				}
+				op1b = DupOutPt(op1, true);
+				op2b = DupOutPt(op2, false);
+				op1.Next = op2;
+				op2.Prev = op1;
+				op1b.Prev = op2b;
+				op2b.Next = op1b;
+				j.OutPt1 = op1;
+				j.OutPt2 = op1b;
+				return true;
 			}
-			else if (isHorizontal)
+			if (isHorizontal)
 			{
 				//treat horizontal joins differently to non-horizontal joins since with
 				//them we're not yet sure where the overlapping is. OutPt1.Pt & OutPt2.Pt
@@ -3947,74 +3921,68 @@ namespace WorldMapStrategyKit.ClipperLib
 				j.OutPt2 = op2;
 				return JoinHorz(op1, op1b, op2, op2b, Pt, DiscardLeftSide);
 			}
-			else
+			//nb: For non-horizontal joins ...
+			//    1. Jr.OutPt1.Pt.Y == Jr.OutPt2.Pt.Y
+			//    2. Jr.OutPt1.Pt > Jr.OffPt.Y
+
+			//make sure the polygons are correctly oriented ...
+			op1b = op1.Next;
+			while (op1b.Pt == op1.Pt && op1b != op1)
+				op1b = op1b.Next;
+			var Reverse1 = op1b.Pt.Y > op1.Pt.Y ||
+			               !SlopesEqual(op1.Pt, op1b.Pt, j.OffPt, m_UseFullRange);
+			if (Reverse1)
 			{
-				//nb: For non-horizontal joins ...
-				//    1. Jr.OutPt1.Pt.Y == Jr.OutPt2.Pt.Y
-				//    2. Jr.OutPt1.Pt > Jr.OffPt.Y
-
-				//make sure the polygons are correctly oriented ...
-				op1b = op1.Next;
+				op1b = op1.Prev;
 				while (op1b.Pt == op1.Pt && op1b != op1)
-					op1b = op1b.Next;
-				var Reverse1 = op1b.Pt.Y > op1.Pt.Y ||
-				               !SlopesEqual(op1.Pt, op1b.Pt, j.OffPt, m_UseFullRange);
-				if (Reverse1)
-				{
-					op1b = op1.Prev;
-					while (op1b.Pt == op1.Pt && op1b != op1)
-						op1b = op1b.Prev;
-					if (op1b.Pt.Y > op1.Pt.Y ||
-					    !SlopesEqual(op1.Pt, op1b.Pt, j.OffPt, m_UseFullRange))
-						return false;
-				}
-				;
-				op2b = op2.Next;
-				while (op2b.Pt == op2.Pt && op2b != op2)
-					op2b = op2b.Next;
-				var Reverse2 = op2b.Pt.Y > op2.Pt.Y ||
-				               !SlopesEqual(op2.Pt, op2b.Pt, j.OffPt, m_UseFullRange);
-				if (Reverse2)
-				{
-					op2b = op2.Prev;
-					while (op2b.Pt == op2.Pt && op2b != op2)
-						op2b = op2b.Prev;
-					if (op2b.Pt.Y > op2.Pt.Y ||
-					    !SlopesEqual(op2.Pt, op2b.Pt, j.OffPt, m_UseFullRange))
-						return false;
-				}
-
-				if (op1b == op1 ||
-				    op2b == op2 ||
-				    op1b == op2b ||
-				    outRec1 == outRec2 && Reverse1 == Reverse2)
+					op1b = op1b.Prev;
+				if (op1b.Pt.Y > op1.Pt.Y ||
+				    !SlopesEqual(op1.Pt, op1b.Pt, j.OffPt, m_UseFullRange))
 					return false;
-
-				if (Reverse1)
-				{
-					op1b = DupOutPt(op1, false);
-					op2b = DupOutPt(op2, true);
-					op1.Prev = op2;
-					op2.Next = op1;
-					op1b.Next = op2b;
-					op2b.Prev = op1b;
-					j.OutPt1 = op1;
-					j.OutPt2 = op1b;
-					return true;
-				}
-				else
-				{
-					op1b = DupOutPt(op1, true);
-					op2b = DupOutPt(op2, false);
-					op1.Next = op2;
-					op2.Prev = op1;
-					op1b.Prev = op2b;
-					op2b.Next = op1b;
-					j.OutPt1 = op1;
-					j.OutPt2 = op1b;
-					return true;
-				}
 			}
+			;
+			op2b = op2.Next;
+			while (op2b.Pt == op2.Pt && op2b != op2)
+				op2b = op2b.Next;
+			var Reverse2 = op2b.Pt.Y > op2.Pt.Y ||
+			               !SlopesEqual(op2.Pt, op2b.Pt, j.OffPt, m_UseFullRange);
+			if (Reverse2)
+			{
+				op2b = op2.Prev;
+				while (op2b.Pt == op2.Pt && op2b != op2)
+					op2b = op2b.Prev;
+				if (op2b.Pt.Y > op2.Pt.Y ||
+				    !SlopesEqual(op2.Pt, op2b.Pt, j.OffPt, m_UseFullRange))
+					return false;
+			}
+
+			if (op1b == op1 ||
+			    op2b == op2 ||
+			    op1b == op2b ||
+			    outRec1 == outRec2 && Reverse1 == Reverse2)
+				return false;
+
+			if (Reverse1)
+			{
+				op1b = DupOutPt(op1, false);
+				op2b = DupOutPt(op2, true);
+				op1.Prev = op2;
+				op2.Next = op1;
+				op1b.Next = op2b;
+				op2b.Prev = op1b;
+				j.OutPt1 = op1;
+				j.OutPt2 = op1b;
+				return true;
+			}
+			op1b = DupOutPt(op1, true);
+			op2b = DupOutPt(op2, false);
+			op1.Next = op2;
+			op2.Prev = op1;
+			op1b.Prev = op2b;
+			op2b.Next = op1b;
+			j.OutPt1 = op1;
+			j.OutPt2 = op1b;
+			return true;
 		}
 		//----------------------------------------------------------------------
 
@@ -4047,7 +4015,7 @@ namespace WorldMapStrategyKit.ClipperLib
 							        (double)(ipNext.X - pt.X) * (ip.Y - pt.Y);
 							if (d == 0)
 								return -1;
-							else if (d > 0 == ipNext.Y > ip.Y)
+							if (d > 0 == ipNext.Y > ip.Y)
 								result = 1 - result;
 						}
 					}
@@ -4059,7 +4027,7 @@ namespace WorldMapStrategyKit.ClipperLib
 							        (double)(ipNext.X - pt.X) * (ip.Y - pt.Y);
 							if (d == 0)
 								return -1;
-							else if (d > 0 == ipNext.Y > ip.Y)
+							if (d > 0 == ipNext.Y > ip.Y)
 								result = 1 - result;
 						}
 					}
@@ -4373,7 +4341,7 @@ namespace WorldMapStrategyKit.ClipperLib
 
 		public static double Area(Path poly)
 		{
-			var cnt = (int)poly.Count;
+			var cnt = poly.Count;
 			if (cnt < 3)
 				return 0;
 			double a = 0;
@@ -4397,7 +4365,7 @@ namespace WorldMapStrategyKit.ClipperLib
 			double a = 0;
 			do
 			{
-				a = a + (double)(op.Prev.Pt.X + op.Pt.X) * (double)(op.Prev.Pt.Y - op.Pt.Y);
+				a = a + (op.Prev.Pt.X + op.Pt.X) * (double)(op.Prev.Pt.Y - op.Pt.Y);
 				op = op.Next;
 			} while (op != opFirst);
 			return a * 0.5;
@@ -4466,20 +4434,15 @@ namespace WorldMapStrategyKit.ClipperLib
 			{
 				if (pt1.X > pt2.X == pt1.X < pt3.X)
 					return DistanceFromLineSqrd(pt1, pt2, pt3) < distSqrd;
-				else if (pt2.X > pt1.X == pt2.X < pt3.X)
+				if (pt2.X > pt1.X == pt2.X < pt3.X)
 					return DistanceFromLineSqrd(pt2, pt1, pt3) < distSqrd;
-				else
-					return DistanceFromLineSqrd(pt3, pt1, pt2) < distSqrd;
+				return DistanceFromLineSqrd(pt3, pt1, pt2) < distSqrd;
 			}
-			else
-			{
-				if (pt1.Y > pt2.Y == pt1.Y < pt3.Y)
-					return DistanceFromLineSqrd(pt1, pt2, pt3) < distSqrd;
-				else if (pt2.Y > pt1.Y == pt2.Y < pt3.Y)
-					return DistanceFromLineSqrd(pt2, pt1, pt3) < distSqrd;
-				else
-					return DistanceFromLineSqrd(pt3, pt1, pt2) < distSqrd;
-			}
+			if (pt1.Y > pt2.Y == pt1.Y < pt3.Y)
+				return DistanceFromLineSqrd(pt1, pt2, pt3) < distSqrd;
+			if (pt2.Y > pt1.Y == pt2.Y < pt3.Y)
+				return DistanceFromLineSqrd(pt2, pt1, pt3) < distSqrd;
+			return DistanceFromLineSqrd(pt3, pt1, pt2) < distSqrd;
 		}
 		//------------------------------------------------------------------------------
 
@@ -4666,7 +4629,7 @@ namespace WorldMapStrategyKit.ClipperLib
 			ntAny,
 			ntOpen,
 			ntClosed
-		};
+		}
 
 		public static Paths PolyTreeToPaths(PolyTree polytree)
 		{
@@ -4686,8 +4649,6 @@ namespace WorldMapStrategyKit.ClipperLib
 					return;
 				case NodeType.ntClosed:
 					match = !polynode.IsOpen;
-					break;
-				default:
 					break;
 			}
 
@@ -4987,15 +4948,15 @@ namespace WorldMapStrategyKit.ClipperLib
 					if (node.m_endtype == EndType.etOpenButt)
 					{
 						var j = len - 1;
-						pt1 = new IntPoint((long)Round(m_srcPoly[j].X +
-						                               m_normals[j].X *
-						                               delta),
-							(long)Round(m_srcPoly[j].Y + m_normals[j].Y * delta));
+						pt1 = new IntPoint(Round(m_srcPoly[j].X +
+						                         m_normals[j].X *
+						                         delta),
+							Round(m_srcPoly[j].Y + m_normals[j].Y * delta));
 						m_destPoly.Add(pt1);
-						pt1 = new IntPoint((long)Round(m_srcPoly[j].X -
-						                               m_normals[j].X *
-						                               delta),
-							(long)Round(m_srcPoly[j].Y - m_normals[j].Y * delta));
+						pt1 = new IntPoint(Round(m_srcPoly[j].X -
+						                         m_normals[j].X *
+						                         delta),
+							Round(m_srcPoly[j].Y - m_normals[j].Y * delta));
 						m_destPoly.Add(pt1);
 					}
 					else
@@ -5022,11 +4983,11 @@ namespace WorldMapStrategyKit.ClipperLib
 
 					if (node.m_endtype == EndType.etOpenButt)
 					{
-						pt1 = new IntPoint((long)Round(m_srcPoly[0].X - m_normals[0].X * delta),
-							(long)Round(m_srcPoly[0].Y - m_normals[0].Y * delta));
+						pt1 = new IntPoint(Round(m_srcPoly[0].X - m_normals[0].X * delta),
+							Round(m_srcPoly[0].Y - m_normals[0].Y * delta));
 						m_destPoly.Add(pt1);
-						pt1 = new IntPoint((long)Round(m_srcPoly[0].X + m_normals[0].X * delta),
-							(long)Round(m_srcPoly[0].Y + m_normals[0].Y * delta));
+						pt1 = new IntPoint(Round(m_srcPoly[0].X + m_normals[0].X * delta),
+							Round(m_srcPoly[0].Y + m_normals[0].Y * delta));
 						m_destPoly.Add(pt1);
 					}
 					else

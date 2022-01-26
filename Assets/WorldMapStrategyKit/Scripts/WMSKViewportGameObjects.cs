@@ -2,9 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -111,7 +111,7 @@ namespace WorldMapStrategyKit
 		/// </summary>
 		[NonSerialized] public GameObjectAnimator VGOLastHighlighted;
 
-		private int lastUniqueIdUsed = 0;
+		private int lastUniqueIdUsed;
 
 		/// <summary>
 		/// Registers the game object in the viewport collection. It's position will be monitored by the viewport updates.

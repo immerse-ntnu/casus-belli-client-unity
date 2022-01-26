@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace WorldMapStrategyKit.MapGenerator.Geom
 {
@@ -119,7 +119,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 				var d1 = Point.Lerp(start, end, (double)d / divisions);
 				if (!border)
 				{
-					t += (UnityEngine.Random.value - 0.5f) * edgeNoise;
+					t += (Random.value - 0.5f) * edgeNoise;
 					if (t < 0)
 						t = 0;
 					else if (t > 0.9f)
@@ -135,7 +135,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 		}
 
 		public override string ToString() =>
-			string.Format("start:" + start.ToString() + ", end:" + end.ToString());
+			string.Format("start:" + start + ", end:" + end);
 
 		public void CropBottom()
 		{

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace WorldMapStrategyKit
 {
@@ -10,7 +9,7 @@ namespace WorldMapStrategyKit
 		COUNTRY_CAPITAL = 4
 	}
 
-	public partial class City : IExtendableAttribute
+	public class City : IExtendableAttribute
 	{
 		/// <summary>
 		/// An unique identifier useful to persist data between sessions. Used by serialization.

@@ -13,10 +13,8 @@ But when switching to Viewport Mode the main camera is "released" so we repositi
 We use a simple plane with a Standard Fade Shader to smooth transition from one view to the other.
 */
 
-using UnityEngine;
-using System.Text;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -60,7 +58,7 @@ namespace WorldMapStrategyKit
 
 			// Start movement
 			tank.MoveTo(beijingLocation, 0.1f);
-			tank.OnMoveEnd += (anim) => SwitchDestination();
+			tank.OnMoveEnd += anim => SwitchDestination();
 		}
 
 		private void SwitchDestination()

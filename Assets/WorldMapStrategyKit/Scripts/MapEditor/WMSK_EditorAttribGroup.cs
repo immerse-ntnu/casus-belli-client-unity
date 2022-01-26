@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace WorldMapStrategyKit
+﻿namespace WorldMapStrategyKit
 {
 	public class WMSK_EditorAttribGroup
 	{

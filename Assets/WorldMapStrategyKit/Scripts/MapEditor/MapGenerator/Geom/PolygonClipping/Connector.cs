@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace WorldMapStrategyKit.MapGenerator.Geom
 {
@@ -161,7 +159,7 @@ namespace WorldMapStrategyKit.MapGenerator.Geom
 					var p = r.points[i];
 					if (p.y > ymin)
 						continue;
-					else if (p.y == ymin) // just as low
+					if (p.y == ymin) // just as low
 						if (p.x < xmin) // and to left
 							continue;
 					rmin = i; // a new rightmost lowest vertex

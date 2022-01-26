@@ -11,9 +11,9 @@
 //
 //  Heavily modified by Ramiro Oliva to make it compatible with entity routes (Country to Country or Province to Province)
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.PathFinding
 {
@@ -22,15 +22,15 @@ namespace WorldMapStrategyKit.PathFinding
 	public class PathFinderAdminEntity
 	{
 		// Heap variables are initializated to default, but I like to do it anyway
-		private AdminEntity[] mEntities = null;
-		private PriorityQueueB<int> mOpen = null;
+		private AdminEntity[] mEntities;
+		private PriorityQueueB<int> mOpen;
 		private List<PathFinderNodeAdmin> mClose = new();
 		private float mHEstimate = 2;
 		private float mSearchLimit = 2000;
-		private PathFinderNodeAdmin[] mCalcGrid = null;
+		private PathFinderNodeAdmin[] mCalcGrid;
 		private byte mOpenNodeValue = 1;
 		private byte mCloseNodeValue = 2;
-		private OnAdminEntityCross mOnAdminEntityCross = null;
+		private OnAdminEntityCross mOnAdminEntityCross;
 
 		//Promoted local variables to member variables to avoid recreation between calls
 		private float mH;
@@ -63,7 +63,7 @@ namespace WorldMapStrategyKit.PathFinding
 			var entities = new List<int>(mCalcGrid.Length);
 			for (var k = 0; k < mCalcGrid.Length; k++)
 				if (mCalcGrid[k].Status == mOpenNodeValue)
-					entities.Add((int)mCalcGrid[k].Parent);
+					entities.Add(mCalcGrid[k].Parent);
 			return entities;
 		}
 
@@ -207,7 +207,7 @@ namespace WorldMapStrategyKit.PathFinding
 			{
 				if (mMatrix[a].F > mMatrix[b].F)
 					return 1;
-				else if (mMatrix[a].F < mMatrix[b].F)
+				if (mMatrix[a].F < mMatrix[b].F)
 					return -1;
 				return 0;
 			}

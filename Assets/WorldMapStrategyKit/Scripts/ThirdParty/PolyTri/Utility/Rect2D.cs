@@ -179,10 +179,10 @@ namespace WorldMapStrategyKit.Poly2Tri
 		public void Normalize()
 		{
 			if (Left > Right)
-				MathUtil.Swap<double>(ref mMinX, ref mMaxX);
+				MathUtil.Swap(ref mMinX, ref mMaxX);
 
 			if (Bottom < Top)
-				MathUtil.Swap<double>(ref mMinY, ref mMaxY);
+				MathUtil.Swap(ref mMinY, ref mMaxY);
 		}
 
 		public void AddPoint(Point2D p)

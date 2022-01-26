@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace WorldMapStrategyKit
 {
@@ -10,7 +7,7 @@ namespace WorldMapStrategyKit
 		private WMSK map;
 		private GUIStyle labelStyle, labelStyleShadow, buttonStyle, sliderStyle, sliderThumbStyle;
 
-		private float timeOfDay = 0.0f; // in hours (0-23.99)
+		private float timeOfDay; // in hours (0-23.99)
 
 		private void Start()
 		{

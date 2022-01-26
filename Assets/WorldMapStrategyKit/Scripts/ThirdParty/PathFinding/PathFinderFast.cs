@@ -11,9 +11,9 @@
 //
 //  Some modifications by Kronnect Games to reuse grid buffers between calls and to allow different grid configurations in same grid array (uses bitwise differentiator)
 
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit.PathFinding
 {
@@ -40,18 +40,18 @@ namespace WorldMapStrategyKit.PathFinding
 
 		//Promoted local variables to member variables to avoid recreation between calls
 		private float mH;
-		private int mLocation = 0;
-		private int mNewLocation = 0;
-		private ushort mLocationX = 0;
-		private ushort mLocationY = 0;
-		private ushort mNewLocationX = 0;
-		private ushort mNewLocationY = 0;
-		private int mCloseNodeCounter = 0;
-		private ushort mGridX = 0;
-		private ushort mGridY = 0;
-		private ushort mGridXMinus1 = 0;
-		private ushort mGridYLog2 = 0;
-		private bool mFound = false;
+		private int mLocation;
+		private int mNewLocation;
+		private ushort mLocationX;
+		private ushort mLocationY;
+		private ushort mNewLocationX;
+		private ushort mNewLocationY;
+		private int mCloseNodeCounter;
+		private ushort mGridX;
+		private ushort mGridY;
+		private ushort mGridXMinus1;
+		private ushort mGridYLog2;
+		private bool mFound;
 
 		private sbyte[,] mDirection = new sbyte[8, 2]
 		{
@@ -77,7 +77,7 @@ namespace WorldMapStrategyKit.PathFinding
 			}
 		};
 
-		private int mEndLocation = 0;
+		private int mEndLocation;
 		private float mNewG;
 
 		public PathFinderFast(byte[] grid, byte gridBit, int gridWidth, int gridHeight,
@@ -251,7 +251,7 @@ namespace WorldMapStrategyKit.PathFinding
 							customValue = OnCellCross(mNewLocation);
 						if (customValue == 0)
 							continue;
-						else if (customValue < 0)
+						if (customValue < 0)
 							customValue = 0;
 						gridValue += customValue;
 					}
@@ -360,7 +360,7 @@ namespace WorldMapStrategyKit.PathFinding
 			{
 				if (mMatrix[a].F > mMatrix[b].F)
 					return 1;
-				else if (mMatrix[a].F < mMatrix[b].F)
+				if (mMatrix[a].F < mMatrix[b].F)
 					return -1;
 				return 0;
 			}

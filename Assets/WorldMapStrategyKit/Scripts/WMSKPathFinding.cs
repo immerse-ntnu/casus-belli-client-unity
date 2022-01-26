@@ -2,12 +2,9 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
 using WorldMapStrategyKit.PathFinding;
 
 namespace WorldMapStrategyKit
@@ -100,7 +97,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_pathFindingVisualizeMatrixCost = false;
+			_pathFindingVisualizeMatrixCost;
 
 		/// <summary>
 		/// Switches the map texture with a texture with the matrix costs colors
@@ -344,7 +341,7 @@ namespace WorldMapStrategyKit
 									return null;
 								FastVector.NormalizedDirection(ref endPosition, ref startPosition,
 									ref direction);
-								var p = endPosition + direction * (float)k / EARTH_ROUTE_SPACE_WIDTH;
+								var p = endPosition + direction * k / EARTH_ROUTE_SPACE_WIDTH;
 								endingPoint = new Point(
 									(int)((p.x + 0.5f + 0.5f / EARTH_ROUTE_SPACE_WIDTH) *
 									      EARTH_ROUTE_SPACE_WIDTH),
@@ -443,7 +440,7 @@ namespace WorldMapStrategyKit
 		/// </summary>
 		public void PathFindingCustomRouteMatrixSet(Vector2 position, int cost)
 		{
-			PathFindingCustomRouteMatrixSet(new List<Vector2>() { position }, cost);
+			PathFindingCustomRouteMatrixSet(new List<Vector2> { position }, cost);
 		}
 
 		/// <summary>

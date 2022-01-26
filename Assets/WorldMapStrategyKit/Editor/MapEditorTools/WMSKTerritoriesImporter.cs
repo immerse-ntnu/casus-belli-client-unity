@@ -1,9 +1,8 @@
 #if !UNITY_WSA
-using UnityEngine;
-using UnityEditor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -34,13 +33,12 @@ namespace WorldMapStrategyKit
 		private bool additive;
 		private WMSK_TextureImporter ti;
 
-		private static GUIContent[] modes = new GUIContent[]
-		{
+		private static GUIContent[] modes = {
 			new("Countries"),
 			new("Provinces")
 		};
 
-		private static int[] modesValues = new int[] { 0, 1 };
+		private static int[] modesValues = { 0, 1 };
 		private DateTime lastRefreshTime;
 		private Color32 bgColor = Color.white;
 		private Rect textureRect;
@@ -92,7 +90,7 @@ namespace WorldMapStrategyKit
 			if (GUILayout.Button("Load Texture File...", GUILayout.Width(140)))
 			{
 				filePath = EditorUtility.OpenFilePanelWithFilters("Select Texture File", "",
-					new string[] { "Image files", "png,jpg,jpeg" });
+					new[] { "Image files", "png,jpg,jpeg" });
 				if (filePath.ToUpper().Contains("PROVINC"))
 					mode = TerritoriesImporterMode.Provinces;
 				ReadTexture();
@@ -215,7 +213,7 @@ namespace WorldMapStrategyKit
 							GUIUtility.ExitGUI();
 							return;
 						}
-						else if (colorPickerMode == COLOR_PICKER_MODE.GOOD_COLOR)
+						if (colorPickerMode == COLOR_PICKER_MODE.GOOD_COLOR)
 							if (!ti.IsGoodColor(color))
 							{
 								ti.AddGoodColor(color);
@@ -368,9 +366,9 @@ namespace WorldMapStrategyKit
 
 		private Color GetColor(Vector2 pixelLocation)
 		{
-			pixelLocation.x = pixelLocation.x * (float)texture.width / textureRectWidth;
+			pixelLocation.x = pixelLocation.x * texture.width / textureRectWidth;
 			pixelLocation.y = (textureRectHeight - pixelLocation.y) *
-			                  (float)texture.height /
+			                  texture.height /
 			                  textureRectHeight;
 			var colorIndex = (int)pixelLocation.y * texture.width + (int)pixelLocation.x;
 			var colors = texture.GetPixels();

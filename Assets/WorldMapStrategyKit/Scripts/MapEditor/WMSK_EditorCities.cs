@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Text;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -128,7 +126,7 @@ namespace WorldMapStrategyKit
 		{
 			if (GUICityIndex < 0 || GUICityIndex >= cityNames.Length)
 				return false;
-			var s = cityNames[GUICityIndex].Split(new char[]
+			var s = cityNames[GUICityIndex].Split(new[]
 			{
 				'(',
 				')'
@@ -290,7 +288,7 @@ namespace WorldMapStrategyKit
 			while (_map.GetCityIndex(goodName) >= 0)
 			{
 				suffix++;
-				goodName = proposedName + suffix.ToString();
+				goodName = proposedName + suffix;
 			}
 			return goodName;
 		}

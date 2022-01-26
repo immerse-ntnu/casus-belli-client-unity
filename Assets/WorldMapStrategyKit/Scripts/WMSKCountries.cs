@@ -2,14 +2,12 @@
 // (C) 2016-2020 by Ramiro Oliva (Kronnect)
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.Globalization;
+using UnityEngine;
 using WorldMapStrategyKit.ClipperLib;
+using Object = UnityEngine.Object;
 
 namespace WorldMapStrategyKit
 {
@@ -133,7 +131,7 @@ namespace WorldMapStrategyKit
 		/// Set whether all regions of active country should be highlighted.
 		/// </summary>
 		[SerializeField] private bool
-			_highlightAllCountryRegions = false;
+			_highlightAllCountryRegions;
 
 		public bool highlightAllCountryRegions
 		{
@@ -225,8 +223,7 @@ namespace WorldMapStrategyKit
 			{
 				if (hudMatCountry != null)
 					return hudMatCountry.color;
-				else
-					return _fillColor;
+				return _fillColor;
 			}
 			set
 			{
@@ -252,8 +249,7 @@ namespace WorldMapStrategyKit
 			{
 				if (frontiersMat != null)
 					return frontiersMat.color;
-				else
-					return _frontiersColor;
+				return _frontiersColor;
 			}
 			set
 			{
@@ -291,7 +287,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_thickerFrontiers = false;
+			_thickerFrontiers;
 
 		/// <summary>
 		/// Enable alternate frontiers shader.
@@ -382,8 +378,7 @@ namespace WorldMapStrategyKit
 			{
 				if (outlineMat != null)
 					return outlineMat.color;
-				else
-					return _outlineColor;
+				return _outlineColor;
 			}
 			set
 			{
@@ -506,7 +501,7 @@ namespace WorldMapStrategyKit
 		}
 
 		[SerializeField] private bool
-			_showCountryNames = false;
+			_showCountryNames;
 
 		public bool showCountryNames
 		{
@@ -823,9 +818,9 @@ namespace WorldMapStrategyKit
 			}
 		}
 
-		[SerializeField] private UnityEngine.Object _countryLabelsFontTMPro;
+		[SerializeField] private Object _countryLabelsFontTMPro;
 
-		public UnityEngine.Object countryLabelsFontTMPro
+		public Object countryLabelsFontTMPro
 		{
 			get => _countryLabelsFontTMPro;
 			set
@@ -935,8 +930,7 @@ namespace WorldMapStrategyKit
 			int countryIndex;
 			if (countryLookup != null && countryLookup.TryGetValue(countryName, out countryIndex))
 				return countryIndex;
-			else
-				return -1;
+			return -1;
 		}
 
 		/// <summary>
@@ -949,8 +943,7 @@ namespace WorldMapStrategyKit
 			    country != null &&
 			    countryLookup.TryGetValue(country.name, out countryIndex))
 				return countryIndex;
-			else
-				return -1;
+			return -1;
 		}
 
 		/// <summary>
@@ -1818,7 +1811,7 @@ namespace WorldMapStrategyKit
 			                    (countryRegionHighlightedIndex == regionIndex ||
 			                     _highlightAllCountryRegions) &&
 			                    _enableCountryHighlight &&
-			                    _countries[countryIndex].allowHighlight == true;
+			                    _countries[countryIndex].allowHighlight;
 			if (surf != null)
 			{
 				if (!surf.activeSelf)
@@ -2741,13 +2734,13 @@ namespace WorldMapStrategyKit
 
 		public void SetCountryGeoData(string s)
 		{
-			var countryList = s.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+			var countryList = s.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 			var countryCount = countryList.Length;
 			countries = new Country[countryCount];
 			var min = Misc.Vector2one * 10;
 			var max = -min;
 
-			var separatorCountries = new char[] { '$' };
+			var separatorCountries = new[] { '$' };
 			for (var k = 0; k < countryCount; k++)
 			{
 				var countryInfo = countryList[k].Split(separatorCountries, StringSplitOptions.None);

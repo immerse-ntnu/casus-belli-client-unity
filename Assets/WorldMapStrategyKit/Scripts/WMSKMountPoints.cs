@@ -5,13 +5,9 @@
 // This is the public API file - every property or public method belongs here
 // ***************************************************************************
 
-using UnityEngine;
 using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Globalization;
+using UnityEngine;
 
 namespace WorldMapStrategyKit
 {
@@ -247,13 +243,13 @@ namespace WorldMapStrategyKit
 				ReadMountPointsXML(s);
 				return;
 			}
-			var mountPointsList = s.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+			var mountPointsList = s.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 			var mountPointsCount = mountPointsList.Length;
 			mountPoints = new List<MountPoint>(mountPointsCount);
 
 			for (var k = 0; k < mountPointsCount; k++)
 			{
-				var mountPointInfo = mountPointsList[k].Split(new char[] { '$' });
+				var mountPointInfo = mountPointsList[k].Split(new[] { '$' });
 				if (mountPointInfo.Length < 6)
 					continue;
 				var name = mountPointInfo[0];
@@ -270,7 +266,7 @@ namespace WorldMapStrategyKit
 					for (var t = 6; t < mountPointInfo.Length; t++)
 					{
 						var tag = mountPointInfo[t];
-						var tagInfo = tag.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+						var tagInfo = tag.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
 						if (tagInfo != null && tagInfo.Length > 1)
 						{
 							var key = tagInfo[0];

@@ -10,9 +10,6 @@
 //  Copyright (C) 2006 Franco, Gustavo 
 //
 
-using System;
-using System.Collections.Generic;
-
 namespace WorldMapStrategyKit.PathFinding
 {
 	public struct PathFinderNode

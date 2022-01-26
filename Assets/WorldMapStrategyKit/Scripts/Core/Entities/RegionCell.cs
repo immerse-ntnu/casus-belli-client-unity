@@ -1,9 +1,4 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-namespace WorldMapStrategyKit
+﻿namespace WorldMapStrategyKit
 {
 	/// <summary>
 	/// Represents a cell in a region

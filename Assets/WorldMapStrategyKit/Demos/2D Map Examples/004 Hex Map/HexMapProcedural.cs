@@ -1,5 +1,4 @@
 using UnityEngine;
-using WorldMapStrategyKit;
 
 namespace WorldMapStrategyKit
 {
@@ -29,7 +28,7 @@ namespace WorldMapStrategyKit
 			map.ClearAll();
 
 			// 3) Create country based on cells defined by columns and rows
-			var cells = new int[,]
+			var cells = new[,]
 			{
 				{ 20, 10 },
 				{ 21, 10 },
@@ -91,7 +90,7 @@ namespace WorldMapStrategyKit
 				return;
 
 			// Transfer cell to the country shape
-			map.CountryTransferCell(countryIndex, cellIndex, true); // true = redraw
+			map.CountryTransferCell(countryIndex, cellIndex); // true = redraw
 
 			// Recolor the country so any new separated region gets the same color
 			map.ToggleCountrySurface(countryIndex, true, countryColor);

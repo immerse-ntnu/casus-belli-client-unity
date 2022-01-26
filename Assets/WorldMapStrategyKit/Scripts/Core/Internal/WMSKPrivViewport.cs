@@ -3,6 +3,7 @@
 // Don't modify this script - changes could be lost if you upgrade to a more recent version of WMSK
 
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -200,7 +201,7 @@ namespace WorldMapStrategyKit
 				new Vector2(0.5f, -0.5f),
 				new Vector2(-0.5f, -0.5f)
 			};
-			mesh.SetIndices(new int[] { 0, 1, 2, 3 }, MeshTopology.Quads, 0);
+			mesh.SetIndices(new[] { 0, 1, 2, 3 }, MeshTopology.Quads, 0);
 			mesh.uv = new Vector2[]
 			{
 				new(0, 1),
@@ -271,8 +272,8 @@ namespace WorldMapStrategyKit
 			int arrayLength;
 
 			// Get window rect
-			var dy = renderViewportClipHeight / (float)earthElevationHeight;
-			var dx = renderViewportClipWidth / (float)earthElevationWidth;
+			var dy = renderViewportClipHeight / earthElevationHeight;
+			var dx = renderViewportClipWidth / earthElevationWidth;
 			var rmin = int.MaxValue;
 			var rmax = int.MinValue;
 			for (var j = 0; j < earthElevationHeight; j++)
@@ -353,7 +354,7 @@ namespace WorldMapStrategyKit
 			if (currentCurvature != 0)
 				for (var k = cmin; k <= cmax; k += mip)
 				{
-					var kk0 = renderViewportClip0.x + dx * (float)k;
+					var kk0 = renderViewportClip0.x + dx * k;
 					float k0;
 					if (kk0 <= 0)
 						k0 = 0;
@@ -370,7 +371,7 @@ namespace WorldMapStrategyKit
 
 			for (var j = rmin; j <= rmax; j += mip)
 			{
-				var jj0 = renderViewportClip1.y + dy * (float)j;
+				var jj0 = renderViewportClip1.y + dy * j;
 				float j0;
 				if (jj0 <= 0)
 					j0 = 0;
@@ -389,7 +390,7 @@ namespace WorldMapStrategyKit
 
 				for (var k = cmin; k <= cmax; k += mip)
 				{
-					var kk0 = renderViewportClip0.x + dx * (float)k;
+					var kk0 = renderViewportClip0.x + dx * k;
 					float k0;
 					if (kk0 <= 0)
 						k0 = 0;
@@ -1100,10 +1101,10 @@ namespace WorldMapStrategyKit
 
 #if UNITY_EDITOR
 #if UNITY_2018_3_OR_NEWER
-			var prefabInstanceStatus = UnityEditor.PrefabUtility.GetPrefabInstanceStatus(_renderViewport);
-			if (prefabInstanceStatus != UnityEditor.PrefabInstanceStatus.NotAPrefab)
-				UnityEditor.PrefabUtility.UnpackPrefabInstance(_renderViewport,
-					UnityEditor.PrefabUnpackMode.Completely, UnityEditor.InteractionMode.AutomatedAction);
+			var prefabInstanceStatus = PrefabUtility.GetPrefabInstanceStatus(_renderViewport);
+			if (prefabInstanceStatus != PrefabInstanceStatus.NotAPrefab)
+				PrefabUtility.UnpackPrefabInstance(_renderViewport,
+					PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
 #else
 			UnityEditor.PrefabType prefabType = UnityEditor.PrefabUtility.GetPrefabType (_renderViewport);
 			if (prefabType != UnityEditor.PrefabType.None && prefabType != UnityEditor.PrefabType.DisconnectedPrefabInstance && prefabType != UnityEditor.PrefabType.DisconnectedModelPrefabInstance) {
@@ -1194,9 +1195,9 @@ namespace WorldMapStrategyKit
 			var oldPos = _currentCamera.transform.position;
 			var oldRot = _currentCamera.transform.rotation;
 			var oldFoV = _currentCamera.fieldOfView;
-			if (useSceneViewWindow && UnityEditor.SceneView.lastActiveSceneView != null)
+			if (useSceneViewWindow && SceneView.lastActiveSceneView != null)
 			{
-				var sceneCam = UnityEditor.SceneView.lastActiveSceneView.camera;
+				var sceneCam = SceneView.lastActiveSceneView.camera;
 				if (sceneCam != null)
 				{
 					oldPos = _currentCamera.transform.position;

@@ -254,9 +254,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -399.3332824707031,
-            "y": 837.3333129882813,
-            "width": 209.33334350585938,
+            "x": -438.66668701171877,
+            "y": 871.3333129882813,
+            "width": 209.33331298828126,
             "height": 303.99993896484377
         }
     },
@@ -445,10 +445,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1352.666748046875,
-            "y": 1144.0,
+            "x": -1326.6668701171875,
+            "y": 1137.3333740234375,
             "width": 209.3333740234375,
-            "height": 352.0001220703125
+            "height": 352.0
         }
     },
     "m_Slots": [
@@ -1079,7 +1079,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Fuzziness",
     "m_StageCapability": 3,
-    "m_Value": 0.05999999865889549,
+    "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -1592,10 +1592,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -32.66651153564453,
-            "y": 646.0,
-            "width": 209.33322143554688,
-            "height": 303.9998779296875
+            "x": -24.66663932800293,
+            "y": 645.9999389648438,
+            "width": 209.33323669433595,
+            "height": 304.0
         }
     },
     "m_Slots": [
@@ -1647,7 +1647,7 @@
     "m_RefNameGeneratedByDisplayName": "Region",
     "m_DefaultReferenceName": "_Region",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_Precision": 0,
@@ -1656,7 +1656,7 @@
     "m_Hidden": false,
     "m_Value": {
         "r": 0.0,
-        "g": 0.960784375667572,
+        "g": 0.8823530077934265,
         "b": 0.0,
         "a": 1.0
     },

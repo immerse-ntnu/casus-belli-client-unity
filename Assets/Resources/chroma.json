@@ -1,0 +1,210 @@
+[
+  {
+    "name": "Bassas",
+    "color": "(0,255,0)"
+  },
+  {
+    "name": "Nund",
+    "color": "(0,250,0)"
+  },
+  {
+    "name": "Ninin",
+    "color": "(0,245,0)"
+  },
+  {
+    "name": "Calis",
+    "color": "(0,240,0)"
+  },
+  {
+    "name": "Cymere",
+    "color": "(0,235,0)"
+  },
+  {
+    "name": "Pesth",
+    "color": "(0,230,0)"
+  },
+  {
+    "name": "Purth",
+    "color": "(0,225,0)"
+  },
+  {
+    "name": "Arra",
+    "color": "(0,220,0)"
+  },
+  {
+    "name": "Monte",
+    "color": "(0,215,0)"
+  },
+  {
+    "name": "Kyrie",
+    "color": "(0,210,0)"
+  },
+  {
+    "name": "Morone",
+    "color": "(0,205,0)"
+  },
+  {
+    "name": "Amari",
+    "color": "(0,200,0)"
+  },
+  {
+    "name": "Bom",
+    "color": "(0,195,0)"
+  },
+  {
+    "name": "Brodo",
+    "color": "(0,190,0)"
+  },
+  {
+    "name": "Leil",
+    "color": "(0,185,0)"
+  },
+  {
+    "name": "Lusia",
+    "color": "(0,180,0)"
+  },
+  {
+    "name": "Lomone",
+    "color": "(0,175,0)"
+  },
+  {
+    "name": "Limbol",
+    "color": "(0,170,0)"
+  },
+  {
+    "name": "Worp",
+    "color": "(0,165,0)"
+  },
+  {
+    "name": "Winde",
+    "color": "(0,160,0)"
+  },
+  {
+    "name": "Gnade",
+    "color": "(0,155,0)"
+  },
+  {
+    "name": "Fond",
+    "color": "(0,150,0)"
+  },
+  {
+    "name": "Firril",
+    "color": "(0,145,0)"
+  },
+  {
+    "name": "Tige",
+    "color": "(0,140,0)"
+  },
+  {
+    "name": "Furie",
+    "color": "(0,135,0)"
+  },
+  {
+    "name": "Emman",
+    "color": "(0,130,0)"
+  },
+  {
+    "name": "Gron",
+    "color": "(0,125,0)"
+  },
+  {
+    "name": "Herk",
+    "color": "(0,120,0)"
+  },
+  {
+    "name": "Tusser",
+    "color": "(0,115,0)"
+  },
+  {
+    "name": "Dalom",
+    "color": "(0,110,0)"
+  },
+  {
+    "name": "Dordel",
+    "color": "(0,105,0)"
+  },
+  {
+    "name": "Hyll",
+    "color": "(0,100,0)"
+  },
+  {
+    "name": "Samoje",
+    "color": "(0,95,0)"
+  },
+  {
+    "name": "Erren",
+    "color": "(0,90,0)"
+  },
+  {
+    "name": "Gewel",
+    "color": "(0,85,0)"
+  },
+  {
+    "name": "Jazel",
+    "color": "(0,80,0)"
+  },
+  {
+    "name": "Tond",
+    "color": "(0,75,0)"
+  },
+  {
+    "name": "Zona",
+    "color": "(0,70,0)"
+  },
+  {
+    "name": "Ovo",
+    "color": "(0,65,0)"
+  },
+  {
+    "name": "Rama",
+    "color": "(0,60,0)"
+  },
+  {
+    "name": "Sash",
+    "color": "(0,55,0)"
+  },
+  {
+    "name": "Rimine",
+    "color": "(0,50,0)"
+  },
+  {
+    "name": "Jizine",
+    "color": "(0,45,0)"
+  },
+  {
+    "name": "Mare Elle",
+    "color": "(0,0,250)"
+  },
+  {
+    "name": "Mare Furie",
+    "color": "(0,0,225)"
+  },
+  {
+    "name": "Mare Bøso",
+    "color": "(0,0,200)"
+  },
+  {
+    "name": "Mare Unna",
+    "color": "(0,0,175)"
+  },
+  {
+    "name": "Mare Ovono",
+    "color": "(0,0,150)"
+  },
+  {
+    "name": "Mare Gono",
+    "color": "(0,0,125)"
+  },
+  {
+    "name": "Mare Duna",
+    "color": "(0,0,100)"
+  },
+  {
+    "name": "Mare Illa",
+    "color": "(0,0,75)"
+  },
+  {
+    "name": "Mare Hynd",
+    "color": "(0,0,50)"
+  }
+]

@@ -33,7 +33,7 @@ namespace Hermannia
 			SetColor(selectedCol);
 		}
 
-		private void SetColor(Color color)
+		public void SetColor(Color color)
 		{
 			_material.SetColor(Region, color);
 			OnColorSelected?.Invoke(color);

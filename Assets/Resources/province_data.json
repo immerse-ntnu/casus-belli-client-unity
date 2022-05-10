@@ -1,5 +1,5 @@
 {
-    "(0,255,0)": {
+    "0,255,0": {
         "neighbours": [
             "Leil",
             "Ovo",
@@ -9,7 +9,7 @@
         ],
         "name": "Bassas"
     },
-    "(0,250,0)": {
+    "0,250,0": {
         "neighbours": [
             "Ovo",
             "Ninin",
@@ -17,7 +17,7 @@
         ],
         "name": "Nund"
     },
-    "(0,245,0)": {
+    "0,245,0": {
         "neighbours": [
             "Bom",
             "Bassas",
@@ -27,7 +27,7 @@
         ],
         "name": "Ninin"
     },
-    "(0,240,0)": {
+    "0,240,0": {
         "neighbours": [
             "Bom",
             "Ninin",
@@ -38,7 +38,7 @@
         ],
         "name": "Calis"
     },
-    "(0,235,0)": {
+    "0,235,0": {
         "neighbours": [
             "Calis",
             "Pesth",
@@ -46,7 +46,7 @@
         ],
         "name": "Cymere"
     },
-    "(0,230,0)": {
+    "0,230,0": {
         "neighbours": [
             "Amar\u00c3\u00ad",
             "Calis",
@@ -56,7 +56,7 @@
         ],
         "name": "Pesth"
     },
-    "(0,225,0)": {
+    "0,225,0": {
         "neighbours": [
             "Pesth",
             "Mare Hynd",
@@ -64,14 +64,14 @@
         ],
         "name": "Purth"
     },
-    "(0,220,0)": {
+    "0,220,0": {
         "neighbours": [
             "Mont\u00c3\u00a9",
             "Amar\u00c3\u00ad"
         ],
         "name": "Arra"
     },
-    "(0,215,0)": {
+    "0,215,0": {
         "neighbours": [
             "Morone",
             "Arra",
@@ -80,14 +80,14 @@
         ],
         "name": "Mont\u00c3\u00a9"
     },
-    "(0,210,0)": {
+    "0,210,0": {
         "neighbours": [
             "Mare Hynd",
             "Mare Illa"
         ],
         "name": "Kyrie"
     },
-    "(0,205,0)": {
+    "0,205,0": {
         "neighbours": [
             "Lus\u00c3\u00ada",
             "Mont\u00c3\u00a9",
@@ -95,7 +95,7 @@
         ],
         "name": "Morone"
     },
-    "(0,200,0)": {
+    "0,200,0": {
         "neighbours": [
             "Arra",
             "Pesth",
@@ -103,7 +103,7 @@
         ],
         "name": "Amar\u00c3\u00ad"
     },
-    "(0,195,0)": {
+    "0,195,0": {
         "neighbours": [
             "Mont\u00c3\u00a9",
             "Brodo",
@@ -113,7 +113,7 @@
         ],
         "name": "Bom"
     },
-    "(0,190,0)": {
+    "0,190,0": {
         "neighbours": [
             "Lus\u00c3\u00ada",
             "Leil",
@@ -124,7 +124,7 @@
         ],
         "name": "Brodo"
     },
-    "(0,185,0)": {
+    "0,185,0": {
         "neighbours": [
             "Limbol",
             "Lus\u00c3\u00ada",
@@ -136,7 +136,7 @@
         ],
         "name": "Leil"
     },
-    "(0,180,0)": {
+    "0,180,0": {
         "neighbours": [
             "Lomone",
             "Limbol",
@@ -146,7 +146,7 @@
         ],
         "name": "Lus\u00c3\u00ada"
     },
-    "(0,175,0)": {
+    "0,175,0": {
         "neighbours": [
             "Mare Illa",
             "Mare Duna",
@@ -155,7 +155,7 @@
         ],
         "name": "Lomone"
     },
-    "(0,170,0)": {
+    "0,170,0": {
         "neighbours": [
             "Lomone",
             "Mare Duna",
@@ -165,7 +165,7 @@
         ],
         "name": "Limbol"
     },
-    "(0,165,0)": {
+    "0,165,0": {
         "neighbours": [
             "Limbol",
             "Leil",
@@ -175,7 +175,7 @@
         ],
         "name": "Worp"
     },
-    "(0,160,0)": {
+    "0,160,0": {
         "neighbours": [
             "Leil",
             "Worp",
@@ -185,7 +185,7 @@
         ],
         "name": "Winde"
     },
-    "(0,155,0)": {
+    "0,155,0": {
         "neighbours": [
             "Firril",
             "Gron",
@@ -193,7 +193,7 @@
         ],
         "name": "Gnade"
     },
-    "(0,150,0)": {
+    "0,150,0": {
         "neighbours": [
             "Firril",
             "Mare Unna",
@@ -201,7 +201,7 @@
         ],
         "name": "Fond"
     },
-    "(0,145,0)": {
+    "0,145,0": {
         "neighbours": [
             "Furie",
             "Gron",
@@ -211,7 +211,7 @@
         ],
         "name": "Firril"
     },
-    "(0,140,0)": {
+    "0,140,0": {
         "neighbours": [
             "Tond",
             "Mare Elle",
@@ -221,14 +221,14 @@
         ],
         "name": "Tige"
     },
-    "(0,135,0)": {
+    "0,135,0": {
         "neighbours": [
             "Mare Ovond",
             "Firril"
         ],
         "name": "Furie"
     },
-    "(0,130,0)": {
+    "0,130,0": {
         "neighbours": [
             "Gron",
             "Gewel",
@@ -237,7 +237,7 @@
         ],
         "name": "Emman"
     },
-    "(0,125,0)": {
+    "0,125,0": {
         "neighbours": [
             "Tusser",
             "Firril",
@@ -247,7 +247,7 @@
         ],
         "name": "Gron"
     },
-    "(0,120,0)": {
+    "0,120,0": {
         "neighbours": [
             "Dalom",
             "Dordel",
@@ -255,7 +255,7 @@
         ],
         "name": "Herk"
     },
-    "(0,115,0)": {
+    "0,115,0": {
         "neighbours": [
             "Tige",
             "Dalom",
@@ -263,7 +263,7 @@
         ],
         "name": "Tusser"
     },
-    "(0,110,0)": {
+    "0,110,0": {
         "neighbours": [
             "Tige",
             "Tusser",
@@ -273,7 +273,7 @@
         ],
         "name": "Dalom"
     },
-    "(0,105,0)": {
+    "0,105,0": {
         "neighbours": [
             "Dalom",
             "Mare Elle",
@@ -282,7 +282,7 @@
         ],
         "name": "Dordel"
     },
-    "(0,100,0)": {
+    "0,100,0": {
         "neighbours": [
             "Herk",
             "Mare Furie",
@@ -290,7 +290,7 @@
         ],
         "name": "Hyll"
     },
-    "(0,95,0)": {
+    "0,95,0": {
         "neighbours": [
             "Hyll",
             "Mare Furie",
@@ -299,7 +299,7 @@
         ],
         "name": "Samoje"
     },
-    "(0,90,0)": {
+    "0,90,0": {
         "neighbours": [
             "Samoje",
             "Emman",
@@ -307,7 +307,7 @@
         ],
         "name": "Erren"
     },
-    "(0,85,0)": {
+    "0,85,0": {
         "neighbours": [
             "Gron",
             "Gnade",
@@ -316,7 +316,7 @@
         ],
         "name": "Gewel"
     },
-    "(0,80,0)": {
+    "0,80,0": {
         "neighbours": [
             "Mare Illa",
             "Mare Duna",
@@ -324,7 +324,7 @@
         ],
         "name": "Jazel"
     },
-    "(0,75,0)": {
+    "0,75,0": {
         "neighbours": [
             "Mare Gond",
             "Mare Elle",
@@ -333,14 +333,14 @@
         ],
         "name": "Tond"
     },
-    "(0,70,0)": {
+    "0,70,0": {
         "neighbours": [
             "Mare Elle",
             "Mare Gond"
         ],
         "name": "Zona"
     },
-    "(0,65,0)": {
+    "0,65,0": {
         "neighbours": [
             "Leil",
             "Winde",
@@ -350,35 +350,35 @@
         ],
         "name": "Ovo"
     },
-    "(0,60,0)": {
+    "0,60,0": {
         "neighbours": [
             "Mare Furie",
             "Mare Elle"
         ],
         "name": "Rama"
     },
-    "(0,55,0)": {
+    "0,55,0": {
         "neighbours": [
             "Mare Furie",
             "Mare B\u00c3\u00b8so"
         ],
         "name": "Sash"
     },
-    "(0,50,0)": {
+    "0,50,0": {
         "neighbours": [
             "Mare Hynd",
             "Mare Furie"
         ],
         "name": "Rimine"
     },
-    "(0,45,0)": {
+    "0,45,0": {
         "neighbours": [
             "Jazel",
             "Mare Duna"
         ],
         "name": "Jizinne"
     },
-    "(0,0,250)": {
+    "0,0,250": {
         "neighbours": [
             "Winde",
             "Ovo",
@@ -396,7 +396,7 @@
         ],
         "name": "Mare Elle"
     },
-    "(0,0,225)": {
+    "0,0,225": {
         "neighbours": [
             "Ninin",
             "Calis",
@@ -416,7 +416,7 @@
         ],
         "name": "Mare Furie"
     },
-    "(0,0,200)": {
+    "0,0,200": {
         "neighbours": [
             "Sash",
             "Samoje",
@@ -426,7 +426,7 @@
         ],
         "name": "Mare B\u00c3\u00b8so"
     },
-    "(0,0,175)": {
+    "0,0,175": {
         "neighbours": [
             "Fond",
             "Gewel",
@@ -436,7 +436,7 @@
         ],
         "name": "Mare Unna"
     },
-    "(0,0,150)": {
+    "0,0,150": {
         "neighbours": [
             "Tond",
             "Tige",
@@ -449,7 +449,7 @@
         ],
         "name": "Mare Ovond"
     },
-    "(0,0,125)": {
+    "0,0,125": {
         "neighbours": [
             "Worp",
             "Winde",
@@ -461,7 +461,7 @@
         ],
         "name": "Mare Gond"
     },
-    "(0,0,100)": {
+    "0,0,100": {
         "neighbours": [
             "Jazel",
             "Jizinne",
@@ -473,7 +473,7 @@
         ],
         "name": "Mare Duna"
     },
-    "(0,0,75)": {
+    "0,0,75": {
         "neighbours": [
             "Kyrie",
             "Jazel",
@@ -483,7 +483,7 @@
         ],
         "name": "Mare Illa"
     },
-    "(0,0,50)": {
+    "0,0,50": {
         "neighbours": [
             "Kyrie",
             "Purth",

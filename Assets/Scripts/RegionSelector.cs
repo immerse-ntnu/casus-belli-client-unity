@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hermannia
 {
@@ -8,30 +7,22 @@ namespace Hermannia
 		private ColorChanger _colorChanger;
 		private Region _currentRegion;
 		private RegionHandler _regionHandler;
+		[SerializeField] private TextAsset regionData;
+		
 
 		private void Awake()
 		{
+			_regionHandler = new RegionHandler(regionData);
 			_colorChanger = new ColorChanger(GetComponent<SpriteRenderer>());
 			_colorChanger.OnColorSelected += HandleColorChanged;
 		}
 
+		private void OnMouseDown() => _colorChanger.HandleSpriteClicked();
+
 		private void HandleColorChanged(Color color)
 		{
 			_currentRegion = _regionHandler.GetRegionFromColor(color);
-		}
-
-		private void OnMouseDown() => _colorChanger.HandleSpriteClicked();
-	}
-
-	public class RegionHandler
-	{
-		private Dictionary<Color, Region> _regions;
-		public Region GetRegionFromColor(Color color) => _regions[color];
-
-		public RegionHandler()
-		{
+			print("Switched to region: " + _currentRegion);
 		}
 	}
-
-	public class Region { }
 }

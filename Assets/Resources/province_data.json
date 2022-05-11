@@ -31,7 +31,7 @@
         "neighbours": [
             "Bom",
             "Ninin",
-            "Amar\u00c3\u00ad",
+            "Amarí",
             "Pesth",
             "Cymere",
             "Mare Furie"
@@ -48,7 +48,7 @@
     },
     "0,230,0": {
         "neighbours": [
-            "Amar\u00c3\u00ad",
+            "Amarí",
             "Calis",
             "Cymere",
             "Purth",
@@ -66,8 +66,8 @@
     },
     "0,220,0": {
         "neighbours": [
-            "Mont\u00c3\u00a9",
-            "Amar\u00c3\u00ad"
+            "Monté",
+            "Amarí"
         ],
         "name": "Arra"
     },
@@ -78,7 +78,7 @@
             "Bom",
             "Brodo"
         ],
-        "name": "Mont\u00c3\u00a9"
+        "name": "Monté"
     },
     "0,210,0": {
         "neighbours": [
@@ -89,8 +89,8 @@
     },
     "0,205,0": {
         "neighbours": [
-            "Lus\u00c3\u00ada",
-            "Mont\u00c3\u00a9",
+            "Lusía",
+            "Monté",
             "Brodo"
         ],
         "name": "Morone"
@@ -101,11 +101,11 @@
             "Pesth",
             "Calis"
         ],
-        "name": "Amar\u00c3\u00ad"
+        "name": "Amarí"
     },
     "0,195,0": {
         "neighbours": [
-            "Mont\u00c3\u00a9",
+            "Monté",
             "Brodo",
             "Calis",
             "Ninin",
@@ -115,10 +115,10 @@
     },
     "0,190,0": {
         "neighbours": [
-            "Lus\u00c3\u00ada",
+            "Lusía",
             "Leil",
             "Morone",
-            "Mont\u00c3\u00a9",
+            "Monté",
             "Bom",
             "Bassas"
         ],
@@ -127,7 +127,7 @@
     "0,185,0": {
         "neighbours": [
             "Limbol",
-            "Lus\u00c3\u00ada",
+            "Lusía",
             "Brodo",
             "Bassas",
             "Ovo",
@@ -144,13 +144,13 @@
             "Morone",
             "Brodo"
         ],
-        "name": "Lus\u00c3\u00ada"
+        "name": "Lusía"
     },
     "0,175,0": {
         "neighbours": [
             "Mare Illa",
             "Mare Duna",
-            "Lus\u00c3\u00ada",
+            "Lusía",
             "Limbol"
         ],
         "name": "Lomone"
@@ -159,7 +159,7 @@
         "neighbours": [
             "Lomone",
             "Mare Duna",
-            "Lus\u00c3\u00ada",
+            "Lusía",
             "Leil",
             "Worp"
         ],
@@ -294,7 +294,7 @@
         "neighbours": [
             "Hyll",
             "Mare Furie",
-            "Mare B\u00c3\u00b8so",
+            "Mare Bøso",
             "Erren"
         ],
         "name": "Samoje"
@@ -303,7 +303,7 @@
         "neighbours": [
             "Samoje",
             "Emman",
-            "Mare B\u00c3\u00b8so"
+            "Mare Bøso"
         ],
         "name": "Erren"
     },
@@ -360,7 +360,7 @@
     "0,55,0": {
         "neighbours": [
             "Mare Furie",
-            "Mare B\u00c3\u00b8so"
+            "Mare Bøso"
         ],
         "name": "Sash"
     },
@@ -412,7 +412,7 @@
             "Mare Hynd",
             "Mare Elle",
             "Mare Elle",
-            "Mare B\u00c3\u00b8so"
+            "Mare Bøso"
         ],
         "name": "Mare Furie"
     },
@@ -424,7 +424,7 @@
             "Mare Furie",
             "Mare Unna"
         ],
-        "name": "Mare B\u00c3\u00b8so"
+        "name": "Mare Bøso"
     },
     "0,0,175": {
         "neighbours": [
@@ -432,7 +432,7 @@
             "Gewel",
             "Emman",
             "Mare Ovond",
-            "Mare B\u00c3\u00b8so"
+            "Mare Bøso"
         ],
         "name": "Mare Unna"
     },

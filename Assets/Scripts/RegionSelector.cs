@@ -22,7 +22,14 @@ namespace Hermannia
 		private void HandleColorChanged(Color color)
 		{
 			_currentRegion = _regionHandler.GetRegionFromColor(color);
-			print("Switched to region: " + _currentRegion);
+			/*
+			print("Switched to region: " + _currentRegion.Name);
+			print("Regions neighbours: " );
+			foreach (var neighbour in _currentRegion.Neighbours)
+			{
+				print(neighbour.Name);
+			}
+		*/
 		}
 	}
 }

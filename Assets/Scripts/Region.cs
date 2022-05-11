@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Hermannia
 {
-	[Serializable]
 	public class Region
 	{
-		public List<string> neighbours;
-		public string name;
+		public string Name { get; private set; }
+		public List<Region> Neighbours { get; internal set; }
+
+		public Region(string name)
+		{
+			Name = name;
+		}
 	}
 }

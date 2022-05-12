@@ -4,32 +4,33 @@ namespace Hermannia
 {
 	public class RegionSelector : MonoBehaviour
 	{
-		private ColorChanger _colorChanger;
+		private static readonly int Region = Shader.PropertyToID("_Region");
+		
+		[SerializeField] private TextAsset regionData;
+		private RegionColorHandler _regionColorHandler;
 		private Region _currentRegion;
 		private RegionHandler _regionHandler;
-		[SerializeField] private TextAsset regionData;
-		
+		private Material _material;
 
 		private void Awake()
 		{
-			_regionHandler = new RegionHandler(regionData);
-			_colorChanger = new ColorChanger(GetComponent<SpriteRenderer>());
-			_colorChanger.OnColorSelected += HandleColorChanged;
+			var spriteRenderer = GetComponent<SpriteRenderer>();
+			_material = spriteRenderer.material;
+			_regionColorHandler = new RegionColorHandler(spriteRenderer);
+			_regionHandler = new RegionHandler(regionData.text);
+			
+			_material.SetColor(Region, Color.white);
 		}
 
-		private void OnMouseDown() => _colorChanger.HandleSpriteClicked();
-
-		private void HandleColorChanged(Color color)
+		private void OnMouseDown()
 		{
-			_currentRegion = _regionHandler.GetRegionFromColor(color);
-			/*
-			print("Switched to region: " + _currentRegion.Name);
-			print("Regions neighbours: " );
-			foreach (var neighbour in _currentRegion.Neighbours)
-			{
-				print(neighbour.Name);
-			}
-		*/
+			//Todo make this a manager-class
+			//This logic probably should be delegated to another class if this becomes a manager-class
+			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
+			if (clickedColor == Color.black)
+				return;
+			_material.SetColor(Region, clickedColor);
+			_currentRegion = _regionHandler.GetRegionFromColor(clickedColor);
 		}
 	}
 }

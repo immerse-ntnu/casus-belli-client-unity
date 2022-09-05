@@ -26,6 +26,6 @@ public class MainmenuUIController : MonoBehaviour
     }
     void JoinButtonPressed()
     {
-        SceneController.Instance.Load(SceneController.Scene.Joinlobby);
+        SceneController.Instance.Load(SceneController.Instance.JoinMenu);
     }
 }

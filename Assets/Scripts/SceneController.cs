@@ -6,41 +6,34 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     public static SceneController Instance { get; private set; }
-    public enum Scene
-    {
-        Mainmenu,
-        Joinlobby,
-        Hermannia,
-    }
 
+    public SceneState MainMenu { get => _mainMenu; }
+    public SceneState JoinMenu { get => _joinMenu; }
+    public SceneState Game { get => _game; }
+    
+    private SceneState _mainMenu;
+    private SceneState _joinMenu;
+    private SceneState _game;
     private void Awake()
     {
         Instance = this;
+        _game = new("Game");
+        _joinMenu = new("JoinMenu");
+        _mainMenu = new("MainMenu");
     }
-    // Start is called before the first frame update
-    void Start()
+    public void Load(SceneState state)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void Load(Scene scene)
-    {
-        if (scene == Scene.Mainmenu)
-        {
-            SceneManager.LoadScene("Mainmenu");
-        }
-        else if (scene == Scene.Joinlobby)
-        {
-            SceneManager.LoadScene("Joinlobby");
-        }
-        else if (scene == Scene.Hermannia)
-        {
-            SceneManager.LoadScene("Hermannia");
-        }
+        SceneManager.LoadScene(state.SceneName);
     }
 }
+public class SceneState
+{
+    public string SceneName { get => _sceneName; }
+    
+    private string _sceneName;
+    public SceneState(string sceneName)
+    {
+        _sceneName = sceneName;
+    }
+}
+

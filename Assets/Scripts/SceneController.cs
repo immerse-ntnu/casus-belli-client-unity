@@ -5,8 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    public class SceneState
+    {
+        public string SceneName { get => _sceneName; }
+    
+        private string _sceneName;
+        public SceneState(string sceneName)
+        {
+            _sceneName = sceneName;
+        }
+    }
     public static SceneController Instance { get; private set; }
-
     public SceneState MainMenu { get => _mainMenu; }
     public SceneState JoinMenu { get => _joinMenu; }
     public SceneState Game { get => _game; }
@@ -26,14 +35,3 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadScene(state.SceneName);
     }
 }
-public class SceneState
-{
-    public string SceneName { get => _sceneName; }
-    
-    private string _sceneName;
-    public SceneState(string sceneName)
-    {
-        _sceneName = sceneName;
-    }
-}
-

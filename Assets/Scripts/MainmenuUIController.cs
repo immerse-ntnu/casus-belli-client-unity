@@ -22,7 +22,7 @@ public class MainmenuUIController : MonoBehaviour
 
     void CreateButtonPressed()
     {
-        //SceneController.Instance.Load(SceneController.Scene.Joinlobby);
+        //TODO
     }
     void JoinButtonPressed()
     {

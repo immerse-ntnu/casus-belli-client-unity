@@ -16,9 +16,9 @@ public class SceneController : MonoBehaviour
         }
     }
     public static SceneController Instance { get; private set; }
-    public SceneState MainMenu { get => _mainMenu; }
-    public SceneState JoinMenu { get => _joinMenu; }
-    public SceneState Game { get => _game; }
+    public SceneState MainMenu => _mainMenu;
+    public SceneState JoinMenu => _joinMenu;
+    public SceneState Game => _game;
     
     private SceneState _mainMenu;
     private SceneState _joinMenu;
@@ -26,9 +26,9 @@ public class SceneController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        _game = new("Game");
-        _joinMenu = new("JoinMenu");
-        _mainMenu = new("MainMenu");
+        _game = new SceneState("Game");
+        _joinMenu = new SceneState("JoinMenu");
+        _mainMenu = new SceneState("MainMenu");
     }
     public void Load(SceneState state)
     {

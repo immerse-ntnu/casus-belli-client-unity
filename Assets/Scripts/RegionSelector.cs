@@ -28,11 +28,7 @@ namespace Hermannia
 			//This logic probably should be delegated to another class if this becomes a manager-class
 			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
 			_currentRegion = null;
-			if (clickedColor == Color.black)
-			{
-				
-			}
-			else
+			if (clickedColor != Color.black)
 			{
 				_material.SetColor(Region, clickedColor);
 				_currentRegion = _regionHandler.GetRegionFromColor(clickedColor);

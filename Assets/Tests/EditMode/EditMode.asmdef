@@ -1,6 +1,6 @@
 {
     "name": "EditMode",
-    "rootNamespace": "",
+    "rootNamespace": "Immerse.BfHClient.EditTests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

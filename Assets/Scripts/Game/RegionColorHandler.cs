@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hermannia
+namespace Immerse.BfHClient
 {
 	public class RegionColorHandler
 	{

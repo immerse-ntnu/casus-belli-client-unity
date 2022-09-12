@@ -3,12 +3,13 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Hermannia
+namespace Immerse.BfHClient
 {
 	public class RegionHandler
 	{
 		private readonly Dictionary<Color32, Region> _regions;
-		public Region GetRegionFromColor(Color32 color) => _regions[color];
+		public Region GetRegionFromColor(Color32 color) => 
+			!_regions.TryGetValue(color, out var region) ? null : region;
 
 		public RegionHandler(string json)
 		{
@@ -16,21 +17,19 @@ namespace Hermannia
 			_regions = RegionsFromDeserializedRegions(deserializedRegions);
 		}
 
-		public (Color color, Region region) GetRegionFromName(string name)
+		public Region GetRegionFromName(string name)
 		{
 			foreach (var pair in _regions)
 				if (pair.Value.Name == name)
-					return (pair.Key, pair.Value);
-			return (Color.black, null);
+					return pair.Value;
+			return null;
 		}
 
 		#region RegionsSetup
 
 		private static Dictionary<Color32, SerializableRegion> GetDeserializedDictionary(string json)
 		{
-			//Get deserialized json dictionary
 			var stringRegions = JsonConvert.DeserializeObject<Dictionary<string, SerializableRegion>>(json);
-			//get json dictionary with colors instead of string
 			var serializedRegions = new Dictionary<Color32, SerializableRegion>();
 			foreach (var pair in stringRegions!)
 				serializedRegions[GetColorFromString(pair.Key)] = pair.Value;

@@ -14,9 +14,6 @@
         },
         {
             "m_Id": "c842dcba053946f8975b38fe50187ceb"
-        },
-        {
-            "m_Id": "5034fdc4c5674b9e9e3c977866f1e095"
         }
     ],
     "m_Keywords": [],
@@ -490,32 +487,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DArrayShaderProperty",
-    "m_ObjectId": "5034fdc4c5674b9e9e3c977866f1e095",
-    "m_Guid": {
-        "m_GuidSerialized": "1e71a079-ccd7-4994-a1b4-eeb1226295b8"
-    },
-    "m_Name": "arr",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "arr",
-    "m_DefaultReferenceName": "_arr",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "m_SerializedTexture": "{\"textureArray\":{\"instanceID\":0}}",
-        "m_Guid": ""
-    },
-    "m_Modifiable": true
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "5284e4a807e24504b04213bca17c2ec3",
     "m_Group": {
@@ -607,9 +578,6 @@
         },
         {
             "m_Id": "c842dcba053946f8975b38fe50187ceb"
-        },
-        {
-            "m_Id": "5034fdc4c5674b9e9e3c977866f1e095"
         }
     ]
 }

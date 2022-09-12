@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Hermannia
+namespace Immerse.BfHClient
 {
 	[Serializable]
 	public class SerializableRegion

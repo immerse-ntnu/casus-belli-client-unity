@@ -1,15 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Hermannia
+namespace Immerse.BfHClient
 {
 	public class RegionSelector : MonoBehaviour
 	{
-		public event Action SelectedRegion;
+		public event Action<Region> RegionSelected;
 		private static readonly int Region = Shader.PropertyToID("_Region");
 		[SerializeField] private TextAsset regionData;
 		private RegionColorHandler _regionColorHandler;
-		private Region _currentRegion;
 		private RegionHandler _regionHandler;
 		private Material _material;
 
@@ -24,17 +23,15 @@ namespace Hermannia
 
 		private void OnMouseDown()
 		{
-			//Todo make this a manager-class
-			//This logic probably should be delegated to another class if this becomes a manager-class
 			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
-			_currentRegion = null;
+			Region currentRegion = null;
 			if (clickedColor != Color.black)
 			{
-				_material.SetColor(Region, clickedColor);
-				_currentRegion = _regionHandler.GetRegionFromColor(clickedColor);
+				currentRegion = _regionHandler.GetRegionFromColor(clickedColor);
+				_material.SetColor(Region, currentRegion is not null ? clickedColor : Color.white);
 			}
 			
-			SelectedRegion?.Invoke();
+			RegionSelected?.Invoke(currentRegion);
 		}
 	}
 }

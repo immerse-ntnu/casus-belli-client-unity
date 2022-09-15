@@ -28,7 +28,6 @@ namespace Immerse.BfHClient
 
 		private void OnMouseDown()
 		{
-			if (GameUIController.Instance.IsPointerOverUI(Input.mousePosition)) return;
 			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
 
 			Region newRegion = null;

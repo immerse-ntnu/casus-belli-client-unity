@@ -6,6 +6,7 @@ namespace Immerse.BfHClient
 	{
 		public string Name { get; } = Name;
 		public bool IsBeach { get; internal set; }
+		public bool IsLand { get; internal set; }
 		public List<Region> Neighbours { get; internal set; }
 	}
 }

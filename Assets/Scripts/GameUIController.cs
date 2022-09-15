@@ -74,5 +74,4 @@ namespace Immerse.BfHClient
             element.visible = show;
         }
     }
-
 }

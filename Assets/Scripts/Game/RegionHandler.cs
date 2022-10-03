@@ -61,7 +61,7 @@ namespace Immerse.BfHClient
 				{
 					if (neighbour.Name.Contains("Mare"))
 					{
-						foundRegion!.IsBeach = true;
+						foundRegion!.IsDockable = true;
 						break;
 					}
 				}

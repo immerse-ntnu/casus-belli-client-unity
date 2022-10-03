@@ -64,7 +64,7 @@ namespace Immerse.BfHClient
         {
             bool show = current != null && !current.Name.Contains("Mare");
             
-            SetActive(_spawnBoatButton, show && current.IsBeach);
+            SetActive(_spawnBoatButton, show && current.IsDockable);
             _spawnTroopGUI.transform.position = new Vector2(Input.mousePosition.x-Screen.width/2f, Screen.height/2f-Input.mousePosition.y);
             SetActive(_spawnTroopGUI, show);
         }

@@ -22,7 +22,7 @@ namespace Immerse.BfHClient
             _spawnPopup.Position = worldPosition;
             
             if (region != null && true) {//region.IsLand) {
-                if (region.IsBeach) _spawnPopup.SetActions("Foot", "Horse", "Tower", "Boat");
+                if (region.IsDockable) _spawnPopup.SetActions("Foot", "Horse", "Tower", "Boat");
                 else _spawnPopup.SetActions("Foot", "Horse", "Tower");
             } else _spawnPopup.SetActions();
             

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,25 +5,26 @@ namespace Immerse.BfHClient
 {
     public class ActionPopup : MonoBehaviour
     {
-        public Vector2 Position
+        private ActionButton[] _actionButtons;
+
+        private void Awake()
         {
-            get => transform.position;
-            set => transform.position = value;
+            _actionButtons = GetComponentsInChildren<ActionButton>();
+            foreach (var button in _actionButtons)
+            {
+                print(button.gameObject.name);
+            }
         }
 
-        public RegionComponent RegionComponent;
-        
-        [SerializeField] private List<ActionButton> actionButtons;
-        
         public void SetActions(params string[] actions)
         {
-            foreach (var actionButton in actionButtons)
+            foreach (var actionButton in _actionButtons)
             {
-                var transform = actionButton.transform;
+                var buttonGO = actionButton.gameObject;
                 
                 // TODO do shit
-                bool visible = actions.Contains(transform.gameObject.name);
-                transform.gameObject.SetActive(visible);
+                var isVisible = actions.Contains(buttonGO.name);
+                buttonGO.SetActive(isVisible);
             }
         }
     }

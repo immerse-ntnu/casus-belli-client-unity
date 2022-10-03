@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Immerse.BfHClient
 {
@@ -9,13 +8,12 @@ namespace Immerse.BfHClient
     {
         [SerializeField] private GameObject unit;
 
-        [SerializeField] private ActionPopup popup;
+        private void Awake() => 
+            GetComponent<Button>().onClick.AddListener(SpawnUnit);
 
         public void SpawnUnit()
         {
-            var pos = transform.parent.GetComponent<ActionPopup>().Position;
-            var spawnedUnit = Instantiate(unit);
-            spawnedUnit.transform.position = pos;
+            var spawnedUnit = Instantiate(unit,RegionSelector.Instance.CurrentRegion.transform);
             Debug.Log(unit.name);
         }
     }

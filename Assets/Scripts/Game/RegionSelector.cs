@@ -22,35 +22,20 @@ namespace Immerse.BfHClient
 			var spriteRenderer = GetComponent<SpriteRenderer>();
 			_material = spriteRenderer.material;
 			_regionColorHandler = new RegionColorHandler(spriteRenderer);
-			_regionHandler = FindObjectOfType<RegionHandler>();
+			_regionHandler = GetComponent<RegionHandler>();
 			
-			LinkRegionsToComponents();
-
 			_material.SetColor(Region, Color.white);
-		}
-
-		private void LinkRegionsToComponents()
-		{
-			var regionComponents = GetComponentsInChildren<RegionComponent>();
-			foreach (var regionComponent in regionComponents)
-			{
-				regionComponent.Region = _regionHandler.GetRegionFromName(regionComponent.name);
-			}
 		}
 
 		private void OnMouseDown()
 		{
 			if (EventSystem.current.IsPointerOverGameObject())
-			{
 				return;
-			}
 			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
 
 			Region newRegion = null;
 			if (clickedColor != Color.black)
-			{
 				newRegion = _regionHandler.GetRegionFromColor(clickedColor);
-			}
 
 			// Double selecting a region unselects it (optional feature)
 			if (newRegion == _currentRegion || clickedColor == Color.black)

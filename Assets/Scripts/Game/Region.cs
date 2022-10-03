@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Immerse.BfHClient
 {
 	public class Region : MonoBehaviour
 	{
-		public static Region BuildRegion(string name)
+		public static Region BuildRegionFrom(SerializableRegion jsonRegion)
 		{
-			var region = new GameObject(name).AddComponent<Region>();
-
-			region.Name = name;
-
+			var region = new GameObject(jsonRegion.name).AddComponent<Region>();
+			region.Name = jsonRegion.name;
+			region.IsLand = jsonRegion.isLand;
+			region.IsDockable = jsonRegion.isDockable;
 			return region;
 		}
 
 		public string Name { get; private set; }
-		public bool IsDockable { get; internal set; }
-		public bool IsLand { get; internal set; }
+		public bool IsDockable { get; private set; }
+		public bool IsLand { get; private set; }
+		public bool IsSea => IsDockable && !IsLand;
 		public List<Region> Neighbours { get; internal set; }
 	}
 }

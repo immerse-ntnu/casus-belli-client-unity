@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -51,7 +50,7 @@ namespace Immerse.BfHClient
 		private static Dictionary<Color32, Region> RegionsFromDeserializedRegions(Dictionary<Color32, SerializableRegion> serializedRegions)
 		{
 			var regionsDictionary = new Dictionary<Color32, Region>();
-			var regions = serializedRegions.Select(pair => Region.BuildRegion(pair.Value.name)).ToArray();
+			var regions = serializedRegions.Select(pair => Region.BuildRegionFrom(pair.Value)).ToArray();
 			foreach (var pair in serializedRegions)
 			{
 				var neighbours = new List<Region>();
@@ -59,15 +58,6 @@ namespace Immerse.BfHClient
 					neighbours.AddRange(regions.Where(region => region.Name == neighbour));
 				var foundRegion = regions.FirstOrDefault(r => r.Name == pair.Value.name);
 				foundRegion!.Neighbours = neighbours;
-				
-				foreach (Region neighbour in neighbours)
-				{
-					if (neighbour.Name.Contains("Mare"))
-					{
-						foundRegion!.IsDockable = true;
-						break;
-					}
-				}
 				
 				regionsDictionary[pair.Key] = foundRegion;
 			}

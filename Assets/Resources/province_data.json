@@ -7,7 +7,9 @@
             "Bom",
             "Ninin"
         ],
-        "name": "Bassas"
+        "name": "Bassas",
+        "isLand": true,
+        "isDockable": false
     },
     "0,250,0": {
         "neighbours": [
@@ -15,7 +17,9 @@
             "Ninin",
             "Mare Elle"
         ],
-        "name": "Nund"
+        "name": "Nund",
+        "isLand": true,
+        "isDockable": true
     },
     "0,245,0": {
         "neighbours": [
@@ -25,7 +29,9 @@
             "Mare Furie",
             "Nund"
         ],
-        "name": "Ninin"
+        "name": "Ninin",
+        "isLand": true,
+        "isDockable": true
     },
     "0,240,0": {
         "neighbours": [
@@ -36,7 +42,9 @@
             "Cymere",
             "Mare Furie"
         ],
-        "name": "Calis"
+        "name": "Calis",
+        "isLand": true,
+        "isDockable": true
     },
     "0,235,0": {
         "neighbours": [
@@ -44,7 +52,9 @@
             "Pesth",
             "Mare Furie"
         ],
-        "name": "Cymere"
+        "name": "Cymere",
+        "isLand": true,
+        "isDockable": true
     },
     "0,230,0": {
         "neighbours": [
@@ -54,7 +64,9 @@
             "Purth",
             "Mare Furie"
         ],
-        "name": "Pesth"
+        "name": "Pesth",
+        "isLand": true,
+        "isDockable": true
     },
     "0,225,0": {
         "neighbours": [
@@ -62,14 +74,18 @@
             "Mare Hynd",
             "Mare Furie"
         ],
-        "name": "Purth"
+        "name": "Purth",
+        "isLand": true,
+        "isDockable": true
     },
     "0,220,0": {
         "neighbours": [
             "Monté",
             "Amarí"
         ],
-        "name": "Arra"
+        "name": "Arra",
+        "isLand": true,
+        "isDockable": true
     },
     "0,215,0": {
         "neighbours": [
@@ -78,14 +94,18 @@
             "Bom",
             "Brodo"
         ],
-        "name": "Monté"
+        "name": "Monté",
+        "isLand": true,
+        "isDockable": true
     },
     "0,210,0": {
         "neighbours": [
             "Mare Hynd",
             "Mare Illa"
         ],
-        "name": "Kyrie"
+        "name": "Kyrie",
+        "isLand": true,
+        "isDockable": true
     },
     "0,205,0": {
         "neighbours": [
@@ -93,7 +113,9 @@
             "Monté",
             "Brodo"
         ],
-        "name": "Morone"
+        "name": "Morone",
+        "isLand": true,
+        "isDockable": true
     },
     "0,200,0": {
         "neighbours": [
@@ -101,7 +123,9 @@
             "Pesth",
             "Calis"
         ],
-        "name": "Amarí"
+        "name": "Amarí",
+        "isLand": true,
+        "isDockable": true
     },
     "0,195,0": {
         "neighbours": [
@@ -111,7 +135,9 @@
             "Ninin",
             "Bassas"
         ],
-        "name": "Bom"
+        "name": "Bom",
+        "isLand": true,
+        "isDockable": false
     },
     "0,190,0": {
         "neighbours": [
@@ -122,7 +148,9 @@
             "Bom",
             "Bassas"
         ],
-        "name": "Brodo"
+        "name": "Brodo",
+        "isLand": true,
+        "isDockable": false
     },
     "0,185,0": {
         "neighbours": [
@@ -134,7 +162,9 @@
             "Worp",
             "Winde"
         ],
-        "name": "Leil"
+        "name": "Leil",
+        "isLand": true,
+        "isDockable": false
     },
     "0,180,0": {
         "neighbours": [
@@ -144,7 +174,9 @@
             "Morone",
             "Brodo"
         ],
-        "name": "Lusía"
+        "name": "Lusía",
+        "isLand": true,
+        "isDockable": false
     },
     "0,175,0": {
         "neighbours": [
@@ -153,7 +185,9 @@
             "Lusía",
             "Limbol"
         ],
-        "name": "Lomone"
+        "name": "Lomone",
+        "isLand": true,
+        "isDockable": true
     },
     "0,170,0": {
         "neighbours": [
@@ -163,7 +197,9 @@
             "Leil",
             "Worp"
         ],
-        "name": "Limbol"
+        "name": "Limbol",
+        "isLand": true,
+        "isDockable": true
     },
     "0,165,0": {
         "neighbours": [
@@ -173,7 +209,9 @@
             "Mare Gond",
             "Winde"
         ],
-        "name": "Worp"
+        "name": "Worp",
+        "isLand": true,
+        "isDockable": true
     },
     "0,160,0": {
         "neighbours": [
@@ -183,7 +221,9 @@
             "Mare Elle",
             "Mare Gond"
         ],
-        "name": "Winde"
+        "name": "Winde",
+        "isLand": true,
+        "isDockable": true
     },
     "0,155,0": {
         "neighbours": [
@@ -191,7 +231,9 @@
             "Gron",
             "Gewel"
         ],
-        "name": "Gnade"
+        "name": "Gnade",
+        "isLand": true,
+        "isDockable": true   
     },
     "0,150,0": {
         "neighbours": [
@@ -199,7 +241,9 @@
             "Mare Unna",
             "Mare Ovond"
         ],
-        "name": "Fond"
+        "name": "Fond",
+        "isLand": true,
+        "isDockable": true
     },
     "0,145,0": {
         "neighbours": [
@@ -209,7 +253,9 @@
             "Fond",
             "Mare Ovond"
         ],
-        "name": "Firril"
+        "name": "Firril",
+        "isLand": true,
+        "isDockable": true
     },
     "0,140,0": {
         "neighbours": [
@@ -219,14 +265,18 @@
             "Tusser",
             "Mare Ovond"
         ],
-        "name": "Tige"
+        "name": "Tige",
+        "isLand": true,
+        "isDockable": true
     },
     "0,135,0": {
         "neighbours": [
             "Mare Ovond",
             "Firril"
         ],
-        "name": "Furie"
+        "name": "Furie",
+        "isLand": true,
+        "isDockable": true
     },
     "0,130,0": {
         "neighbours": [
@@ -235,7 +285,9 @@
             "Erren",
             "Mare Unna"
         ],
-        "name": "Emman"
+        "name": "Emman",
+        "isLand": true,
+        "isDockable": true
     },
     "0,125,0": {
         "neighbours": [
@@ -245,7 +297,9 @@
             "Gewel",
             "Gnade"
         ],
-        "name": "Gron"
+        "name": "Gron",
+        "isLand": true,
+        "isDockable": false
     },
     "0,120,0": {
         "neighbours": [
@@ -253,7 +307,9 @@
             "Dordel",
             "Hyll"
         ],
-        "name": "Herk"
+        "name": "Herk",
+        "isLand": true,
+        "isDockable": false
     },
     "0,115,0": {
         "neighbours": [
@@ -261,7 +317,9 @@
             "Dalom",
             "Gron"
         ],
-        "name": "Tusser"
+        "name": "Tusser",
+        "isLand": true,
+        "isDockable": false
     },
     "0,110,0": {
         "neighbours": [
@@ -271,7 +329,9 @@
             "Dordel",
             "Herk"
         ],
-        "name": "Dalom"
+        "name": "Dalom",
+        "isLand": true,
+        "isDockable": true
     },
     "0,105,0": {
         "neighbours": [
@@ -280,7 +340,9 @@
             "Mare Furie",
             "Herk"
         ],
-        "name": "Dordel"
+        "name": "Dordel",
+        "isLand": true,
+        "isDockable": true
     },
     "0,100,0": {
         "neighbours": [
@@ -288,7 +350,9 @@
             "Mare Furie",
             "Samoje"
         ],
-        "name": "Hyll"
+        "name": "Hyll",
+        "isLand": true,
+        "isDockable": true
     },
     "0,95,0": {
         "neighbours": [
@@ -297,7 +361,9 @@
             "Mare Bøso",
             "Erren"
         ],
-        "name": "Samoje"
+        "name": "Samoje",
+        "isLand": true,
+        "isDockable": true
     },
     "0,90,0": {
         "neighbours": [
@@ -305,7 +371,9 @@
             "Emman",
             "Mare Bøso"
         ],
-        "name": "Erren"
+        "name": "Erren",
+        "isLand": true,
+        "isDockable": true
     },
     "0,85,0": {
         "neighbours": [
@@ -314,7 +382,9 @@
             "Emman",
             "Mare Unna"
         ],
-        "name": "Gewel"
+        "name": "Gewel",
+        "isLand": true,
+        "isDockable": true
     },
     "0,80,0": {
         "neighbours": [
@@ -322,7 +392,9 @@
             "Mare Duna",
             "Jizinne"
         ],
-        "name": "Jazel"
+        "name": "Jazel",
+        "isLand": true,
+        "isDockable": true
     },
     "0,75,0": {
         "neighbours": [
@@ -331,14 +403,18 @@
             "Tige",
             "Mare Ovond"
         ],
-        "name": "Tond"
+        "name": "Tond",
+        "isLand": true,
+        "isDockable": true
     },
     "0,70,0": {
         "neighbours": [
             "Mare Elle",
             "Mare Gond"
         ],
-        "name": "Zona"
+        "name": "Zona",
+        "isLand": true,
+        "isDockable": true
     },
     "0,65,0": {
         "neighbours": [
@@ -348,35 +424,45 @@
             "Nund",
             "Mare Elle"
         ],
-        "name": "Ovo"
+        "name": "Ovo",
+        "isLand": true,
+        "isDockable": true
     },
     "0,60,0": {
         "neighbours": [
             "Mare Furie",
             "Mare Elle"
         ],
-        "name": "Rama"
+        "name": "Rama",
+        "isLand": true,
+        "isDockable": true
     },
     "0,55,0": {
         "neighbours": [
             "Mare Furie",
             "Mare Bøso"
         ],
-        "name": "Sash"
+        "name": "Sash",
+        "isLand": true,
+        "isDockable": true
     },
     "0,50,0": {
         "neighbours": [
             "Mare Hynd",
             "Mare Furie"
         ],
-        "name": "Rimine"
+        "name": "Rimine",
+        "isLand": true,
+        "isDockable": true
     },
     "0,45,0": {
         "neighbours": [
             "Jazel",
             "Mare Duna"
         ],
-        "name": "Jizinne"
+        "name": "Jizinne",
+        "isLand": true,
+        "isDockable": true
     },
     "0,0,250": {
         "neighbours": [
@@ -394,7 +480,9 @@
             "Mare Furie",
             "Mare Ovond"
         ],
-        "name": "Mare Elle"
+        "name": "Mare Elle",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,225": {
         "neighbours": [
@@ -414,7 +502,9 @@
             "Mare Elle",
             "Mare Bøso"
         ],
-        "name": "Mare Furie"
+        "name": "Mare Furie",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,200": {
         "neighbours": [
@@ -424,7 +514,9 @@
             "Mare Furie",
             "Mare Unna"
         ],
-        "name": "Mare Bøso"
+        "name": "Mare Bøso",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,167": {
         "neighbours": [
@@ -434,7 +526,9 @@
             "Mare Ovond",
             "Mare Bøso"
         ],
-        "name": "Mare Unna"
+        "name": "Mare Unna",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,150": {
         "neighbours": [
@@ -447,7 +541,9 @@
             "Mare Elle",
             "Mare Unna"
         ],
-        "name": "Mare Ovond"
+        "name": "Mare Ovond",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,125": {
         "neighbours": [
@@ -459,7 +555,9 @@
             "Mare Elle",
             "Mare Ovond"
         ],
-        "name": "Mare Gond"
+        "name": "Mare Gond",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,100": {
         "neighbours": [
@@ -471,7 +569,9 @@
             "Mare Illa",
             "Mare Gond"
         ],
-        "name": "Mare Duna"
+        "name": "Mare Duna",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,75": {
         "neighbours": [
@@ -481,7 +581,9 @@
             "Mare Duna",
             "Mare Hynd"
         ],
-        "name": "Mare Illa"
+        "name": "Mare Illa",
+        "isLand": false,
+        "isDockable": true
     },
     "0,0,50": {
         "neighbours": [
@@ -491,6 +593,8 @@
             "Mare Illa",
             "Mare Furie"
         ],
-        "name": "Mare Hynd"
+        "name": "Mare Hynd",
+        "isLand": false,
+        "isDockable": true
     }
 }

@@ -25,7 +25,6 @@ namespace Immerse.BfHClient
                 if (region.IsDockable) _spawnPopup.SetActions("Foot", "Horse", "Tower", "Boat");
                 else _spawnPopup.SetActions("Foot", "Horse", "Tower");
             } else _spawnPopup.SetActions();
-            
         }
     }
 }

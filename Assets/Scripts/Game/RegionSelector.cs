@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Immerse.BfHClient
 {
@@ -28,6 +29,10 @@ namespace Immerse.BfHClient
 
 		private void OnMouseDown()
 		{
+			if (EventSystem.current.IsPointerOverGameObject())
+			{
+				return;
+			}
 			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
 
 			Region newRegion = null;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Immerse.BfHClient
 {
@@ -10,5 +11,6 @@ namespace Immerse.BfHClient
 		public string name;
 		public bool isDockable;
 		public bool isLand;
+		public Vector2 position;
 	}
 }

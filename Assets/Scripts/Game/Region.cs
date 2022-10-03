@@ -11,13 +11,13 @@ namespace Immerse.BfHClient
 			region.Name = jsonRegion.name;
 			region.IsLand = jsonRegion.isLand;
 			region.IsDockable = jsonRegion.isDockable;
+			region.transform.position = jsonRegion.position;
 			return region;
 		}
 
 		public string Name { get; private set; }
 		public bool IsDockable { get; private set; }
 		public bool IsLand { get; private set; }
-		public bool IsSea => IsDockable && !IsLand;
 		public List<Region> Neighbours { get; internal set; }
 	}
 }

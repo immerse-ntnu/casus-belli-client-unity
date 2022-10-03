@@ -12,21 +12,17 @@ namespace Immerse.BfHClient
             get => transform.position;
             set => transform.position = value;
         }
-        [SerializeField] private List<Transform> popups;
-    
-        void Awake()
-        {
-            foreach (Transform transform in GetComponentsInChildren<Transform>())
-            {
-                if (transform == this.transform) continue;
-                popups.Add(transform);
-            }
-        }
 
+        public RegionComponent RegionComponent;
+        
+        [SerializeField] private List<ActionButton> actionButtons;
+        
         public void SetActions(params string[] actions)
         {
-            foreach (Transform transform in popups)
+            foreach (var actionButton in actionButtons)
             {
+                var transform = actionButton.transform;
+                
                 // TODO do shit
                 bool visible = actions.Contains(transform.gameObject.name);
                 transform.gameObject.SetActive(visible);

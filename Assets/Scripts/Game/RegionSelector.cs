@@ -11,7 +11,6 @@ namespace Immerse.BfHClient
 		public event Action<Region> RegionSelected;
 
 		private static readonly int Region = Shader.PropertyToID("_Region");
-		[SerializeField] private TextAsset regionData;
 		private RegionColorHandler _regionColorHandler;
 		private RegionHandler _regionHandler;
 		private Material _material;
@@ -23,8 +22,20 @@ namespace Immerse.BfHClient
 			var spriteRenderer = GetComponent<SpriteRenderer>();
 			_material = spriteRenderer.material;
 			_regionColorHandler = new RegionColorHandler(spriteRenderer);
-			_regionHandler = new RegionHandler(regionData.text);
+			_regionHandler = FindObjectOfType<RegionHandler>();
+			
+			LinkRegionsToComponents();
+
 			_material.SetColor(Region, Color.white);
+		}
+
+		private void LinkRegionsToComponents()
+		{
+			var regionComponents = GetComponentsInChildren<RegionComponent>();
+			foreach (var regionComponent in regionComponents)
+			{
+				regionComponent.Region = _regionHandler.GetRegionFromName(regionComponent.name);
+			}
 		}
 
 		private void OnMouseDown()

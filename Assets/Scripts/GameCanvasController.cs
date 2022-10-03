@@ -19,7 +19,7 @@ namespace Immerse.BfHClient
 
             Vector2 screenPoint = Input.mousePosition;
             Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPoint);
-            _spawnPopup.Position = worldPosition;
+            _spawnPopup.transform.position = worldPosition;
             
             if (region != null && true) {//region.IsLand) {
                 if (region.IsDockable) _spawnPopup.SetActions("Foot", "Horse", "Tower", "Boat");

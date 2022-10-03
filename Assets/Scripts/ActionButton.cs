@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -9,6 +8,8 @@ namespace Immerse.BfHClient
     public class ActionButton : MonoBehaviour
     {
         [SerializeField] private GameObject unit;
+
+        [SerializeField] private ActionPopup popup;
 
         public void SpawnUnit()
         {

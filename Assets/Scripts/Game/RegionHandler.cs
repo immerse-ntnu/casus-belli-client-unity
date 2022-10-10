@@ -49,8 +49,18 @@ namespace Immerse.BfHClient
 
 		private static Dictionary<Color32, Region> RegionsFromDeserializedRegions(Dictionary<Color32, SerializableRegion> serializedRegions)
 		{
+			Dictionary<string, Country> countries = new();
+			foreach (var region in serializedRegions.Values)
+            {
+				if (!countries.ContainsKey(region.country))
+                {
+					countries.Add(region.country, new Country(region.country));
+                }
+            }
+			// loop through all 
+
 			var regionsDictionary = new Dictionary<Color32, Region>();
-			var regions = serializedRegions.Select(pair => Region.BuildRegionFrom(pair.Value)).ToArray();
+			var regions = serializedRegions.Select(pair => Region.BuildRegionFrom(pair.Value, countries)).ToArray();
 			foreach (var pair in serializedRegions)
 			{
 				var neighbours = new List<Region>();

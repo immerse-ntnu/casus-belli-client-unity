@@ -12,8 +12,6 @@ namespace Immerse.BfHClient.EditTests
         public void Setup()
         {
             var json = Resources.Load<TextAsset>("province_data");
-            //TODO
-            //_regionHandler = new RegionHandler(json.text);
         }
 
         [Test]

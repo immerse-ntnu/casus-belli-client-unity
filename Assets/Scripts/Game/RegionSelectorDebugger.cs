@@ -15,7 +15,7 @@ namespace Immerse.BfHClient
 				return;
 			Debug.Log(region is null
 				? "Deselected region"
-				: $"Currently selected region is <color=green>{region.Name}</color>", this);
+				: $"Currently selected region is <color={(region.IsLand ? "green" : "lightblue")}>{region.Name}</color>", this);
 		}
 	}
 }

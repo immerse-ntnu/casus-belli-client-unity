@@ -5,15 +5,17 @@ using UnityEngine;
 
 namespace Immerse.BfHClient
 {
-	public class RegionHandler
+	public class RegionHandler : MonoBehaviour
 	{
-		private readonly Dictionary<Color32, Region> _regions;
+		[SerializeField] private TextAsset regionData;
+
+		private Dictionary<Color32, Region> _regions;
 		public Region GetRegionFromColor(Color32 color) => 
 			!_regions.TryGetValue(color, out var region) ? null : region;
 
-		public RegionHandler(string json)
+		public void Awake()
 		{
-			var deserializedRegions = GetDeserializedDictionary(json);
+			var deserializedRegions = GetDeserializedDictionary(regionData.text);
 			_regions = RegionsFromDeserializedRegions(deserializedRegions);
 		}
 
@@ -48,7 +50,7 @@ namespace Immerse.BfHClient
 		private static Dictionary<Color32, Region> RegionsFromDeserializedRegions(Dictionary<Color32, SerializableRegion> serializedRegions)
 		{
 			var regionsDictionary = new Dictionary<Color32, Region>();
-			var regions = serializedRegions.Select(pair => new Region(pair.Value.name)).ToArray();
+			var regions = serializedRegions.Select(pair => Region.BuildRegionFrom(pair.Value)).ToArray();
 			foreach (var pair in serializedRegions)
 			{
 				var neighbours = new List<Region>();
@@ -56,6 +58,7 @@ namespace Immerse.BfHClient
 					neighbours.AddRange(regions.Where(region => region.Name == neighbour));
 				var foundRegion = regions.FirstOrDefault(r => r.Name == pair.Value.name);
 				foundRegion!.Neighbours = neighbours;
+				
 				regionsDictionary[pair.Key] = foundRegion;
 			}
 			return regionsDictionary;

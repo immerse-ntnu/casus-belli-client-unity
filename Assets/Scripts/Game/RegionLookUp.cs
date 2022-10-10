@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Immerse.BfHClient
 {
-	public class RegionHandler : MonoBehaviour
+	public class RegionLookUp
 	{
-		[SerializeField] private TextAsset regionData;
-
 		private Dictionary<Color32, Region> _regions;
 		public Region GetRegionFromColor(Color32 color) => 
 			!_regions.TryGetValue(color, out var region) ? null : region;
 
-		public void Awake()
+		public RegionLookUp(string regionData)
 		{
-			var deserializedRegions = GetDeserializedDictionary(regionData.text);
+			var deserializedRegions = GetDeserializedDictionary(regionData);
 			_regions = RegionsFromDeserializedRegions(deserializedRegions);
 		}
 

@@ -11,13 +11,11 @@ namespace Immerse.BfHClient
 
         private void RegionSelected(Region region)
         {
-            //_movePopup.SetActions();
-
             Vector2 screenPoint = Input.mousePosition;
             Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPoint);
             _spawnPopup.transform.position = worldPosition;
             
-            if (region != null) {//&& region.IsLand) {
+            if (region != null) {
                 if (region.IsDockable) 
                     _spawnPopup.SetActions("Foot", "Horse", "Tower", "Boat");
                 else 

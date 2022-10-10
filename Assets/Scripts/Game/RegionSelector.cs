@@ -37,7 +37,6 @@ namespace Immerse.BfHClient
 			if (clickedColor != Color.black)
 				newRegion = _regionHandler.GetRegionFromColor(clickedColor);
 
-			// Double selecting a region unselects it (optional feature)
 			if (newRegion == _currentRegion || clickedColor == Color.black)
 			{  
 				newRegion = null;

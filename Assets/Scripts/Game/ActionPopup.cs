@@ -21,8 +21,6 @@ namespace Immerse.BfHClient
             foreach (var actionButton in _actionButtons)
             {
                 var buttonGO = actionButton.gameObject;
-                
-                // TODO do shit
                 var isVisible = actions.Contains(buttonGO.name);
                 buttonGO.SetActive(isVisible);
             }

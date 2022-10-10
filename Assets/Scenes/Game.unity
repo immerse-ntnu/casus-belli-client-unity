@@ -133,10 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 36824167}
   - component: {fileID: 36824166}
-  - component: {fileID: 36824168}
   - component: {fileID: 36824169}
+  - component: {fileID: 36824168}
   - component: {fileID: 36824170}
-  - component: {fileID: 36824171}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -223,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d448da519302412899f6efe9e53c28f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  regionData: {fileID: 4900000, guid: 1cb03cdc91f723a4f873e04839c4c599, type: 3}
 --- !u!61 &36824169
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,19 +262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugging: 1
---- !u!114 &36824171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36824165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b34143dd4670452d9ad35757bfa9eae3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  regionData: {fileID: 4900000, guid: 1cb03cdc91f723a4f873e04839c4c599, type: 3}
 --- !u!1 &252471156
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ namespace Immerse.BfHClient
 		public event Action<Region> RegionSelected;
 
 		private static readonly int Region = Shader.PropertyToID("_Region");
-		[SerializeField] private TextAsset regionData;
 		private RegionColorHandler _regionColorHandler;
 		private RegionHandler _regionHandler;
 		private Material _material;
@@ -23,23 +22,20 @@ namespace Immerse.BfHClient
 			var spriteRenderer = GetComponent<SpriteRenderer>();
 			_material = spriteRenderer.material;
 			_regionColorHandler = new RegionColorHandler(spriteRenderer);
-			_regionHandler = new RegionHandler(regionData.text);
+			_regionHandler = GetComponent<RegionHandler>();
+			
 			_material.SetColor(Region, Color.white);
 		}
 
 		private void OnMouseDown()
 		{
 			if (EventSystem.current.IsPointerOverGameObject())
-			{
 				return;
-			}
 			var clickedColor = _regionColorHandler.GetSpritePixelColorUnderMousePointer();
 
 			Region newRegion = null;
 			if (clickedColor != Color.black)
-			{
 				newRegion = _regionHandler.GetRegionFromColor(clickedColor);
-			}
 
 			// Double selecting a region unselects it (optional feature)
 			if (newRegion == _currentRegion || clickedColor == Color.black)

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 36824168}
   - component: {fileID: 36824169}
   - component: {fileID: 36824170}
+  - component: {fileID: 36824171}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -222,7 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d448da519302412899f6efe9e53c28f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regionData: {fileID: 4900000, guid: 1cb03cdc91f723a4f873e04839c4c599, type: 3}
 --- !u!61 &36824169
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -262,6 +262,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugging: 1
+--- !u!114 &36824171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36824165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34143dd4670452d9ad35757bfa9eae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regionData: {fileID: 4900000, guid: 1cb03cdc91f723a4f873e04839c4c599, type: 3}
 --- !u!1 &252471156
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +696,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7700795312985209062, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994476833480249778, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 6983045647905830628, guid: 4d8015b685b5ad24aac33b1be263bb3d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
 --- !u!1 &1427333101
@@ -901,6 +922,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5b72e5eda826d5049ad8dd8c0bb779ea, type: 3}
+    - target: {fileID: 7700795312985209062, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994476833480249778, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 2641250035625465070, guid: 71890cea6b3e73d41b7c317c63a75301, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
 --- !u!1001 &1867200058
@@ -1002,6 +1031,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e36674101dd3f834993056c4566c053f, type: 3}
+    - target: {fileID: 7700795312985209062, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994476833480249778, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 299879686448658672, guid: 5d975b0f75e45ad468579978c2dd4c40, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebf6c7625dcd08749a9e0a55a9d51c3b, type: 3}
 --- !u!1001 &1597581899233909007
@@ -1127,6 +1164,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5882152686978201737, guid: 2168d54c729ea784a9c783e1071e5f1e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6164641119023272413, guid: 2168d54c729ea784a9c783e1071e5f1e, type: 3}
+      propertyPath: unit
+      value: 
+      objectReference: {fileID: 6101916208889625454, guid: 4191fcdd020b75e499be34e8084389c0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2168d54c729ea784a9c783e1071e5f1e, type: 3}
 --- !u!114 &1597581899233909008 stripped

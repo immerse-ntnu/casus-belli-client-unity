@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 95871750408149533, guid: 946fe363c76af24478829248609d29b6, type: 3}
       propertyPath: m_Name
-      value: SiegeTower
+      value: SiegeTower Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8872231629081085070, guid: 946fe363c76af24478829248609d29b6, type: 3}
       propertyPath: m_RootOrder
@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8872231629081085070, guid: 946fe363c76af24478829248609d29b6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.053
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8872231629081085070, guid: 946fe363c76af24478829248609d29b6, type: 3}
       propertyPath: m_LocalPosition.y

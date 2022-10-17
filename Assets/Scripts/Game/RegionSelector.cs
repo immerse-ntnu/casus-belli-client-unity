@@ -7,14 +7,15 @@ namespace Immerse.BfHClient
 	public class RegionSelector : MonoBehaviour
 	{
 		public static RegionSelector Instance { get; private set; }
-		public Region CurrentRegion { get => _currentRegion; }
+		public Region CurrentRegion { get; private set; }
+
 		public event Action<Region> RegionSelected;
 
 		private static readonly int Region = Shader.PropertyToID("_Region");
 		private RegionColorHandler _regionColorHandler;
-		private RegionHandler _regionHandler;
+		private RegionLookUp _regionLookUp;
 		private Material _material;
-		private Region _currentRegion;
+		[SerializeField] private TextAsset regionData;
 
 		private void Awake()
 		{
@@ -22,7 +23,7 @@ namespace Immerse.BfHClient
 			var spriteRenderer = GetComponent<SpriteRenderer>();
 			_material = spriteRenderer.material;
 			_regionColorHandler = new RegionColorHandler(spriteRenderer);
-			_regionHandler = GetComponent<RegionHandler>();
+			_regionLookUp = new RegionLookUp(regionData.text);
 			
 			_material.SetColor(Region, Color.white);
 		}
@@ -35,17 +36,17 @@ namespace Immerse.BfHClient
 
 			Region newRegion = null;
 			if (clickedColor != Color.black)
-				newRegion = _regionHandler.GetRegionFromColor(clickedColor);
+				newRegion = _regionLookUp.GetRegionFromColor(clickedColor);
 
-			if (newRegion == _currentRegion || clickedColor == Color.black)
+			if (newRegion == CurrentRegion || clickedColor == Color.black)
 			{  
 				newRegion = null;
 				clickedColor = Color.white;
 			}
 			_material.SetColor(Region, clickedColor);
-			_currentRegion = newRegion;
+			CurrentRegion = newRegion;
 
-			RegionSelected?.Invoke(_currentRegion);
+			RegionSelected?.Invoke(CurrentRegion);
 		}
 	}
 }

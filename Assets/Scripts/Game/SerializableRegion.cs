@@ -9,6 +9,7 @@ namespace Immerse.BfHClient
 	{
 		public List<string> neighbours;
 		public string name;
+		public string country;
 		public bool isDockable;
 		public bool isLand;
 		public Vector2 position;

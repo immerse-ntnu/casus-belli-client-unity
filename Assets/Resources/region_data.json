@@ -8,6 +8,7 @@
             "Ninin"
         ],
         "name": "Bassas",
+        "country":"B",
         "isLand": true,
         "isDockable": false,
         "position": {"x": -9.5, "y": 0.2}
@@ -19,6 +20,7 @@
             "Mare Elle"
         ],
         "name": "Nund",
+        "country":"N",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -4.9, "y": -0.15}
@@ -32,6 +34,7 @@
             "Nund"
         ],
         "name": "Ninin",
+        "country":"N",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -9.09, "y": 3.89}
@@ -46,6 +49,7 @@
             "Mare Furie"
         ],
         "name": "Calis",
+        "country":"C",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -11.13, "y": 8.0}
@@ -57,6 +61,7 @@
             "Mare Furie"
         ],
         "name": "Cymere",
+        "country":"C",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -4.77, "y": 9.78}
@@ -70,6 +75,7 @@
             "Mare Furie"
         ],
         "name": "Pesth",
+        "country":"P",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -8.45, "y": 12.12}
@@ -81,6 +87,7 @@
             "Mare Furie"
         ],
         "name": "Purth",
+        "country":"P",
         "isLand": true,
         "islDockable": true,
         "position": {"x": -10.63, "y": 15.3}
@@ -91,6 +98,7 @@
             "Amarí"
         ],
         "name": "Arra",
+        "country":"A",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -18.1, "y": 13.1}
@@ -103,6 +111,7 @@
             "Brodo"
         ],
         "name": "Monté",
+        "country":"M",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -21.21, "y": 9.1}
@@ -113,6 +122,7 @@
             "Mare Illa"
         ],
         "name": "Kyrie",
+        "country":"K",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -29.65, "y": 3.45}
@@ -124,6 +134,7 @@
             "Brodo"
         ],
         "name": "Morone",
+        "country":"M",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -22.25, "y": 4.45}
@@ -135,6 +146,7 @@
             "Calis"
         ],
         "name": "Amarí",
+        "country":"A",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -14.0, "y": 11.45}
@@ -148,6 +160,7 @@
             "Bassas"
         ],
         "name": "Bom",
+        "country":"B",
         "isLand": true,
         "isDockable": false,
         "position": {"x": -14, "y": 3.8}
@@ -162,6 +175,7 @@
             "Bassas"
         ],
         "name": "Brodo",
+        "country":"B",
         "isLand": true,
         "isDockable": false,
         "position": {"x": -17.61, "y": 3.0}
@@ -177,6 +191,7 @@
             "Winde"
         ],
         "name": "Leil",
+        "country":"L",
         "isLand": true,
         "isDockable": false,
         "position": {"x": -12.23, "y": -4.2}
@@ -190,6 +205,7 @@
             "Brodo"
         ],
         "name": "Lusía",
+        "country":"L",
         "isLand": true,
         "isDockable": false,
         "position": {"x": -19.44, "y": -0.6}
@@ -202,6 +218,7 @@
             "Limbol"
         ],
         "name": "Lomone",
+        "country":"L",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -25.12, "y": -0.92}
@@ -215,6 +232,7 @@
             "Worp"
         ],
         "name": "Limbol",
+        "country":"L",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -18.88, "y": -4.3}
@@ -228,6 +246,7 @@
             "Winde"
         ],
         "name": "Worp",
+        "country":"W",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -13.43, "y": -9.7}
@@ -241,6 +260,7 @@
             "Mare Gond"
         ],
         "name": "Winde",
+        "country":"W",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -7.37, "y": -6.9}
@@ -252,6 +272,7 @@
             "Gewel"
         ],
         "name": "Gnade",
+        "country":"G",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 25.6, "y": -0.2}
@@ -263,6 +284,7 @@
             "Mare Ovond"
         ],
         "name": "Fond",
+        "country":"F",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 29.2, "y": -1.55}
@@ -276,6 +298,7 @@
             "Mare Ovond"
         ],
         "name": "Firril",
+        "country":"F",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 23.0, "y": -2.65}
@@ -289,6 +312,7 @@
             "Mare Ovond"
         ],
         "name": "Tige",
+        "country":"T",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 13.44, "y": -5.25}
@@ -299,6 +323,7 @@
             "Firril"
         ],
         "name": "Furie",
+        "country":"F",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 19.45, "y": -5.6}
@@ -311,6 +336,7 @@
             "Mare Unna"
         ],
         "name": "Emman",
+        "country":"E",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 21.0, "y": 7.0}
@@ -324,6 +350,7 @@
             "Gnade"
         ],
         "name": "Gron",
+        "country":"G",
         "isLand": true,
         "isDockable": false,
         "position": {"x": 20.4, "y": 1.0}
@@ -335,6 +362,7 @@
             "Hyll"
         ],
         "name": "Herk",
+        "country":"H",
         "isLand": true,
         "isDockable": false,
         "position": {"x": 14.05, "y": 3.0}
@@ -346,6 +374,7 @@
             "Gron"
         ],
         "name": "Tusser",
+        "country":"T",
         "isLand": true,
         "isDockable": false,
         "position": {"x": 16.0, "y": -2.8}
@@ -359,6 +388,7 @@
             "Herk"
         ],
         "name": "Dalom",
+        "country":"D",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 11.6, "y": -2.4}
@@ -371,6 +401,7 @@
             "Herk"
         ],
         "name": "Dordel",
+        "country":"D",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 5.95, "y": 2.35}
@@ -382,6 +413,7 @@
             "Samoje"
         ],
         "name": "Hyll",
+        "country":"H",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 12.8, "y": 7.11}
@@ -394,6 +426,7 @@
             "Erren"
         ],
         "name": "Samoje",
+        "country":"S",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 14.8, "y": 11.36}
@@ -405,6 +438,7 @@
             "Mare Bøso"
         ],
         "name": "Erren",
+        "country":"E",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 19.2, "y": 10.8}
@@ -417,6 +451,7 @@
             "Mare Unna"
         ],
         "name": "Gewel",
+        "country":"G",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 26.45, "y": 4.5}
@@ -428,6 +463,7 @@
             "Jizinne"
         ],
         "name": "Jazel",
+        "country":"J",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -26.76, "y": -6.36}
@@ -440,6 +476,7 @@
             "Mare Ovond"
         ],
         "name": "Tond",
+        "country":"T",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 8.5, "y": -11.55}
@@ -450,6 +487,7 @@
             "Mare Gond"
         ],
         "name": "Zona",
+        "country":"Z",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 1.05, "y": -10.7}
@@ -463,6 +501,7 @@
             "Mare Elle"
         ],
         "name": "Ovo",
+        "country":"O",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -4.5, "y": -3.8}
@@ -473,6 +512,7 @@
             "Mare Elle"
         ],
         "name": "Rama",
+        "country":"R",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -3.0, "y": 3.77}
@@ -483,6 +523,7 @@
             "Mare Bøso"
         ],
         "name": "Sash",
+        "country":"S",
         "isLand": true,
         "isDockable": true,
         "position": {"x": 9.7, "y": 15.3}
@@ -493,6 +534,7 @@
             "Mare Furie"
         ],
         "name": "Rimine",
+        "country":"R",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -3.9, "y": 16.9}
@@ -503,6 +545,7 @@
             "Mare Duna"
         ],
         "name": "Jizinne",
+        "country":"J",
         "isLand": true,
         "isDockable": true,
         "position": {"x": -24.2, "y": -9.6}
@@ -524,6 +567,7 @@
             "Mare Ovond"
         ],
         "name": "Mare Elle",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": 2.2, "y": -3.2}
@@ -547,6 +591,7 @@
             "Mare Bøso"
         ],
         "name": "Mare Furie",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": 2.6, "y": 9.4}
@@ -560,6 +605,7 @@
             "Mare Unna"
         ],
         "name": "Mare Bøso",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": 18.3, "y": 17.1}
@@ -573,6 +619,7 @@
             "Mare Bøso"
         ],
         "name": "Mare Unna",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": 33.9, "y": 6.0}
@@ -589,6 +636,7 @@
             "Mare Unna"
         ],
         "name": "Mare Ovond",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": 22.2, "y": -12.5}
@@ -604,6 +652,7 @@
             "Mare Ovond"
         ],
         "name": "Mare Gond",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": -2.1, "y": -16.0}
@@ -619,6 +668,7 @@
             "Mare Gond"
         ],
         "name": "Mare Duna",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": -20.5 , "y": -16.0}
@@ -632,6 +682,7 @@
             "Mare Hynd"
         ],
         "name": "Mare Illa",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": -33.6, "y": -2.2}
@@ -645,6 +696,7 @@
             "Mare Furie"
         ],
         "name": "Mare Hynd",
+        "country":"Mare",
         "isLand": false,
         "isDockable": true,
         "position": {"x": -21.1, "y": 17.0}

@@ -4,7 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Immerse.BfHClient
+namespace Immerse.BfhClient
 {
 	public class RegionLookUp
 	{

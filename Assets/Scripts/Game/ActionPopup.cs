@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Immerse.BfHClient
+namespace Immerse.BfhClient
 {
     public class ActionPopup : MonoBehaviour
     {

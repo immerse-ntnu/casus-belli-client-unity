@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Immerse.BfHClient
+namespace Immerse.BfhClient
 {
     [System.Serializable]
     public class Country

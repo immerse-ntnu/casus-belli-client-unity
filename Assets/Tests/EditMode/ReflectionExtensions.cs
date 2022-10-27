@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Immerse.BfHClient.EditTests
+namespace Immerse.BfhClient.EditTests
 {
 	public static class ReflectionExtensions {
 		public static T GetFieldValue<T>(this object obj, string name) {

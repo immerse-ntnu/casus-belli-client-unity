@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Immerse.BfHClient.UI
+namespace Immerse.BfhClient.UI
 {
     public class SceneController : MonoBehaviour
     {

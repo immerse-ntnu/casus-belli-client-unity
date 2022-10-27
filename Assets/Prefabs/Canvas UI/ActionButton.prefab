@@ -123,7 +123,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7994476833480249778}
-        m_TargetAssemblyTypeName: Immerse.BfHClient.ActionButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Immerse.BfhClient.ActionButton, Assembly-CSharp
         m_MethodName: SpawnUnit
         m_Mode: 1
         m_Arguments:

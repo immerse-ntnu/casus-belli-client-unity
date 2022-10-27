@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Immerse.BfHClient
+namespace Immerse.BfhClient
 {
     public class GameCanvasController : MonoBehaviour
     {

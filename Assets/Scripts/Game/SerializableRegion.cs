@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Immerse.BfHClient
+namespace Immerse.BfhClient
 {
 	[Serializable]
 	public class SerializableRegion

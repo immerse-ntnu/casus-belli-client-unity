@@ -1,6 +1,6 @@
 {
     "name": "PlayMode",
-    "rootNamespace": "Immerse.BfHClient.PlayTests",
+    "rootNamespace": "Immerse.BfhClient.PlayTests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

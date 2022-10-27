@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Immerse.BfHClient.UI
+namespace Immerse.BfhClient.UI
 {
     public class JoinLobbyUIController : MonoBehaviour
     {

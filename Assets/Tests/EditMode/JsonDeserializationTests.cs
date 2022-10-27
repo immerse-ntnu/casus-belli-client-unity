@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Immerse.BfHClient.EditTests
+namespace Immerse.BfhClient.EditTests
 {
     public class JsonDeserializationTests
     {

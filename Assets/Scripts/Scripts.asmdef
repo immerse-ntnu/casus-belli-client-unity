@@ -1,6 +1,6 @@
 {
     "name": "Scripts",
-    "rootNamespace": "Immerse.BfHClient",
+    "rootNamespace": "Immerse.BfhClient",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

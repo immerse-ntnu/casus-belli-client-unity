@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Immerse.BfhClient
+namespace Immerse.BfhClient.Game
 {
 	public class RegionSelector : MonoBehaviour
 	{

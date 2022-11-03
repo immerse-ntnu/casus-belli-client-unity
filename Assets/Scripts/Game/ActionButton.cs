@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Immerse.BfhClient
+namespace Immerse.BfhClient.Game
 {
     public class ActionButton : MonoBehaviour
     {

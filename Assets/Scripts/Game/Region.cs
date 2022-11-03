@@ -21,5 +21,6 @@ namespace Immerse.BfhClient
 		public bool IsLand { get; private set; }
 		public Country Country { get; private set; }
 		public List<Region> Neighbours { get; internal set; }
+		public GameObject Unit { get; internal set; }
 	}
 }

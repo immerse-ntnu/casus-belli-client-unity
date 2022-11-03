@@ -5,11 +5,11 @@ namespace Immerse.BfhClient
 {
     public class ActionPopup : MonoBehaviour
     {
-        private ActionButton[] _actionButtons;
+        private SpawnButton[] _actionButtons;
 
         private void Awake()
         {
-            _actionButtons = GetComponentsInChildren<ActionButton>();
+            _actionButtons = GetComponentsInChildren<SpawnButton>();
             foreach (var button in _actionButtons)
             {
                 print(button.gameObject.name);

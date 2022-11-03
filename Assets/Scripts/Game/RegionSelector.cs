@@ -28,6 +28,7 @@ namespace Immerse.BfhClient
 			_material.SetColor(Region, Color.white);
 		}
 
+
 		private void OnMouseDown()
 		{
 			if (EventSystem.current.IsPointerOverGameObject())

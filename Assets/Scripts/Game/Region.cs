@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Immerse.BfhClient
+namespace Immerse.BfhClient.Game
 {
 	public class Region : MonoBehaviour
 	{

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Immerse.BfhClient.Game;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Immerse.BfhClient.EditTests
+namespace Immerse.BfhClient.Tests.EditMode
 {
     public class JsonDeserializationTests
     {

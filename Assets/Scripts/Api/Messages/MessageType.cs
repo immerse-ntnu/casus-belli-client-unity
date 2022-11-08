@@ -65,6 +65,9 @@ namespace Immerse.BfhClient.Api.Messages
         /// </summary>
         public const string StartGame = "startGame";
 
+        /// <summary>
+        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.SupportRequestMsg"/>.
+        /// </summary>
         public const string SupportRequest = "supportRequest";
 
         /// <summary>

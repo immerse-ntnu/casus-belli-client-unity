@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Immerse.BfhClient.Api.GameTypes;
 using JetBrains.Annotations;
+using Newtonsoft.Json.Linq;
 
 namespace Immerse.BfhClient.Api.Messages
 {
@@ -71,6 +72,11 @@ namespace Immerse.BfhClient.Api.Messages
         /// List of submitted orders.
         /// </summary>
         [NotNull] public readonly List<Order> Orders;
+
+        public SubmitOrdersMsg(List<Order> orders)
+        {
+            Orders = orders;
+        }
     }
 
     /// <summary>
@@ -89,6 +95,12 @@ namespace Immerse.BfhClient.Api.Messages
         /// Null if none were supported.
         /// </summary>
         [CanBeNull] public readonly string SupportedPlayer;
+
+        public GiveSupportMsg(string supportingArea, string supportedPlayer)
+        {
+            SupportingArea = supportingArea;
+            SupportedPlayer = supportedPlayer;
+        }
     }
 
     /// <summary>
@@ -101,6 +113,11 @@ namespace Immerse.BfhClient.Api.Messages
         /// ID of the player that the submitting player votes for.
         /// </summary>
         [NotNull] public readonly string Player;
+
+        public WinterVoteMsg(string player)
+        {
+            Player = player;
+        }
     }
 
     /// <summary>
@@ -118,6 +135,12 @@ namespace Immerse.BfhClient.Api.Messages
         /// Index of the battle in which to use the sword, in case of several battles in the area.
         /// </summary>
         public readonly int BattleIndex;
+
+        public SwordMsg(string area, int battleIndex)
+        {
+            Area = area;
+            BattleIndex = battleIndex;
+        }
     }
 
     /// <summary>
@@ -130,5 +153,10 @@ namespace Immerse.BfhClient.Api.Messages
         /// ID of the player on whom to spy.
         /// </summary>
         [NotNull] public readonly string Player;
+
+        public RavenMsg(string player)
+        {
+            Player = player;
+        }
     }
 }

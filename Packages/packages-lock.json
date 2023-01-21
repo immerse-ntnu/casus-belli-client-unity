@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.torbst.torbutils": {
-      "version": "file:com.torbst.torbutils",
+      "version": "file:C:/Users/torbs/Desktop/gitshit/Torbutils/Packages/com.torbst.torbutils",
       "depth": 0,
-      "source": "embedded",
+      "source": "local",
       "dependencies": {}
     },
     "com.unity.collab-proxy": {

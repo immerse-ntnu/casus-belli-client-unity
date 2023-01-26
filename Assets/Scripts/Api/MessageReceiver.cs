@@ -16,29 +16,29 @@ namespace Immerse.BfhClient.Api
         private readonly ClientWebSocket _connection;
         private readonly Thread _receiveThread;
 
-        private readonly ConcurrentQueue<ErrorMsg> _errorMessages;
-        private readonly ConcurrentQueue<PlayerStatusMsg> _playerStatusMessages;
-        private readonly ConcurrentQueue<LobbyJoinedMsg> _lobbyJoinedMessages;
-        private readonly ConcurrentQueue<SupportRequestMsg> _supportRequestMessages;
-        private readonly ConcurrentQueue<OrderRequestMsg> _orderRequestMessages;
-        private readonly ConcurrentQueue<OrdersReceivedMsg> _ordersReceivedMessages;
-        private readonly ConcurrentQueue<OrdersConfirmationMsg> _ordersConfirmationMessages;
-        private readonly ConcurrentQueue<BattleResultsMsg> _battleResultsMessages;
-        private readonly ConcurrentQueue<WinnerMsg> _winnerMessages;
+        public readonly BlockingCollection<ErrorMsg> ErrorMessages;
+        public readonly BlockingCollection<PlayerStatusMsg> PlayerStatusMessages;
+        public readonly BlockingCollection<LobbyJoinedMsg> LobbyJoinedMessages;
+        public readonly BlockingCollection<SupportRequestMsg> SupportRequestMessages;
+        public readonly BlockingCollection<OrderRequestMsg> OrderRequestMessages;
+        public readonly BlockingCollection<OrdersReceivedMsg> OrdersReceivedMessages;
+        public readonly BlockingCollection<OrdersConfirmationMsg> OrdersConfirmationMessages;
+        public readonly BlockingCollection<BattleResultsMsg> BattleResultsMessages;
+        public readonly BlockingCollection<WinnerMsg> WinnerMessages;
 
         public MessageReceiver(ClientWebSocket connection)
         {
             _connection = connection;
 
-            _errorMessages = new ConcurrentQueue<ErrorMsg>();
-            _playerStatusMessages = new ConcurrentQueue<PlayerStatusMsg>();
-            _lobbyJoinedMessages = new ConcurrentQueue<LobbyJoinedMsg>();
-            _supportRequestMessages = new ConcurrentQueue<SupportRequestMsg>();
-            _orderRequestMessages = new ConcurrentQueue<OrderRequestMsg>();
-            _ordersReceivedMessages = new ConcurrentQueue<OrdersReceivedMsg>();
-            _ordersConfirmationMessages = new ConcurrentQueue<OrdersConfirmationMsg>();
-            _battleResultsMessages = new ConcurrentQueue<BattleResultsMsg>();
-            _winnerMessages = new ConcurrentQueue<WinnerMsg>();
+            ErrorMessages = new BlockingCollection<ErrorMsg>();
+            PlayerStatusMessages = new BlockingCollection<PlayerStatusMsg>();
+            LobbyJoinedMessages = new BlockingCollection<LobbyJoinedMsg>();
+            SupportRequestMessages = new BlockingCollection<SupportRequestMsg>();
+            OrderRequestMessages = new BlockingCollection<OrderRequestMsg>();
+            OrdersReceivedMessages = new BlockingCollection<OrdersReceivedMsg>();
+            OrdersConfirmationMessages = new BlockingCollection<OrdersConfirmationMsg>();
+            BattleResultsMessages = new BlockingCollection<BattleResultsMsg>();
+            WinnerMessages = new BlockingCollection<WinnerMsg>();
 
             _receiveThread = new Thread(ReceiveMessagesIntoQueues);
         }
@@ -121,31 +121,31 @@ namespace Immerse.BfhClient.Api
             switch (messageType)
             {
                 case MessageType.Error:
-                    DeserializeAndEnqueue(serializedMessage, _errorMessages);
+                    DeserializeAndEnqueue(serializedMessage, ErrorMessages);
                     break;
                 case MessageType.PlayerStatus:
-                    DeserializeAndEnqueue(serializedMessage, _playerStatusMessages);
+                    DeserializeAndEnqueue(serializedMessage, PlayerStatusMessages);
                     break;
                 case MessageType.LobbyJoined:
-                    DeserializeAndEnqueue(serializedMessage, _lobbyJoinedMessages);
+                    DeserializeAndEnqueue(serializedMessage, LobbyJoinedMessages);
                     break;
                 case MessageType.SupportRequest:
-                    DeserializeAndEnqueue(serializedMessage, _supportRequestMessages);
+                    DeserializeAndEnqueue(serializedMessage, SupportRequestMessages);
                     break;
                 case MessageType.OrderRequest:
-                    DeserializeAndEnqueue(serializedMessage, _orderRequestMessages);
+                    DeserializeAndEnqueue(serializedMessage, OrderRequestMessages);
                     break;
                 case MessageType.OrdersReceived:
-                    DeserializeAndEnqueue(serializedMessage, _ordersReceivedMessages);
+                    DeserializeAndEnqueue(serializedMessage, OrdersReceivedMessages);
                     break;
                 case MessageType.OrdersConfirmation:
-                    DeserializeAndEnqueue(serializedMessage, _ordersConfirmationMessages);
+                    DeserializeAndEnqueue(serializedMessage, OrdersConfirmationMessages);
                     break;
                 case MessageType.BattleResults:
-                    DeserializeAndEnqueue(serializedMessage, _battleResultsMessages);
+                    DeserializeAndEnqueue(serializedMessage, BattleResultsMessages);
                     break;
                 case MessageType.Winner:
-                    DeserializeAndEnqueue(serializedMessage, _winnerMessages);
+                    DeserializeAndEnqueue(serializedMessage, WinnerMessages);
                     break;
                 default:
                     Debug.LogError($"Unrecognized message type received from server: {messageType}");
@@ -153,15 +153,17 @@ namespace Immerse.BfhClient.Api
             }
         }
 
-        private static void DeserializeAndEnqueue<TMessage>(JToken serializedMessage, ConcurrentQueue<TMessage> queue)
-        {
+        private static void DeserializeAndEnqueue<TMessage>(
+            JToken serializedMessage,
+            BlockingCollection<TMessage> queue
+        ) {
             var message = serializedMessage.ToObject<TMessage>();
             if (message == null)
             {
                 throw new ArgumentException($"Failed to deserialize message \"{serializedMessage}\"");
             }
 
-            queue.Enqueue(message);
+            queue.Add(message);
         }
     }
 }

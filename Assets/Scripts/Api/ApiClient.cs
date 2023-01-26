@@ -75,5 +75,50 @@ namespace Immerse.BfhClient.Api
         {
             _messageSender.SendMessage(MessageType.Raven, new RavenMsg(player));
         }
+
+        public ErrorMsg AwaitErrorMessage()
+        {
+            return _messageReceiver.ErrorMessages.Take();
+        }
+
+        public PlayerStatusMsg AwaitPlayerStatusMessage()
+        {
+            return _messageReceiver.PlayerStatusMessages.Take();
+        }
+
+        public LobbyJoinedMsg AwaitLobbyJoinedMessage()
+        {
+            return _messageReceiver.LobbyJoinedMessages.Take();
+        }
+
+        public SupportRequestMsg AwaitSupportRequestMessage()
+        {
+            return _messageReceiver.SupportRequestMessages.Take();
+        }
+
+        public OrderRequestMsg AwaitOrderRequestMessage()
+        {
+            return _messageReceiver.OrderRequestMessages.Take();
+        }
+
+        public OrdersReceivedMsg AwaitOrdersReceivedMessage()
+        {
+            return _messageReceiver.OrdersReceivedMessages.Take();
+        }
+
+        public OrdersConfirmationMsg AwaitOrdersConfirmationMessage()
+        {
+            return _messageReceiver.OrdersConfirmationMessages.Take();
+        }
+
+        public BattleResultsMsg AwaitBattleResultsMessage()
+        {
+            return _messageReceiver.BattleResultsMessages.Take();
+        }
+
+        public WinnerMsg AwaitWinnerMessage()
+        {
+            return _messageReceiver.WinnerMessages.Take();
+        }
     }
 }

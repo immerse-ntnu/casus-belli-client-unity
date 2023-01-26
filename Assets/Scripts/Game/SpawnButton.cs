@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Immerse.BfhClient.Game
 {
-    public class ActionButton : MonoBehaviour
+    public class SpawnButton : MonoBehaviour
     {
         [SerializeField] private GameObject unit;
 
@@ -13,8 +12,9 @@ namespace Immerse.BfhClient.Game
 
         public void SpawnUnit()
         {
-            var spawnedUnit = Instantiate(unit,RegionSelector.Instance.CurrentRegion.transform);
-            Debug.Log(unit.name);
+            Region region = RegionSelector.Instance.CurrentRegion;
+            var spawnedUnit = Instantiate(unit,region.transform);
+            region.Unit = spawnedUnit;
         }
     }
 }

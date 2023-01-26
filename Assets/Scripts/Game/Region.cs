@@ -17,9 +17,11 @@ namespace Immerse.BfhClient.Game
 		}
 
 		public string Name { get; private set; }
+		public int Id { get; set; }
 		public bool IsDockable { get; private set; }
 		public bool IsLand { get; private set; }
 		public Country Country { get; private set; }
 		public List<Region> Neighbours { get; internal set; }
+		public GameObject Unit { get; internal set; }
 	}
 }

@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.torbst.torbutils": {
+      "version": "https://github.com/TorbsT/Torbutils.git?path=Packages/com.torbst.torbutils/",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7bce483cb7797ad42c96ed2ede821691cf8450e9"
+    },
     "com.unity.collab-proxy": {
       "version": "1.17.1",
       "depth": 0,

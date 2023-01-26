@@ -74,11 +74,11 @@ namespace Immerse.BfhClient.Game
             // Assign graphs to visualizers
             // Useful for debugging
             if (neighbourVisualizer != null)
-                neighbourVisualizer.Checkout(neighbourGraph);
+                neighbourVisualizer.Set(neighbourGraph);
             if (boatVisualizer != null)
-                boatVisualizer.Checkout(boatGraph);
+                boatVisualizer.Set(boatGraph);
             if (landVisualizer != null)
-                landVisualizer.Checkout(landGraph);
+                landVisualizer.Set(landGraph);
         }
     }
 }

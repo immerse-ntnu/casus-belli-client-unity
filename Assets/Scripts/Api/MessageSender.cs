@@ -23,29 +23,28 @@ namespace Immerse.BfhClient.Api
     {
         private readonly ClientWebSocket _connection;
         private readonly Thread _sendThread;
-        private readonly BlockingCollection<ArraySegment<byte>> _sendQueue;
+        private readonly BlockingCollection<SerializableMessage> _sendQueue;
         private readonly UTF8Encoding _encoding;
 
         public MessageSender(ClientWebSocket connection)
         {
             _connection = connection;
             _encoding = new UTF8Encoding();
-            _sendQueue = new BlockingCollection<ArraySegment<byte>>();
+            _sendQueue = new BlockingCollection<SerializableMessage>();
             _sendThread = new Thread(SendMessagesFromQueue);
         }
 
         /// <summary>
-        /// Serializes the given message to JSON, wrapped in the given message type.
+        /// Puts the given message in the <see cref="MessageSender"/>'s send queue to be serialized and passed to the
+        /// game server.
         /// </summary>
         public void SendMessage(string messageType, object message)
         {
-            var jsonMessage = new JObject(new JProperty(messageType, message)).ToString();
-            var byteMessage = (ArraySegment<byte>)_encoding.GetBytes(jsonMessage);
-            _sendQueue.Add(byteMessage);
+            _sendQueue.Add(new SerializableMessage(messageType, message));
         }
 
         /// <summary>
-        /// Continuously takes messages from the send queue, and sends them to the server.
+        /// Continuously takes messages from the send queue, serializes them and sends them to the server.
         /// </summary>
         private async void SendMessagesFromQueue()
         {
@@ -61,14 +60,35 @@ namespace Immerse.BfhClient.Api
                 {
                     var message = _sendQueue.Take();
 
+                    var jsonMessage = new JObject(
+                        new JProperty(message.MessageType, message.WrappedMessage)
+                    ).ToString();
+
+                    var byteMessage = _encoding.GetBytes(jsonMessage);
+
                     await _connection.SendAsync(
-                        message,
+                        byteMessage,
                         WebSocketMessageType.Text,
                         true,
                         CancellationToken.None
                     );
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// A message object along with its type, for passing to the <see cref="MessageSender"/>'s send queue.
+    /// </summary>
+    internal struct SerializableMessage
+    {
+        public readonly string MessageType;
+        public readonly object WrappedMessage;
+
+        public SerializableMessage(string messageType, object wrappedMessage)
+        {
+            MessageType = messageType;
+            WrappedMessage = wrappedMessage;
         }
     }
 }

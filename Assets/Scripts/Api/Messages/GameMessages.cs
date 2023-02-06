@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Immerse.BfhClient.Api.GameTypes;
 using JetBrains.Annotations;
-using Newtonsoft.Json.Linq;
 
 namespace Immerse.BfhClient.Api.Messages
 {

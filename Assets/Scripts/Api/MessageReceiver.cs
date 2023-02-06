@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -11,6 +12,18 @@ using UnityEngine;
 
 namespace Immerse.BfhClient.Api
 {
+    /// <summary>
+    /// <para>Handles receiving messages from the WebSocket connection to the game server.</para>
+    /// <para>
+    /// Spawns a thread that continuously listens for received messages on its given WebSocket connection.
+    /// Initializes a <see cref="BlockingCollection{T}"/> for each message type that the client expects to receive from
+    /// the server.
+    /// When a message is received, it is deserialized and put into the appropriate collection according to its type.
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
+    /// </remarks>
     public class MessageReceiver
     {
         private readonly ClientWebSocket _connection;
@@ -43,6 +56,11 @@ namespace Immerse.BfhClient.Api
             _receiveThread = new Thread(ReceiveMessagesIntoQueues);
         }
 
+        /// <summary>
+        /// Continuously reads incoming messages from the WebSocket connection.
+        /// After a message is read to completion, calls <see cref="DeserializeIntoQueue"/> to deserialize and
+        /// enqueue the message appropriately.
+        /// </summary>
         private async void ReceiveMessagesIntoQueues()
         {
             while (true)
@@ -77,7 +95,8 @@ namespace Immerse.BfhClient.Api
 
                 if (!isTextMessage)
                 {
-                    break;
+                    Debug.Log("Received unexpected non-text message from WebSocket connection");
+                    continue;
                 }
 
                 memoryStream.Seek(0, SeekOrigin.Begin);
@@ -94,29 +113,28 @@ namespace Immerse.BfhClient.Api
                     Debug.Log($"Failed to deserialize received message: {exception.Message}");
                 }
             }
-
-            Debug.Log("WebSocket connection to server closed.");
         }
 
+        /// <summary>
+        /// Messages received from the server are JSON on the following format:
+        /// <code>
+        /// {
+        ///     "[messageID]": {...message}
+        /// }
+        /// </code>
+        /// This method takes the full message JSON string, deserializes the "wrapping object" to get the message ID,
+        /// then calls <see cref="DeserializeAndEnqueue{T}"/> with the wrapped inner message and the appropriate
+        /// <see cref="BlockingCollection{T}"/> according to its type.
+        /// </summary>
         private void DeserializeIntoQueue(string messageString)
         {
-            var messageWithMessageType = JObject.Parse(messageString);
+            var messageWithID = JObject.Parse(messageString);
 
-            string messageType = null;
-            JToken serializedMessage = null;
-            foreach (var property in messageWithMessageType.Properties())
-            {
-                messageType = property.Name;
-                serializedMessage = property.Value;
-                break;
-            }
-
-            if (messageType == null || serializedMessage == null)
-            {
-                throw new ArgumentException(
-                    $"Expected JSON message to be wrapped in object with message type, but got: {messageString}"
-                );
-            }
+            // The wrapping JSON object is expected to have only a single field, with the message ID as key and the
+            // serialized message as its value
+            var firstMessageProperty = messageWithID.Properties().First();
+            var messageType = firstMessageProperty.Name;
+            var serializedMessage = firstMessageProperty.Value;
 
             switch (messageType)
             {
@@ -153,9 +171,16 @@ namespace Immerse.BfhClient.Api
             }
         }
 
+        /// <summary>
+        /// Attempts to deserialize the given message to <typeparamref name="TMessage"/>, then adds it to the given
+        /// message queue.
+        /// </summary>
+        /// <exception cref="ArgumentException">
+        /// If the given message could not be deserialized to <typeparamref name="TMessage"/>.
+        /// </exception>
         private static void DeserializeAndEnqueue<TMessage>(
             JToken serializedMessage,
-            BlockingCollection<TMessage> queue
+            BlockingCollection<TMessage> messageQueue
         ) {
             var message = serializedMessage.ToObject<TMessage>();
             if (message == null)
@@ -163,7 +188,7 @@ namespace Immerse.BfhClient.Api
                 throw new ArgumentException($"Failed to deserialize message \"{serializedMessage}\"");
             }
 
-            queue.Add(message);
+            messageQueue.Add(message);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Immerse.BfhClient.Api
     /// <para>Handles receiving messages from the WebSocket connection to the game server.</para>
     /// <para>
     /// Spawns a thread that continuously listens for received messages on its given WebSocket connection.
-    /// Initializes a <see cref="BlockingCollection{T}"/> for each message type that the client expects to receive from
+    /// Initializes a <see cref="ConcurrentQueue{T}"/> for each message type that the client expects to receive from
     /// the server.
     /// When a message is received, it is deserialized and put into the appropriate collection according to its type.
     /// </para>
@@ -29,29 +29,29 @@ namespace Immerse.BfhClient.Api
         private readonly ClientWebSocket _connection;
         private readonly Thread _receiveThread;
 
-        public readonly BlockingCollection<ErrorMsg> ErrorMessages;
-        public readonly BlockingCollection<PlayerStatusMsg> PlayerStatusMessages;
-        public readonly BlockingCollection<LobbyJoinedMsg> LobbyJoinedMessages;
-        public readonly BlockingCollection<SupportRequestMsg> SupportRequestMessages;
-        public readonly BlockingCollection<OrderRequestMsg> OrderRequestMessages;
-        public readonly BlockingCollection<OrdersReceivedMsg> OrdersReceivedMessages;
-        public readonly BlockingCollection<OrdersConfirmationMsg> OrdersConfirmationMessages;
-        public readonly BlockingCollection<BattleResultsMsg> BattleResultsMessages;
-        public readonly BlockingCollection<WinnerMsg> WinnerMessages;
+        public readonly ConcurrentQueue<ErrorMessage> ErrorMessages;
+        public readonly ConcurrentQueue<PlayerStatusMessage> PlayerStatusMessages;
+        public readonly ConcurrentQueue<LobbyJoinedMessage> LobbyJoinedMessages;
+        public readonly ConcurrentQueue<SupportRequestMessage> SupportRequestMessages;
+        public readonly ConcurrentQueue<OrderRequestMessage> OrderRequestMessages;
+        public readonly ConcurrentQueue<OrdersReceivedMessage> OrdersReceivedMessages;
+        public readonly ConcurrentQueue<OrdersConfirmationMessage> OrdersConfirmationMessages;
+        public readonly ConcurrentQueue<BattleResultsMessage> BattleResultsMessages;
+        public readonly ConcurrentQueue<WinnerMessage> WinnerMessages;
 
         public MessageReceiver(ClientWebSocket connection)
         {
             _connection = connection;
 
-            ErrorMessages = new BlockingCollection<ErrorMsg>();
-            PlayerStatusMessages = new BlockingCollection<PlayerStatusMsg>();
-            LobbyJoinedMessages = new BlockingCollection<LobbyJoinedMsg>();
-            SupportRequestMessages = new BlockingCollection<SupportRequestMsg>();
-            OrderRequestMessages = new BlockingCollection<OrderRequestMsg>();
-            OrdersReceivedMessages = new BlockingCollection<OrdersReceivedMsg>();
-            OrdersConfirmationMessages = new BlockingCollection<OrdersConfirmationMsg>();
-            BattleResultsMessages = new BlockingCollection<BattleResultsMsg>();
-            WinnerMessages = new BlockingCollection<WinnerMsg>();
+            ErrorMessages = new ConcurrentQueue<ErrorMessage>();
+            PlayerStatusMessages = new ConcurrentQueue<PlayerStatusMessage>();
+            LobbyJoinedMessages = new ConcurrentQueue<LobbyJoinedMessage>();
+            SupportRequestMessages = new ConcurrentQueue<SupportRequestMessage>();
+            OrderRequestMessages = new ConcurrentQueue<OrderRequestMessage>();
+            OrdersReceivedMessages = new ConcurrentQueue<OrdersReceivedMessage>();
+            OrdersConfirmationMessages = new ConcurrentQueue<OrdersConfirmationMessage>();
+            BattleResultsMessages = new ConcurrentQueue<BattleResultsMessage>();
+            WinnerMessages = new ConcurrentQueue<WinnerMessage>();
 
             _receiveThread = new Thread(ReceiveMessagesIntoQueues);
         }
@@ -124,7 +124,7 @@ namespace Immerse.BfhClient.Api
         /// </code>
         /// This method takes the full message JSON string, deserializes the "wrapping object" to get the message ID,
         /// then calls <see cref="DeserializeAndEnqueue{T}"/> with the wrapped inner message and the appropriate
-        /// <see cref="BlockingCollection{T}"/> according to its type.
+        /// <see cref="ConcurrentQueue{T}"/> according to its type.
         /// </summary>
         private void DeserializeIntoQueue(string messageString)
         {
@@ -180,7 +180,7 @@ namespace Immerse.BfhClient.Api
         /// </exception>
         private static void DeserializeAndEnqueue<TMessage>(
             JToken serializedMessage,
-            BlockingCollection<TMessage> messageQueue
+            ConcurrentQueue<TMessage> messageQueue
         ) {
             var message = serializedMessage.ToObject<TMessage>();
             if (message == null)
@@ -188,7 +188,7 @@ namespace Immerse.BfhClient.Api
                 throw new ArgumentException($"Failed to deserialize message \"{serializedMessage}\"");
             }
 
-            messageQueue.Add(message);
+            messageQueue.Enqueue(message);
         }
     }
 }

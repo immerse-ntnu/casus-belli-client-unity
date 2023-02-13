@@ -133,40 +133,40 @@ namespace Immerse.BfhClient.Api
             // The wrapping JSON object is expected to have only a single field, with the message ID as key and the
             // serialized message as its value
             var firstMessageProperty = messageWithID.Properties().First();
-            var messageType = firstMessageProperty.Name;
+            var messageID = firstMessageProperty.Name;
             var serializedMessage = firstMessageProperty.Value;
 
-            switch (messageType)
+            switch (messageID)
             {
-                case MessageType.Error:
+                case MessageID.Error:
                     DeserializeAndEnqueue(serializedMessage, ErrorMessages);
                     break;
-                case MessageType.PlayerStatus:
+                case MessageID.PlayerStatus:
                     DeserializeAndEnqueue(serializedMessage, PlayerStatusMessages);
                     break;
-                case MessageType.LobbyJoined:
+                case MessageID.LobbyJoined:
                     DeserializeAndEnqueue(serializedMessage, LobbyJoinedMessages);
                     break;
-                case MessageType.SupportRequest:
+                case MessageID.SupportRequest:
                     DeserializeAndEnqueue(serializedMessage, SupportRequestMessages);
                     break;
-                case MessageType.OrderRequest:
+                case MessageID.OrderRequest:
                     DeserializeAndEnqueue(serializedMessage, OrderRequestMessages);
                     break;
-                case MessageType.OrdersReceived:
+                case MessageID.OrdersReceived:
                     DeserializeAndEnqueue(serializedMessage, OrdersReceivedMessages);
                     break;
-                case MessageType.OrdersConfirmation:
+                case MessageID.OrdersConfirmation:
                     DeserializeAndEnqueue(serializedMessage, OrdersConfirmationMessages);
                     break;
-                case MessageType.BattleResults:
+                case MessageID.BattleResults:
                     DeserializeAndEnqueue(serializedMessage, BattleResultsMessages);
                     break;
-                case MessageType.Winner:
+                case MessageID.Winner:
                     DeserializeAndEnqueue(serializedMessage, WinnerMessages);
                     break;
                 default:
-                    Debug.LogError($"Unrecognized message type received from server: {messageType}");
+                    Debug.LogError($"Unrecognized message type received from server: {messageID}");
                     break;
             }
         }

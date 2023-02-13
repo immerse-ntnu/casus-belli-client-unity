@@ -45,7 +45,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendSelectGameIDMessage(string gameID)
         {
-            _messageSender.SendMessage(MessageType.SelectGameID, new SelectGameIDMsg(gameID));
+            _messageSender.SendMessage(MessageID.SelectGameID, new SelectGameIDMsg(gameID));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendReadyMessage(bool ready)
         {
-            _messageSender.SendMessage(MessageType.Ready, new ReadyMsg(ready));
+            _messageSender.SendMessage(MessageID.Ready, new ReadyMsg(ready));
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendStartGameMessage()
         {
-            _messageSender.SendMessage(MessageType.StartGame, new StartGameMsg());
+            _messageSender.SendMessage(MessageID.StartGame, new StartGameMsg());
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendSubmitOrdersMessage(List<Order> orders)
         {
-            _messageSender.SendMessage(MessageType.SubmitOrders, new SubmitOrdersMsg(orders));
+            _messageSender.SendMessage(MessageID.SubmitOrders, new SubmitOrdersMsg(orders));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendGiveSupportMessage(string supportingArea, string supportedPlayer)
         {
-            _messageSender.SendMessage(MessageType.GiveSupport, new GiveSupportMsg(supportingArea, supportedPlayer));
+            _messageSender.SendMessage(MessageID.GiveSupport, new GiveSupportMsg(supportingArea, supportedPlayer));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendWinterVoteMessage(string player)
         {
-            _messageSender.SendMessage(MessageType.WinterVote, new WinterVoteMsg(player));
+            _messageSender.SendMessage(MessageID.WinterVote, new WinterVoteMsg(player));
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendSwordMessage(string area, int battleIndex)
         {
-            _messageSender.SendMessage(MessageType.Sword, new SwordMsg(area, battleIndex));
+            _messageSender.SendMessage(MessageID.Sword, new SwordMsg(area, battleIndex));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendRavenMessage(string player)
         {
-            _messageSender.SendMessage(MessageType.Raven, new RavenMsg(player));
+            _messageSender.SendMessage(MessageID.Raven, new RavenMsg(player));
         }
 
         /// <summary>

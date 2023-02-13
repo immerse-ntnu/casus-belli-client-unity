@@ -61,7 +61,7 @@ namespace Immerse.BfhClient.Api
                     var message = _sendQueue.Take();
 
                     var jsonMessage = new JObject(
-                        new JProperty(message.MessageType, message.WrappedMessage)
+                        new JProperty(message.MessageID, message.WrappedMessage)
                     ).ToString();
 
                     var byteMessage = _encoding.GetBytes(jsonMessage);
@@ -82,12 +82,12 @@ namespace Immerse.BfhClient.Api
     /// </summary>
     internal struct SerializableMessage
     {
-        public readonly string MessageType;
+        public readonly string MessageID;
         public readonly object WrappedMessage;
 
-        public SerializableMessage(string messageType, object wrappedMessage)
+        public SerializableMessage(string messageID, object wrappedMessage)
         {
-            MessageType = messageType;
+            MessageID = messageID;
             WrappedMessage = wrappedMessage;
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Text;
@@ -24,12 +23,10 @@ namespace Immerse.BfhClient.Api
         private readonly ClientWebSocket _connection;
         private readonly Thread _sendThread;
         private readonly BlockingCollection<SerializableMessage> _sendQueue;
-        private readonly UTF8Encoding _encoding;
 
         public MessageSender(ClientWebSocket connection)
         {
             _connection = connection;
-            _encoding = new UTF8Encoding();
             _sendQueue = new BlockingCollection<SerializableMessage>();
             _sendThread = new Thread(SendMessagesFromQueue);
         }
@@ -58,16 +55,10 @@ namespace Immerse.BfhClient.Api
 
                 while (!_sendQueue.IsCompleted)
                 {
-                    var message = _sendQueue.Take();
-
-                    var jsonMessage = new JObject(
-                        new JProperty(message.MessageID, message.WrappedMessage)
-                    ).ToString();
-
-                    var byteMessage = _encoding.GetBytes(jsonMessage);
+                    var message = _sendQueue.Take().SerializeToJson();
 
                     await _connection.SendAsync(
-                        byteMessage,
+                        message,
                         WebSocketMessageType.Text,
                         true,
                         CancellationToken.None
@@ -78,17 +69,39 @@ namespace Immerse.BfhClient.Api
     }
 
     /// <summary>
-    /// A message object along with its type, for passing to the <see cref="MessageSender"/>'s send queue.
+    /// A message object along with its ID, for passing to the <see cref="MessageSender"/>'s send queue.
     /// </summary>
-    internal struct SerializableMessage
+    internal readonly struct SerializableMessage
     {
-        public readonly string MessageID;
-        public readonly object WrappedMessage;
+        private readonly string _messageID;
+        private readonly object _wrappedMessage;
 
         public SerializableMessage(string messageID, object wrappedMessage)
         {
-            MessageID = messageID;
-            WrappedMessage = wrappedMessage;
+            _messageID = messageID;
+            _wrappedMessage = wrappedMessage;
+        }
+
+        /// <summary>
+        /// <para>
+        /// Serializes the message to JSON, and returns the JSON object in UTF8-encoded byte format.
+        /// </para>
+        ///
+        /// <para>
+        /// Wraps the message object in an outer object with its message ID (as expected by the server), like this:
+        /// <code>
+        /// {
+        ///     "[messageID]": {...message}
+        /// }
+        /// </code>
+        /// </para>
+        /// </summary>
+        public byte[] SerializeToJson()
+        {
+            var messageJson = new JObject(new JProperty(_messageID, _wrappedMessage));
+            var messageString = messageJson.ToString();
+            var messageBytes = Encoding.UTF8.GetBytes(messageString);
+            return messageBytes;
         }
     }
 }

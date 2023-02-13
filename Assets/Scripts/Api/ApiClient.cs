@@ -12,9 +12,6 @@ namespace Immerse.BfhClient.Api
     /// WebSocket client that connects to the game server.
     /// Provides methods for sending and receiving game and lobby messages.
     /// </summary>
-    /// <remarks>
-    /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
-    /// </remarks>
     public class ApiClient
     {
         private readonly Uri _serverUri;

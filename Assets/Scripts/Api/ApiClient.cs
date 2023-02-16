@@ -11,30 +11,29 @@ namespace Immerse.BfhClient.Api
     /// <summary>
     /// WebSocket client that connects to the game server.
     /// Provides methods for sending and receiving game and lobby messages.
+    /// Sending and receiving are no-ops until <see cref="ApiClient.Connect"/> is called.
     /// </summary>
     public class ApiClient
     {
-        private readonly Uri _serverUri;
         private readonly ClientWebSocket _connection;
 
-        private readonly MessageSender _messageSender;
-        private readonly MessageReceiver _messageReceiver;
+        private MessageSender _messageSender;
+        private MessageReceiver _messageReceiver;
 
-        public ApiClient(string serverUri)
+        public ApiClient()
         {
-            _serverUri = new Uri(serverUri);
             _connection = new ClientWebSocket();
-            _messageSender = new MessageSender(_connection);
-            _messageReceiver = new MessageReceiver(_connection);
         }
 
         /// <summary>
-        /// Connects the API client to the server at its URI.
+        /// Connects the API client to a server at the given URI.
         /// Must be called before any of the send or receive methods.
         /// </summary>
-        public async Task Connect()
+        public async Task Connect(Uri serverUri)
         {
-            await _connection.ConnectAsync(_serverUri, CancellationToken.None);
+            _messageSender = new MessageSender(_connection);
+            _messageReceiver = new MessageReceiver(_connection);
+            await _connection.ConnectAsync(serverUri, CancellationToken.None);
         }
 
         /// <summary>
@@ -42,7 +41,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendSelectGameIDMessage(string gameID)
         {
-            _messageSender.SendMessage(MessageID.SelectGameID, new SelectGameIDMessage(gameID));
+            _messageSender?.SendMessage(MessageID.SelectGameID, new SelectGameIDMessage(gameID));
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendReadyMessage(bool ready)
         {
-            _messageSender.SendMessage(MessageID.Ready, new ReadyMessage(ready));
+            _messageSender?.SendMessage(MessageID.Ready, new ReadyMessage(ready));
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendStartGameMessage()
         {
-            _messageSender.SendMessage(MessageID.StartGame, new StartGameMessage());
+            _messageSender?.SendMessage(MessageID.StartGame, new StartGameMessage());
         }
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendSubmitOrdersMessage(List<Order> orders)
         {
-            _messageSender.SendMessage(MessageID.SubmitOrders, new SubmitOrdersMessage(orders));
+            _messageSender?.SendMessage(MessageID.SubmitOrders, new SubmitOrdersMessage(orders));
         }
 
         /// <summary>
@@ -74,7 +73,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendGiveSupportMessage(string supportingArea, string supportedPlayer)
         {
-            _messageSender.SendMessage(MessageID.GiveSupport, new GiveSupportMessage(supportingArea, supportedPlayer));
+            _messageSender?.SendMessage(MessageID.GiveSupport, new GiveSupportMessage(supportingArea, supportedPlayer));
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendWinterVoteMessage(string player)
         {
-            _messageSender.SendMessage(MessageID.WinterVote, new WinterVoteMessage(player));
+            _messageSender?.SendMessage(MessageID.WinterVote, new WinterVoteMessage(player));
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendSwordMessage(string area, int battleIndex)
         {
-            _messageSender.SendMessage(MessageID.Sword, new SwordMessage(area, battleIndex));
+            _messageSender?.SendMessage(MessageID.Sword, new SwordMessage(area, battleIndex));
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public void SendRavenMessage(string player)
         {
-            _messageSender.SendMessage(MessageID.Raven, new RavenMessage(player));
+            _messageSender?.SendMessage(MessageID.Raven, new RavenMessage(player));
         }
 
         /// <summary>
@@ -108,6 +107,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveErrorMessage(out ErrorMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.ErrorMessages.TryDequeue(out message);
         }
 
@@ -118,6 +124,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceivePlayerStatusMessage(out PlayerStatusMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.PlayerStatusMessages.TryDequeue(out message);
         }
 
@@ -128,6 +141,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveLobbyJoinedMessage(out LobbyJoinedMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.LobbyJoinedMessages.TryDequeue(out message);
         }
 
@@ -138,6 +158,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveSupportRequestMessage(out SupportRequestMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.SupportRequestMessages.TryDequeue(out message);
         }
 
@@ -148,6 +175,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveOrderRequestMessage(out OrderRequestMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.OrderRequestMessages.TryDequeue(out message);
         }
 
@@ -158,6 +192,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveOrdersReceivedMessage(out OrdersReceivedMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.OrdersReceivedMessages.TryDequeue(out message);
         }
 
@@ -168,6 +209,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveOrdersConfirmationMessage(out OrdersConfirmationMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.OrdersConfirmationMessages.TryDequeue(out message);
         }
 
@@ -178,6 +226,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveBattleResultsMessage(out BattleResultsMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.BattleResultsMessages.TryDequeue(out message);
         }
 
@@ -188,6 +243,13 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         public bool TryReceiveWinnerMessage(out WinnerMessage message)
         {
+            // ReSharper disable once InvertIf
+            if (_messageReceiver is null)
+            {
+                message = default;
+                return false;
+            }
+
             return _messageReceiver.WinnerMessages.TryDequeue(out message);
         }
     }

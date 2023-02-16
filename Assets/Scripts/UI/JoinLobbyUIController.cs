@@ -24,12 +24,12 @@ namespace Immerse.BfhClient.UI
         private void JoinButtonPressed()
         {
             Debug.Log("Attempt to join lobby " + _codeField.text);
-            SceneController.Load(SceneController.Instance.Game);
+            SceneManager.Load(SceneManager.Instance.Game);
         }
 
         private void BackButtonPressed()
         {
-            SceneController.Load(SceneController.Instance.MainMenu);
+            SceneManager.Load(SceneManager.Instance.MainMenu);
         }
     }
 }

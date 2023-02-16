@@ -17,7 +17,7 @@ namespace Immerse.BfhClient.UI
 
         private void JoinButtonPressed()
         {
-            SceneController.Load(SceneController.Instance.JoinMenu);
+            SceneManager.Load(SceneManager.Instance.JoinMenu);
         }
     }
 }

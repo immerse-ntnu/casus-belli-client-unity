@@ -1,7 +1,9 @@
 {
     "name": "Scripts",
     "rootNamespace": "Immerse.BfhClient",
-    "references": [],
+    "references": [
+        "GUID:f5bfdfcd82ef7584194cd685cf4ad772"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -3,15 +3,14 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// <para>
     /// IDs for the types of messages sent between client and server.
-    /// Each ID corresponds to a message struct in <see cref="Immerse.BfhClient.Api.Messages"/>,
-    /// with the same name but suffixed with "Msg".
+    /// Each ID corresponds to a message struct in <see cref="Immerse.BfhClient.Api.Messages"/>.
     /// </para>
     ///
     /// <para>
     /// Message types are used as keys in the JSON messages to and from the server.
     /// Every message has the following format, where messageID is one of the
-    /// <see cref="Immerse.BfhClient.Api.Messages.MessageType"/> constants, and
-    /// {...message} is the corresponding "...Msg" struct in <see cref="Immerse.BfhClient.Api.Messages"/>.
+    /// <see cref="MessageID"/> constants, and
+    /// {...message} is the corresponding "...Message" struct in <see cref="Immerse.BfhClient.Api.Messages"/>.
     /// <code>
     /// {
     ///     "[messageID]": {...message}
@@ -21,8 +20,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// </summary>
     ///
     /// <example>
-    /// <see cref="Immerse.BfhClient.Api.Messages.MessageType.SupportRequest"/> is the message ID for
-    /// <see cref="Immerse.BfhClient.Api.Messages.SupportRequestMsg"/>.
+    /// <see cref="MessageID.SupportRequest"/> is the message ID for <see cref="SupportRequestMessage"/>.
     /// The message looks like this when coming from the server:
     /// <code>
     /// {
@@ -33,90 +31,90 @@ namespace Immerse.BfhClient.Api.Messages
     /// }
     /// </code>
     /// </example>
-    public static class MessageType
+    public static class MessageID
     {
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.ErrorMsg"/>.
+        /// Message ID for <see cref="ErrorMessage"/>.
         /// </summary>
         public const string Error = "error";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.PlayerStatusMsg"/>.
+        /// Message ID for <see cref="PlayerStatusMessage"/>.
         /// </summary>
         public const string PlayerStatus = "playerStatus";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.LobbyJoinedMsg"/>.
+        /// Message ID for <see cref="LobbyJoinedMessage"/>.
         /// </summary>
         public const string LobbyJoined = "lobbyJoined";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.SelectGameIDMsg"/>.
+        /// Message ID for <see cref="SelectGameIDMessage"/>.
         /// </summary>
         public const string SelectGameID = "selectGameId";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.ReadyMsg"/>.
+        /// Message ID for <see cref="ReadyMessage"/>.
         /// </summary>
         public const string Ready = "ready";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.StartGameMsg"/>.
+        /// Message ID for <see cref="StartGameMessage"/>.
         /// </summary>
         public const string StartGame = "startGame";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.SupportRequestMsg"/>.
+        /// Message ID for <see cref="SupportRequestMessage"/>.
         /// </summary>
         public const string SupportRequest = "supportRequest";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.OrderRequestMsg"/>.
+        /// Message ID for <see cref="OrderRequestMessage"/>.
         /// </summary>
         public const string OrderRequest = "orderRequest";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.OrdersReceivedMsg"/>.
+        /// Message ID for <see cref="OrdersReceivedMessage"/>.
         /// </summary>
         public const string OrdersReceived = "ordersReceived";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.OrdersConfirmationMsg"/>.
+        /// Message ID for <see cref="OrdersConfirmationMessage"/>.
         /// </summary>
         public const string OrdersConfirmation = "ordersConfirmation";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.BattleResultsMsg"/>.
+        /// Message ID for <see cref="BattleResultsMessage"/>.
         /// </summary>
         public const string BattleResults = "battleResults";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.WinnerMsg"/>.
+        /// Message ID for <see cref="WinnerMessage"/>.
         /// </summary>
         public const string Winner = "winner";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.SubmitOrdersMsg"/>.
+        /// Message ID for <see cref="SubmitOrdersMessage"/>.
         /// </summary>
         public const string SubmitOrders = "submitOrders";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.GiveSupportMsg"/>.
+        /// Message ID for <see cref="GiveSupportMessage"/>.
         /// </summary>
         public const string GiveSupport = "giveSupport";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.WinterVoteMsg"/>.
+        /// Message ID for <see cref="WinterVoteMessage"/>.
         /// </summary>
         public const string WinterVote = "winterVote";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.SwordMsg"/>.
+        /// Message ID for <see cref="SwordMessage"/>.
         /// </summary>
-        public const string Sword = "swordMsg";
+        public const string Sword = "sword";
 
         /// <summary>
-        /// Message ID for <see cref="Immerse.BfhClient.Api.Messages.RavenMsg"/>.
+        /// Message ID for <see cref="RavenMessage"/>.
         /// </summary>
         public const string Raven = "raven";
     }

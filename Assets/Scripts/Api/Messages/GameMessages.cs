@@ -7,7 +7,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server when asking a supporting player who to support in an embattled area.
     /// </summary>
-    public readonly struct SupportRequestMsg
+    public readonly struct SupportRequestMessage
     {
         /// <summary>
         /// The area from which support is asked, where the asked player should have a support order.
@@ -23,13 +23,13 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server to client to signal that client should submit orders.
     /// </summary>
-    public readonly struct OrderRequestMsg
+    public readonly struct OrderRequestMessage
     { }
 
     /// <summary>
     /// Message sent from server to all clients when valid orders are received from all players.
     /// </summary>
-    public readonly struct OrdersReceivedMsg
+    public readonly struct OrdersReceivedMessage
     {
         [NotNull] public readonly Dictionary<string, List<Order>> PlayerOrders;
     }
@@ -38,7 +38,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// Message sent from server to all clients when valid orders are received from a player.
     /// Used to show who the server is waiting for.
     /// </summary>
-    public readonly struct OrdersConfirmationMsg
+    public readonly struct OrdersConfirmationMessage
     {
         [NotNull] public readonly string Player;
     }
@@ -46,7 +46,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server to all clients when a battle result is calculated.
     /// </summary>
-    public readonly struct BattleResultsMsg
+    public readonly struct BattleResultsMessage
     {
         [NotNull] public readonly List<Battle> Battles;
     }
@@ -54,7 +54,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server to all clients when the game is won.
     /// </summary>
-    public readonly struct WinnerMsg
+    public readonly struct WinnerMessage
     {
         /// <summary>
         /// Player tag of the game's winner.
@@ -65,19 +65,24 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from client when submitting orders.
     /// </summary>
-    public readonly struct SubmitOrdersMsg
+    public readonly struct SubmitOrdersMessage
     {
         /// <summary>
         /// List of submitted orders.
         /// </summary>
         [NotNull] public readonly List<Order> Orders;
+
+        public SubmitOrdersMessage(List<Order> orders)
+        {
+            Orders = orders;
+        }
     }
 
     /// <summary>
     /// Message sent from client when declaring who to support with their support order.
     /// Forwarded by server to all clients to show who were given support.
     /// </summary>
-    public readonly struct GiveSupportMsg
+    public readonly struct GiveSupportMessage
     {
         /// <summary>
         /// Name of the area in which the support order is placed.
@@ -89,25 +94,36 @@ namespace Immerse.BfhClient.Api.Messages
         /// Null if none were supported.
         /// </summary>
         [CanBeNull] public readonly string SupportedPlayer;
+
+        public GiveSupportMessage(string supportingArea, string supportedPlayer)
+        {
+            SupportingArea = supportingArea;
+            SupportedPlayer = supportedPlayer;
+        }
     }
 
     /// <summary>
     /// Message passed from the client during winter council voting.
     /// Used for the throne expansion.
     /// </summary>
-    public readonly struct WinterVoteMsg
+    public readonly struct WinterVoteMessage
     {
         /// <summary>
         /// ID of the player that the submitting player votes for.
         /// </summary>
         [NotNull] public readonly string Player;
+
+        public WinterVoteMessage(string player)
+        {
+            Player = player;
+        }
     }
 
     /// <summary>
     /// Message passed from the client with the swordMsg to declare where they want to use it.
     /// Used for the throne expansion.
     /// </summary>
-    public readonly struct SwordMsg
+    public readonly struct SwordMessage
     {
         /// <summary>
         /// Name of the area in which the player wants to use the sword in battle.
@@ -118,17 +134,28 @@ namespace Immerse.BfhClient.Api.Messages
         /// Index of the battle in which to use the sword, in case of several battles in the area.
         /// </summary>
         public readonly int BattleIndex;
+
+        public SwordMessage(string area, int battleIndex)
+        {
+            Area = area;
+            BattleIndex = battleIndex;
+        }
     }
 
     /// <summary>
     /// Message passed from the client with the ravenMsg when they want to spy on another player's orders.
     /// Used for the throne expansion.
     /// </summary>
-    public readonly struct RavenMsg
+    public readonly struct RavenMessage
     {
         /// <summary>
         /// ID of the player on whom to spy.
         /// </summary>
         [NotNull] public readonly string Player;
+
+        public RavenMessage(string player)
+        {
+            Player = player;
+        }
     }
 }

@@ -7,6 +7,5 @@ namespace Immerse.BfhClient
     {
         [field: SerializeField] public string ProvinceName { get; private set; }
         [field: SerializeField, TextArea] public string ProvinceInfoText { get; private set; }
-        
     }
 }

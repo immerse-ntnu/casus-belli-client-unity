@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Immerse.BfhClient.Game;
 using TMPro;
@@ -35,7 +34,6 @@ namespace Immerse.BfhClient
             }
             if (!infoPanel.activeSelf)
                 infoPanel.SetActive(true);
-            
             
             if (!_provinceInfos.TryGetValue(region.Name, out var info)) return;
             provinceNameText.text = info.ProvinceName;

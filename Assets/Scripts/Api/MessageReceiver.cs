@@ -24,35 +24,24 @@ namespace Immerse.BfhClient.Api
     /// <remarks>
     /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
     /// </remarks>
-    public class MessageReceiver
+    internal class MessageReceiver
     {
         private readonly ClientWebSocket _connection;
         private readonly Thread _receiveThread;
 
-        public readonly ConcurrentQueue<ErrorMessage> ErrorMessages;
-        public readonly ConcurrentQueue<PlayerStatusMessage> PlayerStatusMessages;
-        public readonly ConcurrentQueue<LobbyJoinedMessage> LobbyJoinedMessages;
-        public readonly ConcurrentQueue<SupportRequestMessage> SupportRequestMessages;
-        public readonly ConcurrentQueue<OrderRequestMessage> OrderRequestMessages;
-        public readonly ConcurrentQueue<OrdersReceivedMessage> OrdersReceivedMessages;
-        public readonly ConcurrentQueue<OrdersConfirmationMessage> OrdersConfirmationMessages;
-        public readonly ConcurrentQueue<BattleResultsMessage> BattleResultsMessages;
-        public readonly ConcurrentQueue<WinnerMessage> WinnerMessages;
+        public readonly ConcurrentQueue<ErrorMessage> ErrorMessages = new();
+        public readonly ConcurrentQueue<PlayerStatusMessage> PlayerStatusMessages = new();
+        public readonly ConcurrentQueue<LobbyJoinedMessage> LobbyJoinedMessages = new();
+        public readonly ConcurrentQueue<SupportRequestMessage> SupportRequestMessages = new();
+        public readonly ConcurrentQueue<OrderRequestMessage> OrderRequestMessages = new();
+        public readonly ConcurrentQueue<OrdersReceivedMessage> OrdersReceivedMessages = new();
+        public readonly ConcurrentQueue<OrdersConfirmationMessage> OrdersConfirmationMessages = new();
+        public readonly ConcurrentQueue<BattleResultsMessage> BattleResultsMessages = new();
+        public readonly ConcurrentQueue<WinnerMessage> WinnerMessages = new();
 
         public MessageReceiver(ClientWebSocket connection)
         {
             _connection = connection;
-
-            ErrorMessages = new ConcurrentQueue<ErrorMessage>();
-            PlayerStatusMessages = new ConcurrentQueue<PlayerStatusMessage>();
-            LobbyJoinedMessages = new ConcurrentQueue<LobbyJoinedMessage>();
-            SupportRequestMessages = new ConcurrentQueue<SupportRequestMessage>();
-            OrderRequestMessages = new ConcurrentQueue<OrderRequestMessage>();
-            OrdersReceivedMessages = new ConcurrentQueue<OrdersReceivedMessage>();
-            OrdersConfirmationMessages = new ConcurrentQueue<OrdersConfirmationMessage>();
-            BattleResultsMessages = new ConcurrentQueue<BattleResultsMessage>();
-            WinnerMessages = new ConcurrentQueue<WinnerMessage>();
-
             _receiveThread = new Thread(ReceiveMessagesIntoQueues);
         }
 

@@ -45,6 +45,11 @@ namespace Immerse.BfhClient.Api
         public event Action<SupportRequestMessage> ReceivedSupportRequestMessage;
 
         /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.GiveSupportMessage"/>.
+        /// </summary>
+        public event Action<GiveSupportMessage> ReceivedGiveSupportMessage;
+
+        /// <summary>
         /// Event that is triggered when server sends an <see cref="Messages.OrderRequestMessage"/>.
         /// </summary>
         public event Action<OrderRequestMessage> ReceivedOrderRequestMessage;
@@ -155,6 +160,7 @@ namespace Immerse.BfhClient.Api
             TriggerEventIfMessageReceived(ReceivedPlayerStatusMessage, _messageReceiver.PlayerStatusMessages);
             TriggerEventIfMessageReceived(ReceivedLobbyJoinedMessage, _messageReceiver.LobbyJoinedMessages);
             TriggerEventIfMessageReceived(ReceivedSupportRequestMessage, _messageReceiver.SupportRequestMessages);
+            TriggerEventIfMessageReceived(ReceivedGiveSupportMessage, _messageReceiver.GiveSupportMessages);
             TriggerEventIfMessageReceived(ReceivedOrderRequestMessage, _messageReceiver.OrderRequestMessages);
             TriggerEventIfMessageReceived(ReceivedOrdersReceivedMessage, _messageReceiver.OrdersReceivedMessages);
             TriggerEventIfMessageReceived(ReceivedOrdersConfirmationMessage, _messageReceiver.OrdersConfirmationMessages);

@@ -33,6 +33,7 @@ namespace Immerse.BfhClient.Api
         public readonly ConcurrentQueue<PlayerStatusMessage> PlayerStatusMessages = new();
         public readonly ConcurrentQueue<LobbyJoinedMessage> LobbyJoinedMessages = new();
         public readonly ConcurrentQueue<SupportRequestMessage> SupportRequestMessages = new();
+        public readonly ConcurrentQueue<GiveSupportMessage> GiveSupportMessages = new();
         public readonly ConcurrentQueue<OrderRequestMessage> OrderRequestMessages = new();
         public readonly ConcurrentQueue<OrdersReceivedMessage> OrdersReceivedMessages = new();
         public readonly ConcurrentQueue<OrdersConfirmationMessage> OrdersConfirmationMessages = new();
@@ -138,6 +139,9 @@ namespace Immerse.BfhClient.Api
                     break;
                 case MessageID.SupportRequest:
                     DeserializeAndEnqueue(serializedMessage, SupportRequestMessages);
+                    break;
+                case MessageID.GiveSupport:
+                    DeserializeAndEnqueue(serializedMessage, GiveSupportMessages);
                     break;
                 case MessageID.OrderRequest:
                     DeserializeAndEnqueue(serializedMessage, OrderRequestMessages);

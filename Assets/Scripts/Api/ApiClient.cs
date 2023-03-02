@@ -151,7 +151,15 @@ namespace Immerse.BfhClient.Api
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance is null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void Update()

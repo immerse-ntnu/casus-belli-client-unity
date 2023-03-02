@@ -6,18 +6,19 @@ namespace Immerse.BfhClient.UI
     public class MainMenuUIController : MonoBehaviour
     {
         private Button _joinButton;
-
-        private void Start()
+        public void CreateButtonPressed()
         {
-            var root = GetComponent<UIDocument>().rootVisualElement;
-        
-            _joinButton = root.Q<Button>("Join");
-            _joinButton.clicked += JoinButtonPressed;
+            SceneManager.Load(SceneManager.Instance.JoinMenu);
         }
-
-        private void JoinButtonPressed()
+        
+        public void JoinButtonPressed()
         {
-            SceneController.Load(SceneController.Instance.JoinMenu);
+            SceneManager.Load(SceneManager.Instance.JoinMenu);
+        }
+        
+        public void ExitButtonPressed()
+        {
+            Application.Quit();
         }
     }
 }

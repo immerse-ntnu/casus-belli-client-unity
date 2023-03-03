@@ -63,11 +63,6 @@ namespace Immerse.BfhClient.Api.Messages
         /// Will be rejected if already selected by another player.
         /// </summary>
         [NotNull] public readonly string GameID;
-
-        public SelectGameIDMessage(string gameID)
-        {
-            GameID = gameID;
-        }
     }
 
     /// <summary>
@@ -80,11 +75,6 @@ namespace Immerse.BfhClient.Api.Messages
         /// Whether the player is ready to start the game.
         /// </summary>
         public readonly bool Ready;
-
-        public ReadyMessage(bool ready)
-        {
-            Ready = ready;
-        }
     }
 
     /// <summary>

@@ -71,11 +71,6 @@ namespace Immerse.BfhClient.Api.Messages
         /// List of submitted orders.
         /// </summary>
         [NotNull] public readonly List<Order> Orders;
-
-        public SubmitOrdersMessage(List<Order> orders)
-        {
-            Orders = orders;
-        }
     }
 
     /// <summary>
@@ -94,12 +89,6 @@ namespace Immerse.BfhClient.Api.Messages
         /// Null if none were supported.
         /// </summary>
         [CanBeNull] public readonly string SupportedPlayer;
-
-        public GiveSupportMessage(string supportingArea, string supportedPlayer)
-        {
-            SupportingArea = supportingArea;
-            SupportedPlayer = supportedPlayer;
-        }
     }
 
     /// <summary>
@@ -112,11 +101,6 @@ namespace Immerse.BfhClient.Api.Messages
         /// ID of the player that the submitting player votes for.
         /// </summary>
         [NotNull] public readonly string Player;
-
-        public WinterVoteMessage(string player)
-        {
-            Player = player;
-        }
     }
 
     /// <summary>
@@ -134,12 +118,6 @@ namespace Immerse.BfhClient.Api.Messages
         /// Index of the battle in which to use the sword, in case of several battles in the area.
         /// </summary>
         public readonly int BattleIndex;
-
-        public SwordMessage(string area, int battleIndex)
-        {
-            Area = area;
-            BattleIndex = battleIndex;
-        }
     }
 
     /// <summary>
@@ -152,10 +130,5 @@ namespace Immerse.BfhClient.Api.Messages
         /// ID of the player on whom to spy.
         /// </summary>
         [NotNull] public readonly string Player;
-
-        public RavenMessage(string player)
-        {
-            Player = player;
-        }
     }
 }

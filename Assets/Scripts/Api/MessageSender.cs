@@ -18,7 +18,7 @@ namespace Immerse.BfhClient.Api
     /// <remarks>
     /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
     /// </remarks>
-    public class MessageSender
+    internal class MessageSender
     {
         private readonly ClientWebSocket _connection;
         private readonly Thread _sendThread;

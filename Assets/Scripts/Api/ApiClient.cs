@@ -1,29 +1,78 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Immerse.BfhClient.Api.GameTypes;
 using Immerse.BfhClient.Api.Messages;
+using UnityEngine;
 
 namespace Immerse.BfhClient.Api
 {
     /// <summary>
     /// WebSocket client that connects to the game server.
-    /// Provides methods for sending and receiving game and lobby messages.
+    /// Provides methods for sending messages to the server, and events that are triggered when messages are received
+    /// from the server.
     /// Sending and receiving are no-ops until <see cref="ApiClient.Connect"/> is called.
     /// </summary>
-    public class ApiClient
+    public class ApiClient : MonoBehaviour
     {
-        private readonly ClientWebSocket _connection;
+        public static ApiClient Instance { get; private set; }
 
+        private readonly ClientWebSocket _connection = new();
         private MessageSender _messageSender;
         private MessageReceiver _messageReceiver;
 
-        public ApiClient()
-        {
-            _connection = new ClientWebSocket();
-        }
+        /// <summary>
+        /// Event that is triggered when server sends an <see cref="Messages.ErrorMessage"/>.
+        /// </summary>
+        public event Action<ErrorMessage> ReceivedErrorMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.PlayerStatusMessage"/>.
+        /// </summary>
+        public event Action<PlayerStatusMessage> ReceivedPlayerStatusMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.LobbyJoinedMessage"/>.
+        /// </summary>
+        public event Action<LobbyJoinedMessage> ReceivedLobbyJoinedMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.SupportRequestMessage"/>.
+        /// </summary>
+        public event Action<SupportRequestMessage> ReceivedSupportRequestMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.GiveSupportMessage"/>.
+        /// </summary>
+        public event Action<GiveSupportMessage> ReceivedGiveSupportMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends an <see cref="Messages.OrderRequestMessage"/>.
+        /// </summary>
+        public event Action<OrderRequestMessage> ReceivedOrderRequestMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends an <see cref="Messages.OrdersReceivedMessage"/>.
+        /// </summary>
+        public event Action<OrdersReceivedMessage> ReceivedOrdersReceivedMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends an <see cref="Messages.OrdersConfirmationMessage"/>.
+        /// </summary>
+        public event Action<OrdersConfirmationMessage> ReceivedOrdersConfirmationMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.BattleResultsMessage"/>.
+        /// </summary>
+        public event Action<BattleResultsMessage> ReceivedBattleResultsMessage;
+
+        /// <summary>
+        /// Event that is triggered when server sends a <see cref="Messages.WinnerMessage"/>.
+        /// </summary>
+        public event Action<WinnerMessage> ReceivedWinnerMessage;
 
         /// <summary>
         /// Connects the API client to a server at the given URI.
@@ -100,157 +149,40 @@ namespace Immerse.BfhClient.Api
             _messageSender?.SendMessage(MessageID.Raven, new RavenMessage(player));
         }
 
-        /// <summary>
-        /// Checks if the server has sent an <see cref="Messages.ErrorMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveErrorMessage(out ErrorMessage message)
+        private void Awake()
         {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
+            if (Instance is null)
             {
-                message = default;
-                return false;
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
-
-            return _messageReceiver.ErrorMessages.TryDequeue(out message);
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
         }
 
-        /// <summary>
-        /// Checks if the server has sent a <see cref="PlayerStatusMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceivePlayerStatusMessage(out PlayerStatusMessage message)
+        private void Update()
         {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.PlayerStatusMessages.TryDequeue(out message);
+            TriggerEventIfMessageReceived(ReceivedErrorMessage, _messageReceiver.ErrorMessages);
+            TriggerEventIfMessageReceived(ReceivedPlayerStatusMessage, _messageReceiver.PlayerStatusMessages);
+            TriggerEventIfMessageReceived(ReceivedLobbyJoinedMessage, _messageReceiver.LobbyJoinedMessages);
+            TriggerEventIfMessageReceived(ReceivedSupportRequestMessage, _messageReceiver.SupportRequestMessages);
+            TriggerEventIfMessageReceived(ReceivedGiveSupportMessage, _messageReceiver.GiveSupportMessages);
+            TriggerEventIfMessageReceived(ReceivedOrderRequestMessage, _messageReceiver.OrderRequestMessages);
+            TriggerEventIfMessageReceived(ReceivedOrdersReceivedMessage, _messageReceiver.OrdersReceivedMessages);
+            TriggerEventIfMessageReceived(ReceivedOrdersConfirmationMessage, _messageReceiver.OrdersConfirmationMessages);
+            TriggerEventIfMessageReceived(ReceivedBattleResultsMessage, _messageReceiver.BattleResultsMessages);
+            TriggerEventIfMessageReceived(ReceivedWinnerMessage, _messageReceiver.WinnerMessages);
         }
 
-        /// <summary>
-        /// Checks if the server has sent a <see cref="LobbyJoinedMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveLobbyJoinedMessage(out LobbyJoinedMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
+        private static void TriggerEventIfMessageReceived<TMessage>(
+            Action<TMessage> receivedMessageEvent, ConcurrentQueue<TMessage> messageQueue
+        ) {
+            if (messageQueue.TryDequeue(out var message))
             {
-                message = default;
-                return false;
+                receivedMessageEvent?.Invoke(message);
             }
-
-            return _messageReceiver.LobbyJoinedMessages.TryDequeue(out message);
-        }
-
-        /// <summary>
-        /// Checks if the server has sent a <see cref="SupportRequestMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveSupportRequestMessage(out SupportRequestMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.SupportRequestMessages.TryDequeue(out message);
-        }
-
-        /// <summary>
-        /// Checks if the server has sent an <see cref="OrderRequestMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveOrderRequestMessage(out OrderRequestMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.OrderRequestMessages.TryDequeue(out message);
-        }
-
-        /// <summary>
-        /// Checks if the server has sent an <see cref="OrdersReceivedMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveOrdersReceivedMessage(out OrdersReceivedMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.OrdersReceivedMessages.TryDequeue(out message);
-        }
-
-        /// <summary>
-        /// Checks if the server has sent an <see cref="OrdersConfirmationMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveOrdersConfirmationMessage(out OrdersConfirmationMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.OrdersConfirmationMessages.TryDequeue(out message);
-        }
-
-        /// <summary>
-        /// Checks if the server has sent a <see cref="BattleResultsMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveBattleResultsMessage(out BattleResultsMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.BattleResultsMessages.TryDequeue(out message);
-        }
-
-        /// <summary>
-        /// Checks if the server has sent a <see cref="WinnerMessage"/>.
-        /// If it has, returns true and puts the message in the given out parameter.
-        /// Otherwise returns false.
-        /// </summary>
-        public bool TryReceiveWinnerMessage(out WinnerMessage message)
-        {
-            // ReSharper disable once InvertIf
-            if (_messageReceiver is null)
-            {
-                message = default;
-                return false;
-            }
-
-            return _messageReceiver.WinnerMessages.TryDequeue(out message);
         }
     }
 }

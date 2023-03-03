@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.WebSockets;
@@ -29,21 +30,74 @@ namespace Immerse.BfhClient.Api
         private readonly ClientWebSocket _connection;
         private readonly Thread _receiveThread;
 
-        public readonly ConcurrentQueue<ErrorMessage> ErrorMessages = new();
-        public readonly ConcurrentQueue<PlayerStatusMessage> PlayerStatusMessages = new();
-        public readonly ConcurrentQueue<LobbyJoinedMessage> LobbyJoinedMessages = new();
-        public readonly ConcurrentQueue<SupportRequestMessage> SupportRequestMessages = new();
-        public readonly ConcurrentQueue<GiveSupportMessage> GiveSupportMessages = new();
-        public readonly ConcurrentQueue<OrderRequestMessage> OrderRequestMessages = new();
-        public readonly ConcurrentQueue<OrdersReceivedMessage> OrdersReceivedMessages = new();
-        public readonly ConcurrentQueue<OrdersConfirmationMessage> OrdersConfirmationMessages = new();
-        public readonly ConcurrentQueue<BattleResultsMessage> BattleResultsMessages = new();
-        public readonly ConcurrentQueue<WinnerMessage> WinnerMessages = new();
+        private readonly Dictionary<string, IMessageReceiveQueue> _queuesById = new();
+        private readonly Dictionary<Type, IMessageReceiveQueue> _queuesByType = new();
 
         public MessageReceiver(ClientWebSocket connection)
         {
             _connection = connection;
             _receiveThread = new Thread(ReceiveMessagesIntoQueues);
+        }
+
+        /// <summary>
+        /// Registers the given message type, with the corresponding message ID, as a message that the client expects to
+        /// receive from the server.
+        /// </summary>
+        public void RegisterReceivableMessage<TMessage>(string messageID)
+            where TMessage : IReceivableMessage
+        {
+            var queue = new MessageReceiveQueue<TMessage>();
+            _queuesById.Add(messageID, queue);
+            _queuesByType.Add(typeof(TMessage), queue);
+        }
+
+        /// <summary>
+        /// Checks for received messages of each message type.
+        /// If a message has been received, calls the message handlers for that type.
+        /// </summary>
+        public void TriggerReceivedMessageEvents()
+        {
+            foreach (var queue in _queuesById.Values)
+            {
+                queue.TriggerEventIfMessageReceived();
+            }
+        }
+
+        /// <summary>
+        /// Registers the given method to be called whenever the server sends a message of the given type.
+        /// </summary>
+        public void RegisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
+            where TMessage : IReceivableMessage
+        {
+            var queue = GetReceiveQueueByType<TMessage>();
+            queue.ReceivedMessage += messageHandler;
+        }
+
+        /// <summary>
+        /// Deregisters the given message handler method.
+        /// Should be called when a message handler is disposed, to properly remove all references to it.
+        /// </summary>
+        public void DeregisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
+            where TMessage : IReceivableMessage
+        {
+            var queue = GetReceiveQueueByType<TMessage>();
+            queue.ReceivedMessage -= messageHandler;
+        }
+
+        /// <summary>
+        /// Utility method to get the message queue corresponding to the given type from <see cref="_queuesByType"/>.
+        /// </summary>
+        /// <exception cref="ArgumentException">If no queue was found for the given type.</exception>
+        private MessageReceiveQueue<TMessage> GetReceiveQueueByType<TMessage>()
+            where TMessage : IReceivableMessage
+        {
+            IMessageReceiveQueue queue;
+            if (!_queuesByType.TryGetValue(typeof(TMessage), out queue))
+            {
+                throw new ArgumentException($"Unrecognized message type: '{typeof(TMessage)}'");
+            }
+
+            return (MessageReceiveQueue<TMessage>)queue;
         }
 
         /// <summary>
@@ -113,9 +167,9 @@ namespace Immerse.BfhClient.Api
         /// }
         /// </code>
         /// This method takes the full message JSON string, deserializes the "wrapping object" to get the message ID,
-        /// then calls <see cref="DeserializeAndEnqueue{T}"/> with the wrapped inner message and the appropriate
-        /// <see cref="ConcurrentQueue{T}"/> according to its type.
+        /// then calls on the appropriate message queue to further deserialize and enqueue the wrapped message object.
         /// </summary>
+        /// <exception cref="ArgumentException">If no message queue was found for the message's ID.</exception>
         private void DeserializeIntoQueue(string messageString)
         {
             var messageWithID = JObject.Parse(messageString);
@@ -126,62 +180,11 @@ namespace Immerse.BfhClient.Api
             var messageID = firstMessageProperty.Name;
             var serializedMessage = firstMessageProperty.Value;
 
-            switch (messageID)
+            if (_queuesById.TryGetValue(messageID, out var queue))
             {
-                case MessageID.Error:
-                    DeserializeAndEnqueue(serializedMessage, ErrorMessages);
-                    break;
-                case MessageID.PlayerStatus:
-                    DeserializeAndEnqueue(serializedMessage, PlayerStatusMessages);
-                    break;
-                case MessageID.LobbyJoined:
-                    DeserializeAndEnqueue(serializedMessage, LobbyJoinedMessages);
-                    break;
-                case MessageID.SupportRequest:
-                    DeserializeAndEnqueue(serializedMessage, SupportRequestMessages);
-                    break;
-                case MessageID.GiveSupport:
-                    DeserializeAndEnqueue(serializedMessage, GiveSupportMessages);
-                    break;
-                case MessageID.OrderRequest:
-                    DeserializeAndEnqueue(serializedMessage, OrderRequestMessages);
-                    break;
-                case MessageID.OrdersReceived:
-                    DeserializeAndEnqueue(serializedMessage, OrdersReceivedMessages);
-                    break;
-                case MessageID.OrdersConfirmation:
-                    DeserializeAndEnqueue(serializedMessage, OrdersConfirmationMessages);
-                    break;
-                case MessageID.BattleResults:
-                    DeserializeAndEnqueue(serializedMessage, BattleResultsMessages);
-                    break;
-                case MessageID.Winner:
-                    DeserializeAndEnqueue(serializedMessage, WinnerMessages);
-                    break;
-                default:
-                    Debug.LogError($"Unrecognized message type received from server: {messageID}");
-                    break;
+                queue.DeserializeAndEnqueue(serializedMessage);
             }
-        }
-
-        /// <summary>
-        /// Attempts to deserialize the given message to <typeparamref name="TMessage"/>, then adds it to the given
-        /// message queue.
-        /// </summary>
-        /// <exception cref="ArgumentException">
-        /// If the given message could not be deserialized to <typeparamref name="TMessage"/>.
-        /// </exception>
-        private static void DeserializeAndEnqueue<TMessage>(
-            JToken serializedMessage,
-            ConcurrentQueue<TMessage> messageQueue
-        ) {
-            var message = serializedMessage.ToObject<TMessage>();
-            if (message == null)
-            {
-                throw new ArgumentException($"Failed to deserialize message \"{serializedMessage}\"");
-            }
-
-            messageQueue.Enqueue(message);
+            else throw new ArgumentException($"Unrecognized message type received from server: '{messageID}'");
         }
     }
 }

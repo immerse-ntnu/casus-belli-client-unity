@@ -6,7 +6,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server when an error occurs.
     /// </summary>
-    public readonly struct ErrorMessage
+    public readonly struct ErrorMessage : IReceivableMessage
     {
         /// <summary>
         /// The error message.
@@ -17,7 +17,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server to all clients when a player's status changes.
     /// </summary>
-    public readonly struct PlayerStatusMessage
+    public readonly struct PlayerStatusMessage : IReceivableMessage
     {
         /// <summary>
         /// The user's chosen display name.
@@ -39,7 +39,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent to a player when they join a lobby, to inform them about other players.
     /// </summary>
-    public readonly struct LobbyJoinedMessage
+    public readonly struct LobbyJoinedMessage : IReceivableMessage
     {
         /// <summary>
         /// IDs that the player may select from for this lobby's game.
@@ -56,7 +56,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from client when they want to select a game ID.
     /// </summary>
-    public readonly struct SelectGameIDMessage
+    public readonly struct SelectGameIDMessage : ISendableMessage
     {
         /// <summary>
         /// The ID that the player wants to select for the game.
@@ -74,7 +74,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// Message sent from client to mark themselves as ready to start the game.
     /// Requires game ID being selected.
     /// </summary>
-    public readonly struct ReadyMessage
+    public readonly struct ReadyMessage : ISendableMessage
     {
         /// <summary>
         /// Whether the player is ready to start the game.
@@ -91,6 +91,6 @@ namespace Immerse.BfhClient.Api.Messages
     /// Message sent from a player when the lobby wants to start the game.
     /// Requires that all players are ready.
     /// </summary>
-    public readonly struct StartGameMessage
+    public readonly struct StartGameMessage : ISendableMessage
     { }
 }

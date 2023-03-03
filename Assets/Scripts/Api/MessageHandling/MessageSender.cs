@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Immerse.BfhClient.Api.Messages;
 using Newtonsoft.Json.Linq;
 
-namespace Immerse.BfhClient.Api
+namespace Immerse.BfhClient.Api.MessageHandling
 {
     /// <summary>
     /// <para>Handles sending messages through the WebSocket connection to the game server.</para>
@@ -21,7 +21,7 @@ namespace Immerse.BfhClient.Api
     /// <remarks>
     /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
     /// </remarks>
-    internal class MessageSender
+    public class MessageSender
     {
         private readonly ClientWebSocket _connection;
         private readonly Thread _sendThread;

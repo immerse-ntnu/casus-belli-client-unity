@@ -11,7 +11,7 @@ using Immerse.BfhClient.Api.Messages;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace Immerse.BfhClient.Api
+namespace Immerse.BfhClient.Api.MessageHandling
 {
     /// <summary>
     /// <para>Handles receiving messages from the WebSocket connection to the game server.</para>
@@ -25,7 +25,7 @@ namespace Immerse.BfhClient.Api
     /// <remarks>
     /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
     /// </remarks>
-    internal class MessageReceiver
+    public class MessageReceiver
     {
         private readonly ClientWebSocket _connection;
         private readonly Thread _receiveThread;

@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using Immerse.BfhClient.Api.Messages;
 using Newtonsoft.Json.Linq;
 
-namespace Immerse.BfhClient.Api
+namespace Immerse.BfhClient.Api.MessageHandling
 {
     /// <summary>
     /// Utility interface to enable keeping <see cref="MessageReceiveQueue{TMessage}"/>s of different types in a

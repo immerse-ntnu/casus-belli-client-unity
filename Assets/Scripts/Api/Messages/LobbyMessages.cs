@@ -81,6 +81,5 @@ namespace Immerse.BfhClient.Api.Messages
     /// Message sent from a player when the lobby wants to start the game.
     /// Requires that all players are ready.
     /// </summary>
-    public readonly struct StartGameMessage : ISendableMessage
-    { }
+    public readonly struct StartGameMessage : ISendableMessage {}
 }

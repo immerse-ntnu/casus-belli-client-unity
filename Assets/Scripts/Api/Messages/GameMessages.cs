@@ -23,8 +23,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server to client to signal that client should submit orders.
     /// </summary>
-    public readonly struct OrderRequestMessage : IReceivableMessage
-    { }
+    public readonly struct OrderRequestMessage : IReceivableMessage {}
 
     /// <summary>
     /// Message sent from server to all clients when valid orders are received from all players.

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.Messages
 {
@@ -11,7 +12,9 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// The error message.
         /// </summary>
-        [NotNull] public readonly string Error;
+        [JsonProperty("error")]
+        [NotNull]
+        public readonly string Error;
     }
 
     /// <summary>
@@ -22,17 +25,22 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// The user's chosen display name.
         /// </summary>
-        [NotNull] public readonly string Username;
+        [JsonProperty("username")]
+        [NotNull]
+        public readonly string Username;
 
         /// <summary>
         /// The user's selected game ID.
         /// Null if not selected yet.
         /// </summary>
-        [CanBeNull] public readonly string GameId;
+        [JsonProperty("gameId")]
+        [CanBeNull]
+        public readonly string GameId;
 
         /// <summary>
         /// Whether the user is ready to start the game.
         /// </summary>
+        [JsonProperty("ready")]
         public readonly bool Ready;
     }
 
@@ -45,12 +53,16 @@ namespace Immerse.BfhClient.Api.Messages
         /// IDs that the player may select from for this lobby's game.
         /// Returns all game IDs, though some may already be taken by other players in the lobby.
         /// </summary>
-        [NotNull] public readonly List<string> GameIds;
+        [JsonProperty("gameIds")]
+        [NotNull]
+        public readonly List<string> GameIds;
 
         /// <summary>
         /// Info about each other player in the lobby.
         /// </summary>
-        [NotNull] public readonly List<PlayerStatusMessage> PlayerStatuses;
+        [JsonProperty("playerStatuses")]
+        [NotNull]
+        public readonly List<PlayerStatusMessage> PlayerStatuses;
     }
 
     /// <summary>
@@ -62,7 +74,9 @@ namespace Immerse.BfhClient.Api.Messages
         /// The ID that the player wants to select for the game.
         /// Will be rejected if already selected by another player.
         /// </summary>
-        [NotNull] public readonly string GameId;
+        [JsonProperty("gameId")]
+        [NotNull]
+        public readonly string GameId;
     }
 
     /// <summary>
@@ -74,6 +88,7 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// Whether the player is ready to start the game.
         /// </summary>
+        [JsonProperty("ready")]
         public readonly bool Ready;
     }
 

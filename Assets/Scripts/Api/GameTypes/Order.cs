@@ -38,6 +38,14 @@ namespace Immerse.BfhClient.Api.GameTypes
         public readonly string Destination;
 
         /// <summary>
+        /// For move orders with horse units: optional name of second destination region to move to if the first
+        /// destination was reached.
+        /// </summary>
+        [JsonProperty("secondDestination")]
+        [CanBeNull]
+        public readonly string SecondDestination;
+
+        /// <summary>
         /// For move orders: name of DangerZone the order tries to pass through, if any.
         /// </summary>
         [JsonProperty("via")]

@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.GameTypes
 {
@@ -11,12 +12,16 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// Affects how the unit moves and its battle capabilities.
         /// Can only be of the constants defined in <see cref="UnitType"/>.
         /// </summary>
-        [NotNull] public readonly string Type;
+        [JsonProperty("type", Required = Required.Always)]
+        [NotNull]
+        public readonly string Type;
 
         /// <summary>
         /// The player owning the unit.
         /// </summary>
-        [NotNull] public readonly string Player;
+        [JsonProperty("player", Required = Required.Always)]
+        [NotNull]
+        public readonly string Player;
     }
 
     /// <summary>
@@ -30,12 +35,12 @@ namespace Immerse.BfhClient.Api.GameTypes
         public const string Footman = "footman";
 
         /// <summary>
-        /// A land unit that moves 2 areas at a time.
+        /// A land unit that moves 2 regions at a time.
         /// </summary>
         public const string Horse = "horse";
 
         /// <summary>
-        /// A unit that can move into sea areas and coastal areas.
+        /// A unit that can move into sea regions and coastal regions.
         /// </summary>
         public const string Ship = "ship";
 

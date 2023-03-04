@@ -25,7 +25,7 @@ namespace Immerse.BfhClient.Api.Messages
     /// <code>
     /// {
     ///     "supportRequest": {
-    ///         "supportingArea": "Calis",
+    ///         "supportingRegion": "Calis",
     ///         "supportablePlayers": ["red", "green"]
     ///     }
     /// }

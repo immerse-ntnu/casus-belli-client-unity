@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.GameTypes
 {
@@ -11,17 +12,22 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// The source of the modifier.
         /// Can only be of the constants defined in <see cref="ModifierType"/>.
         /// </summary>
-        [NotNull] public readonly string Type;
+        [JsonProperty("type", Required = Required.Always)]
+        [NotNull]
+        public readonly string Type;
 
         /// <summary>
         /// The positive or negative number that modifies the result total.
         /// </summary>
+        [JsonProperty("value", Required = Required.Always)]
         public readonly int Value;
 
         /// <summary>
         /// If modifier was from a support: the supporting player.
         /// </summary>
-        [CanBeNull] public readonly string SupportingPlayer;
+        [JsonProperty("supportingPlayer")]
+        [CanBeNull]
+        public readonly string SupportingPlayer;
     }
 
     /// <summary>

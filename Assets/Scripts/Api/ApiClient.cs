@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Immerse.BfhClient.Api.GameTypes;
+using Immerse.BfhClient.Api.MessageHandling;
 using Immerse.BfhClient.Api.Messages;
 using UnityEngine;
 
@@ -12,149 +10,36 @@ namespace Immerse.BfhClient.Api
 {
     /// <summary>
     /// WebSocket client that connects to the game server.
-    /// Provides methods for sending messages to the server, and events that are triggered when messages are received
-    /// from the server.
-    /// Sending and receiving are no-ops until <see cref="ApiClient.Connect"/> is called.
+    /// Provides methods for sending and receiving messages to and from the server.
     /// </summary>
     public class ApiClient : MonoBehaviour
     {
+        /// <summary>
+        /// Singleton instance to ensure that the client has only a single WebSocket connection to the server.
+        /// </summary>
         public static ApiClient Instance { get; private set; }
 
-        private readonly ClientWebSocket _connection = new();
+        private ClientWebSocket _connection;
         private MessageSender _messageSender;
         private MessageReceiver _messageReceiver;
 
         /// <summary>
-        /// Event that is triggered when server sends an <see cref="Messages.ErrorMessage"/>.
+        /// Instantiates the API client singleton when the script is loaded.
+        /// Ensures that no other instance overwrites it, and that it is preserved between scene changes.
         /// </summary>
-        public event Action<ErrorMessage> ReceivedErrorMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends a <see cref="Messages.PlayerStatusMessage"/>.
-        /// </summary>
-        public event Action<PlayerStatusMessage> ReceivedPlayerStatusMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends a <see cref="Messages.LobbyJoinedMessage"/>.
-        /// </summary>
-        public event Action<LobbyJoinedMessage> ReceivedLobbyJoinedMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends a <see cref="Messages.SupportRequestMessage"/>.
-        /// </summary>
-        public event Action<SupportRequestMessage> ReceivedSupportRequestMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends a <see cref="Messages.GiveSupportMessage"/>.
-        /// </summary>
-        public event Action<GiveSupportMessage> ReceivedGiveSupportMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends an <see cref="Messages.OrderRequestMessage"/>.
-        /// </summary>
-        public event Action<OrderRequestMessage> ReceivedOrderRequestMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends an <see cref="Messages.OrdersReceivedMessage"/>.
-        /// </summary>
-        public event Action<OrdersReceivedMessage> ReceivedOrdersReceivedMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends an <see cref="Messages.OrdersConfirmationMessage"/>.
-        /// </summary>
-        public event Action<OrdersConfirmationMessage> ReceivedOrdersConfirmationMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends a <see cref="Messages.BattleResultsMessage"/>.
-        /// </summary>
-        public event Action<BattleResultsMessage> ReceivedBattleResultsMessage;
-
-        /// <summary>
-        /// Event that is triggered when server sends a <see cref="Messages.WinnerMessage"/>.
-        /// </summary>
-        public event Action<WinnerMessage> ReceivedWinnerMessage;
-
-        /// <summary>
-        /// Connects the API client to a server at the given URI.
-        /// Must be called before any of the send or receive methods.
-        /// </summary>
-        public async Task Connect(Uri serverUri)
-        {
-            _messageSender = new MessageSender(_connection);
-            _messageReceiver = new MessageReceiver(_connection);
-            await _connection.ConnectAsync(serverUri, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a <see cref="SelectGameIDMessage"/> to the server.
-        /// </summary>
-        public void SendSelectGameIDMessage(string gameID)
-        {
-            _messageSender?.SendMessage(MessageID.SelectGameID, new SelectGameIDMessage(gameID));
-        }
-
-        /// <summary>
-        /// Sends a <see cref="ReadyMessage"/> to the server.
-        /// </summary>
-        public void SendReadyMessage(bool ready)
-        {
-            _messageSender?.SendMessage(MessageID.Ready, new ReadyMessage(ready));
-        }
-
-        /// <summary>
-        /// Sends a <see cref="StartGameMessage"/> to the server.
-        /// </summary>
-        public void SendStartGameMessage()
-        {
-            _messageSender?.SendMessage(MessageID.StartGame, new StartGameMessage());
-        }
-
-        /// <summary>
-        /// Sends a <see cref="SubmitOrdersMessage"/> to the server.
-        /// </summary>
-        public void SendSubmitOrdersMessage(List<Order> orders)
-        {
-            _messageSender?.SendMessage(MessageID.SubmitOrders, new SubmitOrdersMessage(orders));
-        }
-
-        /// <summary>
-        /// Sends a <see cref="GiveSupportMessage"/> to the server.
-        /// </summary>
-        public void SendGiveSupportMessage(string supportingArea, string supportedPlayer)
-        {
-            _messageSender?.SendMessage(MessageID.GiveSupport, new GiveSupportMessage(supportingArea, supportedPlayer));
-        }
-
-        /// <summary>
-        /// Sends a <see cref="WinterVoteMessage"/> to the server.
-        /// </summary>
-        public void SendWinterVoteMessage(string player)
-        {
-            _messageSender?.SendMessage(MessageID.WinterVote, new WinterVoteMessage(player));
-        }
-
-        /// <summary>
-        /// Sends a <see cref="SwordMessage"/> to the server.
-        /// </summary>
-        public void SendSwordMessage(string area, int battleIndex)
-        {
-            _messageSender?.SendMessage(MessageID.Sword, new SwordMessage(area, battleIndex));
-        }
-
-        /// <summary>
-        /// Sends a <see cref="RavenMessage"/> to the server.
-        /// </summary>
-        public void SendRavenMessage(string player)
-        {
-            _messageSender?.SendMessage(MessageID.Raven, new RavenMessage(player));
-        }
-
         private void Awake()
         {
             if (Instance is null)
             {
+                _connection = new ClientWebSocket();
+                _messageSender = new MessageSender(_connection);
+                _messageReceiver = new MessageReceiver(_connection);
+
+                RegisterSendableMessages();
+                RegisterReceivableMessages();
+
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(Instance.gameObject);
             }
             else if (Instance != this)
             {
@@ -162,27 +47,113 @@ namespace Immerse.BfhClient.Api
             }
         }
 
-        private void Update()
+        /// <summary>
+        /// Connects the API client to a server at the given URI, and starts sending and receiving messages.
+        /// </summary>
+        public Task Connect(Uri serverUri)
         {
-            TriggerEventIfMessageReceived(ReceivedErrorMessage, _messageReceiver.ErrorMessages);
-            TriggerEventIfMessageReceived(ReceivedPlayerStatusMessage, _messageReceiver.PlayerStatusMessages);
-            TriggerEventIfMessageReceived(ReceivedLobbyJoinedMessage, _messageReceiver.LobbyJoinedMessages);
-            TriggerEventIfMessageReceived(ReceivedSupportRequestMessage, _messageReceiver.SupportRequestMessages);
-            TriggerEventIfMessageReceived(ReceivedGiveSupportMessage, _messageReceiver.GiveSupportMessages);
-            TriggerEventIfMessageReceived(ReceivedOrderRequestMessage, _messageReceiver.OrderRequestMessages);
-            TriggerEventIfMessageReceived(ReceivedOrdersReceivedMessage, _messageReceiver.OrdersReceivedMessages);
-            TriggerEventIfMessageReceived(ReceivedOrdersConfirmationMessage, _messageReceiver.OrdersConfirmationMessages);
-            TriggerEventIfMessageReceived(ReceivedBattleResultsMessage, _messageReceiver.BattleResultsMessages);
-            TriggerEventIfMessageReceived(ReceivedWinnerMessage, _messageReceiver.WinnerMessages);
+            foreach (var messageQueue in _messageReceiver.MessageQueues)
+            {
+                StartCoroutine(messageQueue.CheckReceivedMessagesRoutine());
+            }
+
+            _messageReceiver.StartReceivingMessages();
+            _messageSender.StartSendingMessages();
+
+            return _connection.ConnectAsync(serverUri, CancellationToken.None);
         }
 
-        private static void TriggerEventIfMessageReceived<TMessage>(
-            Action<TMessage> receivedMessageEvent, ConcurrentQueue<TMessage> messageQueue
-        ) {
-            if (messageQueue.TryDequeue(out var message))
-            {
-                receivedMessageEvent?.Invoke(message);
-            }
+        /// <summary>
+        /// Disconnects the API client from the server, and stops sending and receiving messages.
+        /// </summary>
+        public Task Disconnect()
+        {
+            StopAllCoroutines();
+            _messageReceiver.StopReceivingMessages();
+            _messageSender.StopSendingMessages();
+
+            return _connection.CloseAsync(
+                WebSocketCloseStatus.NormalClosure,
+                "Client initiated disconnect from game server",
+                CancellationToken.None
+            );
+        }
+
+        /// <summary>
+        /// Sends the given message to the server.
+        /// </summary>
+        ///
+        /// <typeparam name="TMessage">
+        /// Must be registered in <see cref="RegisterSendableMessages"/>, which should be all message types marked with
+        /// <see cref="ISendableMessage"/>.
+        /// </typeparam>
+        public void SendMessage<TMessage>(TMessage message)
+            where TMessage : ISendableMessage
+        {
+            _messageSender.SendQueue.Add(message);
+        }
+
+        /// <summary>
+        /// Registers the given method to be called whenever the server sends a message of the given type.
+        /// </summary>
+        ///
+        /// <typeparam name="TMessage">
+        /// Must be registered in <see cref="RegisterReceivableMessages"/>, which should be all message types marked
+        /// with <see cref="IReceivableMessage"/>.
+        /// </typeparam>
+        public void RegisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
+            where TMessage : IReceivableMessage
+        {
+            var queue = _messageReceiver.GetMessageQueueByType<TMessage>();
+            queue.ReceivedMessage += messageHandler;
+        }
+
+        /// <summary>
+        /// Deregisters the given message handler method.
+        /// Should be called when a message handler is disposed, to properly remove all references to it.
+        /// </summary>
+        ///
+        /// <typeparam name="TMessage">
+        /// Must be registered in <see cref="RegisterReceivableMessages"/>, which should be all message types marked
+        /// with <see cref="IReceivableMessage"/>.
+        /// </typeparam>
+        public void DeregisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
+            where TMessage : IReceivableMessage
+        {
+            var queue = _messageReceiver.GetMessageQueueByType<TMessage>();
+            queue.ReceivedMessage -= messageHandler;
+        }
+
+        /// <summary>
+        /// Registers all message types that the client expects to be able to send to the server.
+        /// </summary>
+        private void RegisterSendableMessages()
+        {
+            _messageSender.RegisterSendableMessage<SelectGameIDMessage>(MessageID.SelectGameID);
+            _messageSender.RegisterSendableMessage<ReadyMessage>(MessageID.Ready);
+            _messageSender.RegisterSendableMessage<StartGameMessage>(MessageID.StartGame);
+            _messageSender.RegisterSendableMessage<SubmitOrdersMessage>(MessageID.SubmitOrders);
+            _messageSender.RegisterSendableMessage<GiveSupportMessage>(MessageID.GiveSupport);
+            _messageSender.RegisterSendableMessage<WinterVoteMessage>(MessageID.WinterVote);
+            _messageSender.RegisterSendableMessage<SwordMessage>(MessageID.Sword);
+            _messageSender.RegisterSendableMessage<RavenMessage>(MessageID.Raven);
+        }
+
+        /// <summary>
+        /// Registers all message types that the client expects to receive from the server.
+        /// </summary>
+        private void RegisterReceivableMessages()
+        {
+            _messageReceiver.RegisterReceivableMessage<ErrorMessage>(MessageID.Error);
+            _messageReceiver.RegisterReceivableMessage<PlayerStatusMessage>(MessageID.PlayerStatus);
+            _messageReceiver.RegisterReceivableMessage<LobbyJoinedMessage>(MessageID.LobbyJoined);
+            _messageReceiver.RegisterReceivableMessage<SupportRequestMessage>(MessageID.SupportRequest);
+            _messageReceiver.RegisterReceivableMessage<GiveSupportMessage>(MessageID.GiveSupport);
+            _messageReceiver.RegisterReceivableMessage<OrderRequestMessage>(MessageID.OrderRequest);
+            _messageReceiver.RegisterReceivableMessage<OrdersReceivedMessage>(MessageID.OrdersReceived);
+            _messageReceiver.RegisterReceivableMessage<OrdersConfirmationMessage>(MessageID.OrdersConfirmation);
+            _messageReceiver.RegisterReceivableMessage<BattleResultsMessage>(MessageID.BattleResults);
+            _messageReceiver.RegisterReceivableMessage<WinnerMessage>(MessageID.Winner);
         }
     }
 }

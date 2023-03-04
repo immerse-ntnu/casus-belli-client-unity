@@ -127,7 +127,7 @@ namespace Immerse.BfhClient.Api.MessageHandling
                 memoryStream.Seek(0, SeekOrigin.Begin);
 
                 using var reader = new StreamReader(memoryStream, Encoding.UTF8);
-                var messageString = reader.ReadToEnd();
+                var messageString = await reader.ReadToEndAsync();
 
                 try
                 {

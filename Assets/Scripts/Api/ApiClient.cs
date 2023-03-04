@@ -50,7 +50,7 @@ namespace Immerse.BfhClient.Api
         /// <summary>
         /// Connects the API client to a server at the given URI, and starts sending and receiving messages.
         /// </summary>
-        public async Task Connect(Uri serverUri)
+        public Task Connect(Uri serverUri)
         {
             foreach (var messageQueue in _messageReceiver.MessageQueues)
             {
@@ -60,7 +60,23 @@ namespace Immerse.BfhClient.Api
             _messageReceiver.StartReceivingMessages();
             _messageSender.StartSendingMessages();
 
-            await _connection.ConnectAsync(serverUri, CancellationToken.None);
+            return _connection.ConnectAsync(serverUri, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Disconnects the API client from the server, and stops sending and receiving messages.
+        /// </summary>
+        public Task Disconnect()
+        {
+            StopAllCoroutines();
+            _messageReceiver.StopReceivingMessages();
+            _messageSender.StopSendingMessages();
+
+            return _connection.CloseAsync(
+                WebSocketCloseStatus.NormalClosure,
+                "Client initiated disconnect from game server",
+                CancellationToken.None
+            );
         }
 
         /// <summary>

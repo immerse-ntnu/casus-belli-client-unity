@@ -42,6 +42,15 @@ namespace Immerse.BfhClient.Api.MessageHandling
         }
 
         /// <summary>
+        /// Aborts the message receiving thread.
+        /// </summary>
+        public void StopReceivingMessages()
+        {
+            _receiveThread.Abort();
+            _receiveThread = null;
+        }
+
+        /// <summary>
         /// Registers the given message type, with the corresponding message ID, as a message that the client expects to
         /// receive from the server.
         /// </summary>

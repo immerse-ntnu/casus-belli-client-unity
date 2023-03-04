@@ -39,6 +39,15 @@ namespace Immerse.BfhClient.Api.MessageHandling
         }
 
         /// <summary>
+        /// Aborts the message sending thread.
+        /// </summary>
+        public void StopSendingMessages()
+        {
+            _sendThread.Abort();
+            _sendThread = null;
+        }
+
+        /// <summary>
         /// Registers the given message type, with the corresponding message ID, as a message that the client expects to
         /// be able to send to the server.
         /// </summary>
@@ -88,8 +97,7 @@ namespace Immerse.BfhClient.Api.MessageHandling
         /// </exception>
         private byte[] SerializeToJson(ISendableMessage message)
         {
-            string messageId;
-            if (!_messageIdMap.TryGetValue(message.GetType(), out messageId))
+            if (!_messageIdMap.TryGetValue(message.GetType(), out var messageId))
             {
                 throw new ArgumentException($"Unrecognized type of message object: '{message.GetType()}'");
             }

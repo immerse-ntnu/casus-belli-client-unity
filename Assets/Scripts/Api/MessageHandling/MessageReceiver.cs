@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,28 +13,31 @@ using UnityEngine;
 namespace Immerse.BfhClient.Api.MessageHandling
 {
     /// <summary>
-    /// <para>Handles receiving messages from the WebSocket connection to the game server.</para>
-    /// <para>
-    /// Spawns a thread that continuously listens for received messages on its given WebSocket connection.
-    /// Initializes a <see cref="ConcurrentQueue{T}"/> for each message type that the client expects to receive from
-    /// the server.
-    /// When a message is received, it is deserialized and put into the appropriate collection according to its type.
-    /// </para>
+    /// Handles receiving messages from the WebSocket connection to the game server.
     /// </summary>
-    /// <remarks>
-    /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
-    /// </remarks>
     public class MessageReceiver
     {
         private readonly ClientWebSocket _connection;
-        private readonly Thread _receiveThread;
+        private Thread _receiveThread;
 
-        private readonly Dictionary<string, IMessageReceiveQueue> _queuesById = new();
-        private readonly Dictionary<Type, IMessageReceiveQueue> _queuesByType = new();
+        private readonly Dictionary<string, IMessageReceiveQueue> _messageQueuesById = new();
+        private readonly Dictionary<Type, IMessageReceiveQueue> _messageQueuesByType = new();
+
+        /// <summary>
+        /// Queues where messages are placed as they are received from the server, one for each message type.
+        /// </summary>
+        public IEnumerable<IMessageReceiveQueue> MessageQueues => _messageQueuesById.Values;
 
         public MessageReceiver(ClientWebSocket connection)
         {
             _connection = connection;
+        }
+
+        /// <summary>
+        /// Spawns a thread that continuously listens for messages on the WebSocket connection.
+        /// </summary>
+        public void StartReceivingMessages()
+        {
             _receiveThread = new Thread(ReceiveMessagesIntoQueues);
         }
 
@@ -47,52 +49,19 @@ namespace Immerse.BfhClient.Api.MessageHandling
             where TMessage : IReceivableMessage
         {
             var queue = new MessageReceiveQueue<TMessage>();
-            _queuesById.Add(messageID, queue);
-            _queuesByType.Add(typeof(TMessage), queue);
+            _messageQueuesById.Add(messageID, queue);
+            _messageQueuesByType.Add(typeof(TMessage), queue);
         }
 
         /// <summary>
-        /// Checks for received messages of each message type.
-        /// If a message has been received, calls the message handlers for that type.
-        /// </summary>
-        public void TriggerReceivedMessageEvents()
-        {
-            foreach (var queue in _queuesById.Values)
-            {
-                queue.TriggerEventIfMessageReceived();
-            }
-        }
-
-        /// <summary>
-        /// Registers the given method to be called whenever the server sends a message of the given type.
-        /// </summary>
-        public void RegisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
-            where TMessage : IReceivableMessage
-        {
-            var queue = GetReceiveQueueByType<TMessage>();
-            queue.ReceivedMessage += messageHandler;
-        }
-
-        /// <summary>
-        /// Deregisters the given message handler method.
-        /// Should be called when a message handler is disposed, to properly remove all references to it.
-        /// </summary>
-        public void DeregisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
-            where TMessage : IReceivableMessage
-        {
-            var queue = GetReceiveQueueByType<TMessage>();
-            queue.ReceivedMessage -= messageHandler;
-        }
-
-        /// <summary>
-        /// Utility method to get the message queue corresponding to the given type from <see cref="_queuesByType"/>.
+        /// Gets the message queue corresponding to the given message type.
         /// </summary>
         /// <exception cref="ArgumentException">If no queue was found for the given type.</exception>
-        private MessageReceiveQueue<TMessage> GetReceiveQueueByType<TMessage>()
+        public MessageReceiveQueue<TMessage> GetMessageQueueByType<TMessage>()
             where TMessage : IReceivableMessage
         {
             IMessageReceiveQueue queue;
-            if (!_queuesByType.TryGetValue(typeof(TMessage), out queue))
+            if (!_messageQueuesByType.TryGetValue(typeof(TMessage), out queue))
             {
                 throw new ArgumentException($"Unrecognized message type: '{typeof(TMessage)}'");
             }
@@ -102,9 +71,12 @@ namespace Immerse.BfhClient.Api.MessageHandling
 
         /// <summary>
         /// Continuously reads incoming messages from the WebSocket connection.
-        /// After a message is read to completion, calls <see cref="DeserializeIntoQueue"/> to deserialize and
+        /// After a message is read to completion, calls <see cref="DeserializeAndEnqueueMessage"/> to deserialize and
         /// enqueue the message appropriately.
         /// </summary>
+        /// <remarks>
+        /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
+        /// </remarks>
         private async void ReceiveMessagesIntoQueues()
         {
             while (true)
@@ -150,7 +122,7 @@ namespace Immerse.BfhClient.Api.MessageHandling
 
                 try
                 {
-                    DeserializeIntoQueue(messageString);
+                    DeserializeAndEnqueueMessage(messageString);
                 }
                 catch (Exception exception)
                 {
@@ -170,7 +142,7 @@ namespace Immerse.BfhClient.Api.MessageHandling
         /// then calls on the appropriate message queue to further deserialize and enqueue the wrapped message object.
         /// </summary>
         /// <exception cref="ArgumentException">If no message queue was found for the message's ID.</exception>
-        private void DeserializeIntoQueue(string messageString)
+        private void DeserializeAndEnqueueMessage(string messageString)
         {
             var messageWithID = JObject.Parse(messageString);
 
@@ -180,9 +152,9 @@ namespace Immerse.BfhClient.Api.MessageHandling
             var messageID = firstMessageProperty.Name;
             var serializedMessage = firstMessageProperty.Value;
 
-            if (_queuesById.TryGetValue(messageID, out var queue))
+            if (_messageQueuesById.TryGetValue(messageID, out var queue))
             {
-                queue.DeserializeAndEnqueue(serializedMessage);
+                queue.DeserializeAndEnqueueMessage(serializedMessage);
             }
             else throw new ArgumentException($"Unrecognized message type received from server: '{messageID}'");
         }

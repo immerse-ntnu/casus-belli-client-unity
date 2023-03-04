@@ -31,15 +31,14 @@ namespace Immerse.BfhClient.Api
         {
             if (Instance is null)
             {
+                _connection = new ClientWebSocket();
+                _messageSender = new MessageSender(_connection);
+                _messageReceiver = new MessageReceiver(_connection);
+
+                RegisterSendableMessages();
+                RegisterReceivableMessages();
+
                 Instance = this;
-
-                Instance._connection = new ClientWebSocket();
-                Instance._messageSender = new MessageSender(_connection);
-                Instance._messageReceiver = new MessageReceiver(_connection);
-
-                Instance.RegisterSendableMessages();
-                Instance.RegisterReceivableMessages();
-
                 DontDestroyOnLoad(Instance.gameObject);
             }
             else if (Instance != this)
@@ -48,22 +47,18 @@ namespace Immerse.BfhClient.Api
             }
         }
 
-        private void Update()
-        {
-            _messageReceiver.TriggerReceivedMessageEvents();
-        }
-
         /// <summary>
-        /// Connects the API client to a server at the given URI.
-        /// Must be called before any of the send or receive methods.
+        /// Connects the API client to a server at the given URI, and starts sending and receiving messages.
         /// </summary>
         public async Task Connect(Uri serverUri)
         {
-            _messageSender = new MessageSender(_connection);
-            _messageReceiver = new MessageReceiver(_connection);
+            foreach (var messageQueue in _messageReceiver.MessageQueues)
+            {
+                StartCoroutine(messageQueue.CheckReceivedMessagesRoutine());
+            }
 
-            RegisterSendableMessages();
-            RegisterReceivableMessages();
+            _messageReceiver.StartReceivingMessages();
+            _messageSender.StartSendingMessages();
 
             await _connection.ConnectAsync(serverUri, CancellationToken.None);
         }
@@ -79,7 +74,7 @@ namespace Immerse.BfhClient.Api
         public void SendMessage<TMessage>(TMessage message)
             where TMessage : ISendableMessage
         {
-            _messageSender.SendMessage(message);
+            _messageSender.SendQueue.Add(message);
         }
 
         /// <summary>
@@ -93,7 +88,8 @@ namespace Immerse.BfhClient.Api
         public void RegisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
             where TMessage : IReceivableMessage
         {
-            _messageReceiver.RegisterMessageHandler(messageHandler);
+            var queue = _messageReceiver.GetMessageQueueByType<TMessage>();
+            queue.ReceivedMessage += messageHandler;
         }
 
         /// <summary>
@@ -108,7 +104,8 @@ namespace Immerse.BfhClient.Api
         public void DeregisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
             where TMessage : IReceivableMessage
         {
-            _messageReceiver.DeregisterMessageHandler(messageHandler);
+            var queue = _messageReceiver.GetMessageQueueByType<TMessage>();
+            queue.ReceivedMessage -= messageHandler;
         }
 
         /// <summary>

@@ -11,26 +11,30 @@ using Newtonsoft.Json.Linq;
 namespace Immerse.BfhClient.Api.MessageHandling
 {
     /// <summary>
-    /// <para>Handles sending messages through the WebSocket connection to the game server.</para>
-    /// <para>
-    /// Spawns a thread that continuously listens for messages to send on an internal queue.
-    /// Provides a <see cref="SendMessage{TMessage}"/> method that places a message into the queue, which is then picked
-    /// up by the sending thread to send to the server.
-    /// </para>
+    /// Handles sending messages through the WebSocket connection to the game server.
     /// </summary>
-    /// <remarks>
-    /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
-    /// </remarks>
     public class MessageSender
     {
+        /// <summary>
+        /// Thread-safe queue to place messages, which will be picked up by the send thread and sent to the server.
+        /// </summary>
+        public readonly BlockingCollection<ISendableMessage> SendQueue = new();
+
         private readonly ClientWebSocket _connection;
-        private readonly Thread _sendThread;
-        private readonly BlockingCollection<ISendableMessage> _sendQueue = new();
+        private Thread _sendThread;
+
         private readonly Dictionary<Type, string> _messageIdMap = new();
 
         public MessageSender(ClientWebSocket connection)
         {
             _connection = connection;
+        }
+
+        /// <summary>
+        /// Spawns a thread that continuously listens for messages on the WebSocket connection.
+        /// </summary>
+        public void StartSendingMessages()
+        {
             _sendThread = new Thread(SendMessagesFromQueue);
         }
 
@@ -45,18 +49,11 @@ namespace Immerse.BfhClient.Api.MessageHandling
         }
 
         /// <summary>
-        /// Puts the given message in the <see cref="MessageSender"/>'s send queue to be serialized and passed to the
-        /// game server.
-        /// </summary>
-        public void SendMessage<TMessage>(TMessage message)
-            where TMessage : ISendableMessage
-        {
-            _sendQueue.Add(message);
-        }
-
-        /// <summary>
         /// Continuously takes messages from the send queue, serializes them and sends them to the server.
         /// </summary>
+        /// <remarks>
+        /// Implementation based on https://www.patrykgalach.com/2019/11/11/implementing-websocket-in-unity/.
+        /// </remarks>
         private async void SendMessagesFromQueue()
         {
             while (true)
@@ -67,9 +64,9 @@ namespace Immerse.BfhClient.Api.MessageHandling
                     continue;
                 }
 
-                while (!_sendQueue.IsCompleted)
+                while (!SendQueue.IsCompleted)
                 {
-                    var message = _sendQueue.Take();
+                    var message = SendQueue.Take();
                     var serializedMessage = SerializeToJson(message);
 
                     await _connection.SendAsync(

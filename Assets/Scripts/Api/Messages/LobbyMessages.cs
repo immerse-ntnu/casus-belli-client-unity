@@ -28,7 +28,7 @@ namespace Immerse.BfhClient.Api.Messages
         /// The user's selected game ID.
         /// Null if not selected yet.
         /// </summary>
-        [CanBeNull] public readonly string GameID;
+        [CanBeNull] public readonly string GameId;
 
         /// <summary>
         /// Whether the user is ready to start the game.
@@ -45,7 +45,7 @@ namespace Immerse.BfhClient.Api.Messages
         /// IDs that the player may select from for this lobby's game.
         /// Returns all game IDs, though some may already be taken by other players in the lobby.
         /// </summary>
-        [NotNull] public readonly List<string> GameIDs;
+        [NotNull] public readonly List<string> GameIds;
 
         /// <summary>
         /// Info about each other player in the lobby.
@@ -56,13 +56,13 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from client when they want to select a game ID.
     /// </summary>
-    public readonly struct SelectGameIDMessage : ISendableMessage
+    public readonly struct SelectGameIdMessage : ISendableMessage
     {
         /// <summary>
         /// The ID that the player wants to select for the game.
         /// Will be rejected if already selected by another player.
         /// </summary>
-        [NotNull] public readonly string GameID;
+        [NotNull] public readonly string GameId;
     }
 
     /// <summary>

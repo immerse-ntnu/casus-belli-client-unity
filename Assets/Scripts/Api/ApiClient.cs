@@ -129,14 +129,14 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         private void RegisterSendableMessages()
         {
-            _messageSender.RegisterSendableMessage<SelectGameIDMessage>(MessageID.SelectGameID);
-            _messageSender.RegisterSendableMessage<ReadyMessage>(MessageID.Ready);
-            _messageSender.RegisterSendableMessage<StartGameMessage>(MessageID.StartGame);
-            _messageSender.RegisterSendableMessage<SubmitOrdersMessage>(MessageID.SubmitOrders);
-            _messageSender.RegisterSendableMessage<GiveSupportMessage>(MessageID.GiveSupport);
-            _messageSender.RegisterSendableMessage<WinterVoteMessage>(MessageID.WinterVote);
-            _messageSender.RegisterSendableMessage<SwordMessage>(MessageID.Sword);
-            _messageSender.RegisterSendableMessage<RavenMessage>(MessageID.Raven);
+            _messageSender.RegisterSendableMessage<SelectGameIdMessage>(MessageId.SelectGameId);
+            _messageSender.RegisterSendableMessage<ReadyMessage>(MessageId.Ready);
+            _messageSender.RegisterSendableMessage<StartGameMessage>(MessageId.StartGame);
+            _messageSender.RegisterSendableMessage<SubmitOrdersMessage>(MessageId.SubmitOrders);
+            _messageSender.RegisterSendableMessage<GiveSupportMessage>(MessageId.GiveSupport);
+            _messageSender.RegisterSendableMessage<WinterVoteMessage>(MessageId.WinterVote);
+            _messageSender.RegisterSendableMessage<SwordMessage>(MessageId.Sword);
+            _messageSender.RegisterSendableMessage<RavenMessage>(MessageId.Raven);
         }
 
         /// <summary>
@@ -144,16 +144,16 @@ namespace Immerse.BfhClient.Api
         /// </summary>
         private void RegisterReceivableMessages()
         {
-            _messageReceiver.RegisterReceivableMessage<ErrorMessage>(MessageID.Error);
-            _messageReceiver.RegisterReceivableMessage<PlayerStatusMessage>(MessageID.PlayerStatus);
-            _messageReceiver.RegisterReceivableMessage<LobbyJoinedMessage>(MessageID.LobbyJoined);
-            _messageReceiver.RegisterReceivableMessage<SupportRequestMessage>(MessageID.SupportRequest);
-            _messageReceiver.RegisterReceivableMessage<GiveSupportMessage>(MessageID.GiveSupport);
-            _messageReceiver.RegisterReceivableMessage<OrderRequestMessage>(MessageID.OrderRequest);
-            _messageReceiver.RegisterReceivableMessage<OrdersReceivedMessage>(MessageID.OrdersReceived);
-            _messageReceiver.RegisterReceivableMessage<OrdersConfirmationMessage>(MessageID.OrdersConfirmation);
-            _messageReceiver.RegisterReceivableMessage<BattleResultsMessage>(MessageID.BattleResults);
-            _messageReceiver.RegisterReceivableMessage<WinnerMessage>(MessageID.Winner);
+            _messageReceiver.RegisterReceivableMessage<ErrorMessage>(MessageId.Error);
+            _messageReceiver.RegisterReceivableMessage<PlayerStatusMessage>(MessageId.PlayerStatus);
+            _messageReceiver.RegisterReceivableMessage<LobbyJoinedMessage>(MessageId.LobbyJoined);
+            _messageReceiver.RegisterReceivableMessage<SupportRequestMessage>(MessageId.SupportRequest);
+            _messageReceiver.RegisterReceivableMessage<GiveSupportMessage>(MessageId.GiveSupport);
+            _messageReceiver.RegisterReceivableMessage<OrderRequestMessage>(MessageId.OrderRequest);
+            _messageReceiver.RegisterReceivableMessage<OrdersReceivedMessage>(MessageId.OrdersReceived);
+            _messageReceiver.RegisterReceivableMessage<OrdersConfirmationMessage>(MessageId.OrdersConfirmation);
+            _messageReceiver.RegisterReceivableMessage<BattleResultsMessage>(MessageId.BattleResults);
+            _messageReceiver.RegisterReceivableMessage<WinnerMessage>(MessageId.Winner);
         }
     }
 }

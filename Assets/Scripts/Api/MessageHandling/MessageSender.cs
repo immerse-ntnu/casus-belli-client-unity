@@ -97,7 +97,8 @@ namespace Immerse.BfhClient.Api.MessageHandling
         /// </exception>
         private byte[] SerializeToJson(ISendableMessage message)
         {
-            if (!_messageIdMap.TryGetValue(message.GetType(), out var messageId))
+            string messageId;
+            if (!_messageIdMap.TryGetValue(message.GetType(), out messageId))
             {
                 throw new ArgumentException($"Unrecognized type of message object: '{message.GetType()}'");
             }

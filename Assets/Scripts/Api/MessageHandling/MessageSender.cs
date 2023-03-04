@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Immerse.BfhClient.Api.Messages;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 
 namespace Immerse.BfhClient.Api.MessageHandling
 {
@@ -76,7 +77,17 @@ namespace Immerse.BfhClient.Api.MessageHandling
                 while (!SendQueue.IsCompleted)
                 {
                     var message = SendQueue.Take();
-                    var serializedMessage = SerializeToJson(message);
+
+                    byte[] serializedMessage;
+                    try
+                    {
+                        serializedMessage = SerializeToJson(message);
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.Log($"Failed to serialize sent message: {exception.Message}");
+                        continue;
+                    }
 
                     await _connection.SendAsync(
                         serializedMessage,

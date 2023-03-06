@@ -54,11 +54,11 @@ namespace Immerse.BfhClient.Api.MessageHandling
         /// Registers the given message type, with the corresponding message ID, as a message that the client expects to
         /// receive from the server.
         /// </summary>
-        public void RegisterReceivableMessage<TMessage>(string messageID)
+        public void RegisterReceivableMessage<TMessage>(string messageId)
             where TMessage : IReceivableMessage
         {
             var queue = new MessageReceiveQueue<TMessage>();
-            _messageQueuesById.Add(messageID, queue);
+            _messageQueuesById.Add(messageId, queue);
             _messageQueuesByType.Add(typeof(TMessage), queue);
         }
 
@@ -144,7 +144,7 @@ namespace Immerse.BfhClient.Api.MessageHandling
         /// Messages received from the server are JSON on the following format:
         /// <code>
         /// {
-        ///     "[messageID]": {...message}
+        ///     "[messageId]": {...message}
         /// }
         /// </code>
         /// This method takes the full message JSON string, deserializes the "wrapping object" to get the message ID,
@@ -153,19 +153,19 @@ namespace Immerse.BfhClient.Api.MessageHandling
         /// <exception cref="ArgumentException">If no message queue was found for the message's ID.</exception>
         private void DeserializeAndEnqueueMessage(string messageString)
         {
-            var messageWithID = JObject.Parse(messageString);
+            var messageWithId = JObject.Parse(messageString);
 
             // The wrapping JSON object is expected to have only a single field, with the message ID as key and the
             // serialized message as its value
-            var firstMessageProperty = messageWithID.Properties().First();
-            var messageID = firstMessageProperty.Name;
+            var firstMessageProperty = messageWithId.Properties().First();
+            var messageId = firstMessageProperty.Name;
             var serializedMessage = firstMessageProperty.Value;
 
-            if (_messageQueuesById.TryGetValue(messageID, out var queue))
+            if (_messageQueuesById.TryGetValue(messageId, out var queue))
             {
                 queue.DeserializeAndEnqueueMessage(serializedMessage);
             }
-            else throw new ArgumentException($"Unrecognized message type received from server: '{messageID}'");
+            else throw new ArgumentException($"Unrecognized message type received from server: '{messageId}'");
         }
     }
 }

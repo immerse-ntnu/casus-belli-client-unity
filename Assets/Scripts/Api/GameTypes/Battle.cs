@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.GameTypes
 {
@@ -14,11 +15,15 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// If length is one, the battle was a neutral conquer attempt.
         /// If length is more than one, the battle was between players.
         /// </summary>
-        [NotNull] public readonly List<Result> Results;
+        [JsonProperty("results", Required = Required.Always)]
+        [NotNull]
+        public readonly List<Result> Results;
 
         /// <summary>
         /// In case of danger zone crossing: name of the danger zone.
         /// </summary>
-        [CanBeNull] public readonly string DangerZone;
+        [JsonProperty("dangerZone")]
+        [CanBeNull]
+        public readonly string DangerZone;
     }
 }

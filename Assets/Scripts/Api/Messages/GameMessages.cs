@@ -1,23 +1,28 @@
 using System.Collections.Generic;
 using Immerse.BfhClient.Api.GameTypes;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.Messages
 {
     /// <summary>
-    /// Message sent from server when asking a supporting player who to support in an embattled area.
+    /// Message sent from server when asking a supporting player who to support in an embattled region.
     /// </summary>
     public readonly struct SupportRequestMessage : IReceivableMessage
     {
         /// <summary>
-        /// The area from which support is asked, where the asked player should have a support order.
+        /// The region from which support is asked, where the asked player should have a support order.
         /// </summary>
-        [NotNull] public readonly string SupportingArea;
+        [JsonProperty("supportingRegion")]
+        [NotNull]
+        public readonly string SupportingRegion;
 
         /// <summary>
         /// List of possible players to support in the battle.
         /// </summary>
-        [NotNull] public readonly List<string> SupportablePlayers;
+        [JsonProperty("supportablePlayers")]
+        [NotNull]
+        public readonly List<string> SupportablePlayers;
     }
 
     /// <summary>
@@ -30,7 +35,12 @@ namespace Immerse.BfhClient.Api.Messages
     /// </summary>
     public readonly struct OrdersReceivedMessage : IReceivableMessage
     {
-        [NotNull] public readonly Dictionary<string, List<Order>> PlayerOrders;
+        /// <summary>
+        /// Maps a player's ID to their submitted orders.
+        /// </summary>
+        [JsonProperty("playerOrders")]
+        [NotNull]
+        public readonly Dictionary<string, List<Order>> PlayerOrders;
     }
 
     /// <summary>
@@ -39,7 +49,12 @@ namespace Immerse.BfhClient.Api.Messages
     /// </summary>
     public readonly struct OrdersConfirmationMessage : IReceivableMessage
     {
-        [NotNull] public readonly string Player;
+        /// <summary>
+        /// The player who submitted orders.
+        /// </summary>
+        [JsonProperty("player")]
+        [NotNull]
+        public readonly string Player;
     }
 
     /// <summary>
@@ -47,7 +62,12 @@ namespace Immerse.BfhClient.Api.Messages
     /// </summary>
     public readonly struct BattleResultsMessage : IReceivableMessage
     {
-        [NotNull] public readonly List<Battle> Battles;
+        /// <summary>
+        /// The relevant battle result.
+        /// </summary>
+        [JsonProperty("battles")]
+        [NotNull]
+        public readonly List<Battle> Battles;
     }
 
     /// <summary>
@@ -58,7 +78,9 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// Player tag of the game's winner.
         /// </summary>
-        [NotNull] public readonly string Winner;
+        [JsonProperty("winner")]
+        [NotNull]
+        public readonly string Winner;
     }
 
     /// <summary>
@@ -69,7 +91,9 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// List of submitted orders.
         /// </summary>
-        [NotNull] public readonly List<Order> Orders;
+        [JsonProperty("orders")]
+        [NotNull]
+        public readonly List<Order> Orders;
     }
 
     /// <summary>
@@ -79,15 +103,19 @@ namespace Immerse.BfhClient.Api.Messages
     public readonly struct GiveSupportMessage : IReceivableMessage, ISendableMessage
     {
         /// <summary>
-        /// Name of the area in which the support order is placed.
+        /// Name of the region in which the support order is placed.
         /// </summary>
-        [NotNull] public readonly string SupportingArea;
+        [JsonProperty("supportingRegion")]
+        [NotNull]
+        public readonly string SupportingRegion;
 
         /// <summary>
-        /// ID of the player in the destination area to support.
+        /// ID of the player in the destination region to support.
         /// Null if none were supported.
         /// </summary>
-        [CanBeNull] public readonly string SupportedPlayer;
+        [JsonProperty("supportedPlayer")]
+        [CanBeNull]
+        public readonly string SupportedPlayer;
     }
 
     /// <summary>
@@ -99,7 +127,9 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// ID of the player that the submitting player votes for.
         /// </summary>
-        [NotNull] public readonly string Player;
+        [JsonProperty("player")]
+        [NotNull]
+        public readonly string Player;
     }
 
     /// <summary>
@@ -109,13 +139,16 @@ namespace Immerse.BfhClient.Api.Messages
     public readonly struct SwordMessage : ISendableMessage
     {
         /// <summary>
-        /// Name of the area in which the player wants to use the sword in battle.
+        /// Name of the region in which the player wants to use the sword in battle.
         /// </summary>
-        [NotNull] public readonly string Area;
+        [JsonProperty("region")]
+        [NotNull]
+        public readonly string Region;
 
         /// <summary>
-        /// Index of the battle in which to use the sword, in case of several battles in the area.
+        /// Index of the battle in which to use the sword, in case of several battles in the region.
         /// </summary>
+        [JsonProperty("battleIndex")]
         public readonly int BattleIndex;
     }
 
@@ -128,6 +161,8 @@ namespace Immerse.BfhClient.Api.Messages
         /// <summary>
         /// ID of the player on whom to spy.
         /// </summary>
-        [NotNull] public readonly string Player;
+        [JsonProperty("player")]
+        [NotNull]
+        public readonly string Player;
     }
 }

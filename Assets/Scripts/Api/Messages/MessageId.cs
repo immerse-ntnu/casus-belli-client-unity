@@ -9,29 +9,29 @@ namespace Immerse.BfhClient.Api.Messages
     /// <para>
     /// Message types are used as keys in the JSON messages to and from the server.
     /// Every message has the following format, where messageID is one of the
-    /// <see cref="MessageID"/> constants, and
+    /// <see cref="MessageId"/> constants, and
     /// {...message} is the corresponding "...Message" struct in <see cref="Immerse.BfhClient.Api.Messages"/>.
     /// <code>
     /// {
-    ///     "[messageID]": {...message}
+    ///     "[messageId]": {...message}
     /// }
     /// </code>
     /// </para>
     /// </summary>
     ///
     /// <example>
-    /// <see cref="MessageID.SupportRequest"/> is the message ID for <see cref="SupportRequestMessage"/>.
+    /// <see cref="MessageId.SupportRequest"/> is the message ID for <see cref="SupportRequestMessage"/>.
     /// The message looks like this when coming from the server:
     /// <code>
     /// {
     ///     "supportRequest": {
-    ///         "supportingArea": "Calis",
+    ///         "supportingRegion": "Calis",
     ///         "supportablePlayers": ["red", "green"]
     ///     }
     /// }
     /// </code>
     /// </example>
-    public static class MessageID
+    public static class MessageId
     {
         /// <summary>
         /// Message ID for <see cref="ErrorMessage"/>.
@@ -49,9 +49,9 @@ namespace Immerse.BfhClient.Api.Messages
         public const string LobbyJoined = "lobbyJoined";
 
         /// <summary>
-        /// Message ID for <see cref="SelectGameIDMessage"/>.
+        /// Message ID for <see cref="SelectGameIdMessage"/>.
         /// </summary>
-        public const string SelectGameID = "selectGameId";
+        public const string SelectGameId = "selectGameId";
 
         /// <summary>
         /// Message ID for <see cref="ReadyMessage"/>.

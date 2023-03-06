@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.GameTypes
 {
@@ -8,36 +9,56 @@ namespace Immerse.BfhClient.Api.GameTypes
     public readonly struct Order
     {
         /// <summary>
-        /// The type of order submitted. Restricted by unit type and area.
+        /// The type of order submitted. Restricted by unit type and region.
         /// Can only be of the constants defined in <see cref="OrderType"/>.
         /// </summary>
-        [NotNull] public readonly string Type;
+        [JsonProperty("type", Required = Required.Always)]
+        [NotNull]
+        public readonly string Type;
 
         /// <summary>
         /// The player submitting the order.
         /// </summary>
-        [NotNull] public readonly string Player;
+        [JsonProperty("player", Required = Required.Always)]
+        [NotNull]
+        public readonly string Player;
 
         /// <summary>
-        /// Name of the area where the order is placed.
+        /// Name of the region where the order is placed.
         /// </summary>
-        [NotNull] public readonly string From;
+        [JsonProperty("origin", Required = Required.Always)]
+        [NotNull]
+        public readonly string Origin;
 
         /// <summary>
-        /// For move and support orders: name of destination area.
+        /// For move and support orders: name of destination region.
         /// </summary>
-        [CanBeNull] public readonly string To;
+        [JsonProperty("destination")]
+        [CanBeNull]
+        public readonly string Destination;
+
+        /// <summary>
+        /// For move orders with horse units: optional name of second destination region to move to if the first
+        /// destination was reached.
+        /// </summary>
+        [JsonProperty("secondDestination")]
+        [CanBeNull]
+        public readonly string SecondDestination;
 
         /// <summary>
         /// For move orders: name of DangerZone the order tries to pass through, if any.
         /// </summary>
-        [CanBeNull] public readonly string Via;
+        [JsonProperty("via")]
+        [CanBeNull]
+        public readonly string Via;
 
         /// <summary>
         /// For build orders: type of unit to build.
         /// Can only be of the constants defined in <see cref="UnitType"/>.
         /// </summary>
-        [CanBeNull] public readonly string Build;
+        [JsonProperty("build")]
+        [CanBeNull]
+        public readonly string Build;
     }
 
     /// <summary>

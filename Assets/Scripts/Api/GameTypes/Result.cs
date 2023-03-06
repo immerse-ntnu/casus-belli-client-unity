@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace Immerse.BfhClient.Api.GameTypes
 {
@@ -11,21 +12,28 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// <summary>
         /// The sum of the dice roll and modifiers.
         /// </summary>
+        [JsonProperty("total", Required = Required.Always)]
         public readonly int Total;
 
         /// <summary>
         /// The modifiers comprising the result, including the dice roll.
         /// </summary>
-        [NotNull] public readonly List<Modifier> Parts;
+        [JsonProperty("parts", Required = Required.Always)]
+        [NotNull]
+        public readonly List<Modifier> Parts;
 
         /// <summary>
         /// If result of a move order to the battle: the move order in question.
         /// </summary>
-        [CanBeNull] public readonly Order? Move;
+        [JsonProperty("move")]
+        [CanBeNull]
+        public readonly Order? Move;
 
         /// <summary>
-        /// If result of a defending unit in an area: the name of the area.
+        /// If result of a defending unit in a region: the name of the region.
         /// </summary>
-        [CanBeNull] public readonly string DefenderArea;
+        [JsonProperty("defenderRegion")]
+        [CanBeNull]
+        public readonly string DefenderRegion;
     }
 }

@@ -15,7 +15,7 @@ namespace Immerse.BfhClient.Api
     /// <summary>
     /// Handles receiving messages from the WebSocket connection to the game server.
     /// </summary>
-    public class MessageReceiver
+    internal class MessageReceiver
     {
         private readonly ClientWebSocket _connection;
         private Thread _receiveThread;

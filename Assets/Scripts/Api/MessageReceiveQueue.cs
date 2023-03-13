@@ -10,7 +10,7 @@ namespace Immerse.BfhClient.Api
     /// Utility interface to enable keeping <see cref="MessageReceiveQueue{TMessage}"/>s of different types in a
     /// collection.
     /// </summary>
-    public interface IMessageReceiveQueue
+    internal interface IMessageReceiveQueue
     {
         public IEnumerator CheckReceivedMessagesRoutine();
         public void DeserializeAndEnqueueMessage(JToken serializedMessage);
@@ -20,7 +20,7 @@ namespace Immerse.BfhClient.Api
     /// Provides a thread-safe queue for messages received from the server, and an event that is triggered when a
     /// message is received.
     /// </summary>
-    public class MessageReceiveQueue<TMessage> : IMessageReceiveQueue
+    internal class MessageReceiveQueue<TMessage> : IMessageReceiveQueue
         where TMessage : IReceivableMessage
     {
         public event Action<TMessage> ReceivedMessage;

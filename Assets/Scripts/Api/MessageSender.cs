@@ -14,7 +14,7 @@ namespace Immerse.BfhClient.Api
     /// <summary>
     /// Handles sending messages through the WebSocket connection to the game server.
     /// </summary>
-    public class MessageSender
+    internal class MessageSender
     {
         /// <summary>
         /// Thread-safe queue to place messages, which will be picked up by the send thread and sent to the server.

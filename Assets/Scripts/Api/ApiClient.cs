@@ -2,7 +2,6 @@ using System;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Immerse.BfhClient.Api.MessageHandling;
 using Immerse.BfhClient.Api.Messages;
 using UnityEngine;
 

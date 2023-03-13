@@ -10,7 +10,7 @@ using Immerse.BfhClient.Api.Messages;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace Immerse.BfhClient.Api.MessageHandling
+namespace Immerse.BfhClient.Api
 {
     /// <summary>
     /// Handles receiving messages from the WebSocket connection to the game server.

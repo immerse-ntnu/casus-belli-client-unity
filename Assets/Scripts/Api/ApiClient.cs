@@ -2,7 +2,6 @@ using System;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Immerse.BfhClient.Api.MessageHandling;
 using Immerse.BfhClient.Api.Messages;
 using UnityEngine;
 
@@ -87,7 +86,7 @@ namespace Immerse.BfhClient.Api
         /// Must be registered in <see cref="RegisterSendableMessages"/>, which should be all message types marked with
         /// <see cref="ISendableMessage"/>.
         /// </typeparam>
-        public void SendMessage<TMessage>(TMessage message)
+        public void SendServerMessage<TMessage>(TMessage message)
             where TMessage : ISendableMessage
         {
             _messageSender.SendQueue.Add(message);
@@ -101,7 +100,7 @@ namespace Immerse.BfhClient.Api
         /// Must be registered in <see cref="RegisterReceivableMessages"/>, which should be all message types marked
         /// with <see cref="IReceivableMessage"/>.
         /// </typeparam>
-        public void RegisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
+        public void RegisterServerMessageHandler<TMessage>(Action<TMessage> messageHandler)
             where TMessage : IReceivableMessage
         {
             var queue = _messageReceiver.GetMessageQueueByType<TMessage>();
@@ -117,7 +116,7 @@ namespace Immerse.BfhClient.Api
         /// Must be registered in <see cref="RegisterReceivableMessages"/>, which should be all message types marked
         /// with <see cref="IReceivableMessage"/>.
         /// </typeparam>
-        public void DeregisterMessageHandler<TMessage>(Action<TMessage> messageHandler)
+        public void DeregisterServerMessageHandler<TMessage>(Action<TMessage> messageHandler)
             where TMessage : IReceivableMessage
         {
             var queue = _messageReceiver.GetMessageQueueByType<TMessage>();

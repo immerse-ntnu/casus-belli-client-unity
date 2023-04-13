@@ -6,7 +6,7 @@ namespace Immerse.BfhClient.Api.GameTypes
     /// <summary>
     /// A typed number that adds to a player's result in a battle.
     /// </summary>
-    public readonly struct Modifier
+    public struct Modifier
     {
         /// <summary>
         /// The source of the modifier.
@@ -14,20 +14,20 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// </summary>
         [JsonProperty("type", Required = Required.Always)]
         [NotNull]
-        public readonly string Type;
+        public string Type;
 
         /// <summary>
         /// The positive or negative number that modifies the result total.
         /// </summary>
         [JsonProperty("value", Required = Required.Always)]
-        public readonly int Value;
+        public int Value;
 
         /// <summary>
         /// If modifier was from a support: the supporting player.
         /// </summary>
         [JsonProperty("supportingPlayer")]
         [CanBeNull]
-        public readonly string SupportingPlayer;
+        public string SupportingPlayer;
     }
 
     /// <summary>

@@ -8,13 +8,13 @@ namespace Immerse.BfhClient.Game
     {
         public static GraphSystem Instance { get; private set; }
 
-        [SerializeField] private GraphVisualizer neighbourVisualizer;
-        [SerializeField] private GraphVisualizer boatVisualizer;
-        [SerializeField] private GraphVisualizer landVisualizer;
+        [SerializeField] private GraphVisualizer<int> neighbourVisualizer;
+        [SerializeField] private GraphVisualizer<int> boatVisualizer;
+        [SerializeField] private GraphVisualizer<int> landVisualizer;
 
-        private Graph _neighbourGraph;  // Connects neighbouring regions
-        private Graph _boatGraph;  // Connects dockable regions
-        private Graph _landGraph;  // Connects land regions
+        private Graph<int> _neighbourGraph;  // Connects neighbouring regions
+        private Graph<int> _boatGraph;  // Connects dockable regions
+        private Graph<int> _landGraph;  // Connects land regions
         private readonly List<Region> _regions = new();
 
         private void Awake() => Instance = this;
@@ -37,13 +37,13 @@ namespace Immerse.BfhClient.Game
             for (var id = 0; id < _regions.Count; id++)
             {
                 Vector2 position = _regions[id].transform.position;
-                _neighbourGraph.SetSatellite(id, "pos", position);
+                _neighbourGraph.SetSatellite(id, Settings.PositionSatellite, position);
             }
 
             // Create graphs for all units.
             // All graphs should have the same satellites:
-            _landGraph = Graph.MakeFromSatellites(_neighbourGraph);
-            _boatGraph = Graph.MakeFromSatellites(_neighbourGraph);
+            _landGraph = Graph<int>.MakeFromSatellites(_neighbourGraph);
+            _boatGraph = Graph<int>.MakeFromSatellites(_neighbourGraph);
 
             // For each region's neighbours, determine which troops
             // can move between the two (by making an edge).

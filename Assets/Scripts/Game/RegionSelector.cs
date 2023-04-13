@@ -47,6 +47,7 @@ namespace Immerse.BfhClient.Game
 			_material.SetColor(Region, clickedColor);
 			CurrentRegion = newRegion;
 
+			Debug.Log("AIAIAI MAMA MIA");
 			RegionSelected?.Invoke(CurrentRegion);
 		}
 	}

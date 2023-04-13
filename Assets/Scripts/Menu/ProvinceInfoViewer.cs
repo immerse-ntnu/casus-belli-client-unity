@@ -27,6 +27,7 @@ namespace Immerse.BfhClient
 
         private void HandleRegionSelected(Region region)
         {
+            Debug.Log("aAAAAA!!!!");
             if (region is null)
             {
                 infoPanel.SetActive(false);

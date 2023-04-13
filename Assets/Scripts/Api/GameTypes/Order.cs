@@ -6,7 +6,7 @@ namespace Immerse.BfhClient.Api.GameTypes
     /// <summary>
     /// An order submitted by a player for one of their units in a given round.
     /// </summary>
-    public readonly struct Order
+    public struct Order
     {
         /// <summary>
         /// The type of order submitted. Restricted by unit type and region.
@@ -14,28 +14,28 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// </summary>
         [JsonProperty("type", Required = Required.Always)]
         [NotNull]
-        public readonly string Type;
+        public string Type;
 
         /// <summary>
         /// The player submitting the order.
         /// </summary>
         [JsonProperty("player", Required = Required.Always)]
         [NotNull]
-        public readonly string Player;
+        public string Player;
 
         /// <summary>
         /// Name of the region where the order is placed.
         /// </summary>
         [JsonProperty("origin", Required = Required.Always)]
         [NotNull]
-        public readonly string Origin;
+        public string Origin;
 
         /// <summary>
         /// For move and support orders: name of destination region.
         /// </summary>
         [JsonProperty("destination")]
         [CanBeNull]
-        public readonly string Destination;
+        public string Destination;
 
         /// <summary>
         /// For move orders with horse units: optional name of second destination region to move to if the first
@@ -43,14 +43,14 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// </summary>
         [JsonProperty("secondDestination")]
         [CanBeNull]
-        public readonly string SecondDestination;
+        public string SecondDestination;
 
         /// <summary>
         /// For move orders: name of DangerZone the order tries to pass through, if any.
         /// </summary>
         [JsonProperty("via")]
         [CanBeNull]
-        public readonly string Via;
+        public string Via;
 
         /// <summary>
         /// For build orders: type of unit to build.
@@ -58,7 +58,7 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// </summary>
         [JsonProperty("build")]
         [CanBeNull]
-        public readonly string Build;
+        public string Build;
     }
 
     /// <summary>

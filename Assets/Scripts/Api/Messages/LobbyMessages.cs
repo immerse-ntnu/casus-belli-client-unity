@@ -7,27 +7,27 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server when an error occurs.
     /// </summary>
-    public readonly struct ErrorMessage : IReceivableMessage
+    public struct ErrorMessage : IReceivableMessage
     {
         /// <summary>
         /// The error message.
         /// </summary>
         [JsonProperty("error")]
         [NotNull]
-        public readonly string Error;
+        public string Error;
     }
 
     /// <summary>
     /// Message sent from server to all clients when a player's status changes.
     /// </summary>
-    public readonly struct PlayerStatusMessage : IReceivableMessage
+    public struct PlayerStatusMessage : IReceivableMessage
     {
         /// <summary>
         /// The user's chosen display name.
         /// </summary>
         [JsonProperty("username")]
         [NotNull]
-        public readonly string Username;
+        public string Username;
 
         /// <summary>
         /// The user's selected game ID.
@@ -35,19 +35,19 @@ namespace Immerse.BfhClient.Api.Messages
         /// </summary>
         [JsonProperty("gameId")]
         [CanBeNull]
-        public readonly string GameId;
+        public string GameId;
 
         /// <summary>
         /// Whether the user is ready to start the game.
         /// </summary>
         [JsonProperty("ready")]
-        public readonly bool Ready;
+        public bool Ready;
     }
 
     /// <summary>
     /// Message sent to a player when they join a lobby, to inform them about other players.
     /// </summary>
-    public readonly struct LobbyJoinedMessage : IReceivableMessage
+    public struct LobbyJoinedMessage : IReceivableMessage
     {
         /// <summary>
         /// IDs that the player may select from for this lobby's game.
@@ -55,20 +55,20 @@ namespace Immerse.BfhClient.Api.Messages
         /// </summary>
         [JsonProperty("gameIds")]
         [NotNull]
-        public readonly List<string> GameIds;
+        public List<string> GameIds;
 
         /// <summary>
         /// Info about each other player in the lobby.
         /// </summary>
         [JsonProperty("playerStatuses")]
         [NotNull]
-        public readonly List<PlayerStatusMessage> PlayerStatuses;
+        public List<PlayerStatusMessage> PlayerStatuses;
     }
 
     /// <summary>
     /// Message sent from client when they want to select a game ID.
     /// </summary>
-    public readonly struct SelectGameIdMessage : ISendableMessage
+    public struct SelectGameIdMessage : ISendableMessage
     {
         /// <summary>
         /// The ID that the player wants to select for the game.
@@ -76,25 +76,25 @@ namespace Immerse.BfhClient.Api.Messages
         /// </summary>
         [JsonProperty("gameId")]
         [NotNull]
-        public readonly string GameId;
+        public string GameId;
     }
 
     /// <summary>
     /// Message sent from client to mark themselves as ready to start the game.
     /// Requires game ID being selected.
     /// </summary>
-    public readonly struct ReadyMessage : ISendableMessage
+    public struct ReadyMessage : ISendableMessage
     {
         /// <summary>
         /// Whether the player is ready to start the game.
         /// </summary>
         [JsonProperty("ready")]
-        public readonly bool Ready;
+        public bool Ready;
     }
 
     /// <summary>
     /// Message sent from a player when the lobby wants to start the game.
     /// Requires that all players are ready.
     /// </summary>
-    public readonly struct StartGameMessage : ISendableMessage {}
+    public struct StartGameMessage : ISendableMessage {}
 }

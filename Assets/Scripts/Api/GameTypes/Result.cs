@@ -7,33 +7,33 @@ namespace Immerse.BfhClient.Api.GameTypes
     /// <summary>
     /// Dice and modifier result for a battle.
     /// </summary>
-    public readonly struct Result
+    public struct Result
     {
         /// <summary>
         /// The sum of the dice roll and modifiers.
         /// </summary>
         [JsonProperty("total", Required = Required.Always)]
-        public readonly int Total;
+        public int Total;
 
         /// <summary>
         /// The modifiers comprising the result, including the dice roll.
         /// </summary>
         [JsonProperty("parts", Required = Required.Always)]
         [NotNull]
-        public readonly List<Modifier> Parts;
+        public List<Modifier> Parts;
 
         /// <summary>
         /// If result of a move order to the battle: the move order in question.
         /// </summary>
         [JsonProperty("move")]
         [CanBeNull]
-        public readonly Order? Move;
+        public Order? Move;
 
         /// <summary>
         /// If result of a defending unit in a region: the name of the region.
         /// </summary>
         [JsonProperty("defenderRegion")]
         [CanBeNull]
-        public readonly string DefenderRegion;
+        public string DefenderRegion;
     }
 }

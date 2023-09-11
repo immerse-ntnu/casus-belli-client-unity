@@ -6,7 +6,7 @@ namespace Immerse.BfhClient.Api.GameTypes
     /// <summary>
     /// A player unit on the board.
     /// </summary>
-    public readonly struct Unit
+    public struct Unit
     {
         /// <summary>
         /// Affects how the unit moves and its battle capabilities.
@@ -14,14 +14,14 @@ namespace Immerse.BfhClient.Api.GameTypes
         /// </summary>
         [JsonProperty("type", Required = Required.Always)]
         [NotNull]
-        public readonly string Type;
+        public string Type;
 
         /// <summary>
         /// The player owning the unit.
         /// </summary>
         [JsonProperty("player", Required = Required.Always)]
         [NotNull]
-        public readonly string Player;
+        public string Player;
     }
 
     /// <summary>

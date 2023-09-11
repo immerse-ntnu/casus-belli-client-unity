@@ -8,106 +8,106 @@ namespace Immerse.BfhClient.Api.Messages
     /// <summary>
     /// Message sent from server when asking a supporting player who to support in an embattled region.
     /// </summary>
-    public readonly struct SupportRequestMessage : IReceivableMessage
+    public struct SupportRequestMessage : IReceivableMessage
     {
         /// <summary>
         /// The region from which support is asked, where the asked player should have a support order.
         /// </summary>
         [JsonProperty("supportingRegion")]
         [NotNull]
-        public readonly string SupportingRegion;
+        public string SupportingRegion;
 
         /// <summary>
         /// List of possible players to support in the battle.
         /// </summary>
         [JsonProperty("supportablePlayers")]
         [NotNull]
-        public readonly List<string> SupportablePlayers;
+        public List<string> SupportablePlayers;
     }
 
     /// <summary>
     /// Message sent from server to client to signal that client should submit orders.
     /// </summary>
-    public readonly struct OrderRequestMessage : IReceivableMessage {}
+    public struct OrderRequestMessage : IReceivableMessage {}
 
     /// <summary>
     /// Message sent from server to all clients when valid orders are received from all players.
     /// </summary>
-    public readonly struct OrdersReceivedMessage : IReceivableMessage
+    public struct OrdersReceivedMessage : IReceivableMessage
     {
         /// <summary>
         /// Maps a player's ID to their submitted orders.
         /// </summary>
         [JsonProperty("playerOrders")]
         [NotNull]
-        public readonly Dictionary<string, List<Order>> PlayerOrders;
+        public Dictionary<string, List<Order>> PlayerOrders;
     }
 
     /// <summary>
     /// Message sent from server to all clients when valid orders are received from a player.
     /// Used to show who the server is waiting for.
     /// </summary>
-    public readonly struct OrdersConfirmationMessage : IReceivableMessage
+    public struct OrdersConfirmationMessage : IReceivableMessage
     {
         /// <summary>
         /// The player who submitted orders.
         /// </summary>
         [JsonProperty("player")]
         [NotNull]
-        public readonly string Player;
+        public string Player;
     }
 
     /// <summary>
     /// Message sent from server to all clients when a battle result is calculated.
     /// </summary>
-    public readonly struct BattleResultsMessage : IReceivableMessage
+    public struct BattleResultsMessage : IReceivableMessage
     {
         /// <summary>
         /// The relevant battle result.
         /// </summary>
         [JsonProperty("battles")]
         [NotNull]
-        public readonly List<Battle> Battles;
+        public List<Battle> Battles;
     }
 
     /// <summary>
     /// Message sent from server to all clients when the game is won.
     /// </summary>
-    public readonly struct WinnerMessage : IReceivableMessage
+    public struct WinnerMessage : IReceivableMessage
     {
         /// <summary>
         /// Player tag of the game's winner.
         /// </summary>
         [JsonProperty("winner")]
         [NotNull]
-        public readonly string Winner;
+        public string Winner;
     }
 
     /// <summary>
     /// Message sent from client when submitting orders.
     /// </summary>
-    public readonly struct SubmitOrdersMessage : ISendableMessage
+    public struct SubmitOrdersMessage : ISendableMessage
     {
         /// <summary>
         /// List of submitted orders.
         /// </summary>
         [JsonProperty("orders")]
         [NotNull]
-        public readonly List<Order> Orders;
+        public List<Order> Orders;
     }
 
     /// <summary>
     /// Message sent from client when declaring who to support with their support order.
     /// Forwarded by server to all clients to show who were given support.
     /// </summary>
-    public readonly struct GiveSupportMessage : IReceivableMessage, ISendableMessage
+    public struct GiveSupportMessage : IReceivableMessage, ISendableMessage
     {
         /// <summary>
         /// Name of the region in which the support order is placed.
         /// </summary>
         [JsonProperty("supportingRegion")]
         [NotNull]
-        public readonly string SupportingRegion;
+        public string SupportingRegion;
 
         /// <summary>
         /// ID of the player in the destination region to support.
@@ -115,54 +115,54 @@ namespace Immerse.BfhClient.Api.Messages
         /// </summary>
         [JsonProperty("supportedPlayer")]
         [CanBeNull]
-        public readonly string SupportedPlayer;
+        public string SupportedPlayer;
     }
 
     /// <summary>
     /// Message passed from the client during winter council voting.
     /// Used for the throne expansion.
     /// </summary>
-    public readonly struct WinterVoteMessage : ISendableMessage
+    public struct WinterVoteMessage : ISendableMessage
     {
         /// <summary>
         /// ID of the player that the submitting player votes for.
         /// </summary>
         [JsonProperty("player")]
         [NotNull]
-        public readonly string Player;
+        public string Player;
     }
 
     /// <summary>
     /// Message passed from the client with the swordMsg to declare where they want to use it.
     /// Used for the throne expansion.
     /// </summary>
-    public readonly struct SwordMessage : ISendableMessage
+    public struct SwordMessage : ISendableMessage
     {
         /// <summary>
         /// Name of the region in which the player wants to use the sword in battle.
         /// </summary>
         [JsonProperty("region")]
         [NotNull]
-        public readonly string Region;
+        public string Region;
 
         /// <summary>
         /// Index of the battle in which to use the sword, in case of several battles in the region.
         /// </summary>
         [JsonProperty("battleIndex")]
-        public readonly int BattleIndex;
+        public int BattleIndex;
     }
 
     /// <summary>
     /// Message passed from the client with the ravenMsg when they want to spy on another player's orders.
     /// Used for the throne expansion.
     /// </summary>
-    public readonly struct RavenMessage : ISendableMessage
+    public struct RavenMessage : ISendableMessage
     {
         /// <summary>
         /// ID of the player on whom to spy.
         /// </summary>
         [JsonProperty("player")]
         [NotNull]
-        public readonly string Player;
+        public string Player;
     }
 }

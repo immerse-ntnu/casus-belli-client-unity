@@ -1,5 +1,9 @@
-**:warning: Abandoned in favor of the Godot game engine (new implementation at [`immerse-ntnu/bfh-client`](https://github.com/immerse-ntnu/bfh-client))**
+**:warning: Abandoned in favor of the Godot game engine (new implementation at
+[`hermannm/casus-belli`](https://github.com/hermannm/casus-belli))**
 
-# BfH Game Client
+# Casus Belli Game Client
 
-_The Battle for Hermannia_ is a board game created as a gift by the father of hermannm, a developer of this project. This digital edition of _Hermannia_ is an online multiplayer implementation of the game. It consists of this client, using the Unity game engine, as well as a Go server at [`hermannm/bfh-server`](https://github.com/hermannm/bfh-server).
+_Casus Belli_ ("justification for war") is a game of strategy, diplomacy and battle. It was
+originally created as a gift by the father of [hermannm](https://github.com/hermannm), a developer
+of this project. This digital edition of the board game consists of a server written in Go, and a
+client built with the Unity game engine and C#.
